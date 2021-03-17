@@ -82,6 +82,8 @@ class ArtistController extends Controller
             abort(503, 'Invalid parameters during querying API.');
         }
 
+        if ($gender === 'unknown') $gender = null;
+
         return ArtistResource::collection(Artist::where('artist_gender', $gender)->orderBy($order_key, $order_value)->paginate(20));
     }
 
@@ -116,6 +118,7 @@ class ArtistController extends Controller
                 $order_value = 'asc';
             }
         }
+
         return ArtistResource::collection(Artist::where('artist_nationality', $cca3)->orderBy($order_key, $order_value)->paginate(20));
     }
 

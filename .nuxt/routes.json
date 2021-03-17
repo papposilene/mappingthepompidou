@@ -1,0 +1,30 @@
+[
+  {
+    "name": "api",
+    "path": "/api",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/api.vue",
+    "chunkName": "pages/api",
+    "_name": "_78a75037"
+  },
+  {
+    "name": "artists",
+    "path": "/artists",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artists.vue",
+    "chunkName": "pages/artists",
+    "_name": "_5f3866ae"
+  },
+  {
+    "name": "movements",
+    "path": "/movements",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements.vue",
+    "chunkName": "pages/movements",
+    "_name": "_d59841fe"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_13ccd5af"
+  }
+]

@@ -19,7 +19,7 @@ class AcquisitionController extends Controller
     public function index(Request $request)
     {
         $whitelist = [
-            'created_at', 'movement_name', 'movement_slug',
+            'created_at', 'acquisition_name', 'acquisition_slug',
         ];
 
         $query = $request->query();

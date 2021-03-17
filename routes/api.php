@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,7 +26,7 @@ Route::middleware('api')->namespace('Api')->group(function () {
 
     Route::get('/artworks', 'ArtworkController@index')->name('api.artwork.index');
     Route::get('/artworks/acquisition_date/{year}', 'ArtworkController@acquisition_date')->name('api.artwork.acquisition_date');
-    Route::get('/artworks/acquisition_type/{year}', 'ArtworkController@acquisition_type')->name('api.artwork.acquisition_type');
+    Route::get('/artworks/acquisition_type/{slug}', 'ArtworkController@acquisition_type')->name('api.artwork.acquisition_type');
     Route::get('/artworks/exposed/{bool}', 'ArtworkController@exposed')->name('api.artwork.exposed');
     Route::get('/artworks/year/{year}', 'ArtworkController@year')->name('api.artwork.year');
     Route::get('/artworks/show/{uuid}', 'ArtworkController@show')->name('api.artwork.show');
@@ -32,4 +36,7 @@ Route::middleware('api')->namespace('Api')->group(function () {
 
     Route::get('/movements', 'MovementController@index')->name('api.movement.index');
     Route::get('/movements/show/{uuid}', 'MovementController@show')->name('api.movement.show');
+
+    Route::get('/statistics', 'StatisticController@index')->name('api.statistic.index');
+    Route::get('/statistics/artists/genders', 'StatisticController@genders')->name('api.statistic.genders');
 });

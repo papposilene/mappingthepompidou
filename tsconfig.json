@@ -1,12 +1,18 @@
 {
-    "include": [
-      "./resources/js/components/**/*",
-    ],
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.options.useTabs": false,
     "compilerOptions": {
-      "module": "es2015",
-      "moduleResolution": "node",
-      "target": "es5",
-      "sourceMap": true,
-      "allowJs": true
-    }
+        "module": "es2015",
+        "moduleResolution": "node",
+        "target": "es5",
+        "sourceMap": true,
+        "allowJs": true,
+        "types": [
+            "@nuxtjs/axios",
+            "@nuxt/types",
+        ]
+    },
+    "include": [
+        "./resources/js/components/**/*"
+    ]
 }

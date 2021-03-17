@@ -1,27 +1,30 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.13.10",
-        "axios": "^0.21.1",
-        "cross-env": "^7.0",
-        "eslint": "^7.22.0",
-        "laravel-mix": "^5.0.1",
-        "lodash": "^4.17.19",
-        "resolve-url-loader": "^3.1.0",
-        "sass": "^1.15.2",
-        "sass-loader": "^8.0.0"
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "generate": "nuxt generate",
+        "start": "nuxt start",
+        "webpack-dev": "npm run webpack-development",
+        "webpack-development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "webpack-watch": "npm run development -- --watch",
+        "webpack-watch-poll": "npm run watch -- --watch-poll",
+        "webpack-hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "webpack-prod": "npm run webpack-production",
+        "webpack-production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "dependencies": {
+        "@nuxtjs/axios": "^5.13.1",
+        "@tailwindcss/forms": "^0.2.1",
+        "@tailwindcss/typography": "^0.4.0",
         "chart.js": "^2.9.4",
-        "tailwindcss": "^2.0.3"
+        "nuxt": "^2.15.3"
+    },
+    "devDependencies": {
+        "@nuxtjs/tailwindcss": "^4.0.1",
+        "@tailwindcss/postcss7-compat": "^2.0.3",
+        "autoprefixer": "^9.8.6",
+        "postcss": "^7.0.35",
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
     }
 }

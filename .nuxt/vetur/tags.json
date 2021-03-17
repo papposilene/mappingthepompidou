@@ -1,0 +1,11 @@
+{
+  "TheFooter": {
+    "description": "Auto imported from components/TheFooter.vue"
+  },
+  "TheHeader": {
+    "description": "Auto imported from components/TheHeader.vue"
+  },
+  "ThePaginator": {
+    "description": "Auto imported from components/ThePaginator.vue"
+  }
+}

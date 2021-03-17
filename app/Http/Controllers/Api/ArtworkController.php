@@ -59,7 +59,7 @@ class ArtworkController extends Controller
             'created_at', 'navigart_id', 'museum_department',
             'object_inventory', 'object_title', 'object_date', 'object_type',
             'object_height', 'object_width', 'object_depth', 'object_weight',
-            'object_visibility', 'acquisition_type', 'acquisition_date',
+            'object_visibility', 'acquisition_date',
         ];
 
         $query = $request->query();
@@ -86,11 +86,11 @@ class ArtworkController extends Controller
     /**
      * Display a listing of artworks for the specified type.
      *
-     * @param  string  $type
+     * @param  string  $slug
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function acquisition_type($type, Request $request)
+    public function acquisition_type($slug, Request $request)
     {
         $whitelist = [
             'created_at', 'navigart_id', 'museum_department',
@@ -117,7 +117,7 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('acquisition_type', $type)->orderBy($order_key, $order_value)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('acquisition_type', $slug)->orderBy($order_key, $order_value)->paginate(20));
     }
 
     /**

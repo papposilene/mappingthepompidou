@@ -26,6 +26,7 @@ storage/*.key
 storage/*.index
 storage/search/*.index
 .env
+.env.production
 .env.backup
 Homestead.yaml
 Homestead.json
