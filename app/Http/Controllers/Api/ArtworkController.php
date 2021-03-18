@@ -32,7 +32,7 @@ class ArtworkController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'created_at';
+            $order_key = 'navigart_id';
             $order_value = 'asc';
         } else {
             $order_key = array_keys($query)[0];

@@ -7,6 +7,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _7dc9defc = () => interopDefault(import('../resources/nuxt/pages/acquisitions/index.vue' /* webpackChunkName: "pages/acquisitions/index" */))
 const _78a75037 = () => interopDefault(import('../resources/nuxt/pages/api.vue' /* webpackChunkName: "pages/api" */))
 const _3124706c = () => interopDefault(import('../resources/nuxt/pages/artists/index.vue' /* webpackChunkName: "pages/artists/index" */))
+const _479045b5 = () => interopDefault(import('../resources/nuxt/pages/artworks/index.vue' /* webpackChunkName: "pages/artworks/index" */))
 const _237c05fe = () => interopDefault(import('../resources/nuxt/pages/departments/index.vue' /* webpackChunkName: "pages/departments/index" */))
 const _794360c4 = () => interopDefault(import('../resources/nuxt/pages/movements/index.vue' /* webpackChunkName: "pages/movements/index" */))
 const _0780973e = () => interopDefault(import('../resources/nuxt/pages/acquisitions/show/_slug.vue' /* webpackChunkName: "pages/acquisitions/show/_slug" */))
@@ -37,6 +38,10 @@ export const routerOptions = {
     path: "/artists",
     component: _3124706c,
     name: "artists"
+  }, {
+    path: "/artworks",
+    component: _479045b5,
+    name: "artworks"
   }, {
     path: "/departments",
     component: _237c05fe,

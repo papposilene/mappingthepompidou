@@ -21,6 +21,13 @@
     "_name": "_3124706c"
   },
   {
+    "name": "artworks",
+    "path": "/artworks",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artworks/index.vue",
+    "chunkName": "pages/artworks/index",
+    "_name": "_479045b5"
+  },
+  {
     "name": "departments",
     "path": "/departments",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/index.vue",

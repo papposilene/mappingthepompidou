@@ -16,7 +16,11 @@ class ArtworkResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'museum_department' => $this->museum_department,
+            'museum_department' => [
+                'department_uuid' => $this->inDepartement->uuid,
+                'department_name' => $this->inDepartement->department_name,
+                'department_slug' => $this->inDepartement->department_slug,
+            ],
             'artists' => $this->hasArtists()->get(),
             'navigart_id' => $this->navigart_id,
             'object_inventory' => $this->object_inventory,

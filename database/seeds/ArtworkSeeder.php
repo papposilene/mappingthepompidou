@@ -21,13 +21,13 @@ class ArtworkSeeder extends Seeder
     public function run()
     {
 		// Drop the table
-        DB::table('artist_movements')->delete();
-        DB::table('artwork_movements')->delete();
-        DB::table('acquisition_types')->delete();
-        DB::table('artworks')->delete();
-        DB::table('artists')->delete();
-        DB::table('museum_departments')->delete();
-        DB::table('movements')->delete();
+        //DB::table('artist_movements')->delete();
+        //DB::table('artwork_movements')->delete();
+        //DB::table('acquisition_types')->delete();
+        //DB::table('artworks')->delete();
+        //DB::table('artists')->delete();
+        //DB::table('museum_departments')->delete();
+        //DB::table('movements')->delete();
 
         // Retrieve the dump of Navigart
         $artworksFile = File::get('database/data/cnam.navigart.json');
