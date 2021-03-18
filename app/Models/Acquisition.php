@@ -90,7 +90,7 @@ class Acquisition extends Model
     /**
      * Get all the artworks for a specific artist.
      */
-    public function hasArtworks()
+    public function acquiredArtworks()
     {
         return $this->hasMany(
             'App\Models\Artwork',
