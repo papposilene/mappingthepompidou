@@ -230,13 +230,13 @@ class StatisticController extends Controller
      */
     public function movements()
     {
-        $globalMovements = Movement::all();
+        $globalMovements = Movement::count();
         // Offset(1) to avoid unknown art movement
         $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(10)->offset(1)->get();
 
         $statistics = collect([
             'data' => [
-                'total' => count($globalMovements),
+                'total' => $globalMovements,
             ],
             'chart' => [
                 'labels' => $chartMovements->pluck('movement_name'),
@@ -255,6 +255,81 @@ class StatisticController extends Controller
                         'borderColor' => '#fff',
                         //'barThickness' => 10,
                     ],
+                ],
+            ],
+            'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'bottom',
+                    'text' => 'Top 10 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
+                ],
+                'responsive' => true,
+                'legend' => [
+                    'display' => true,
+                    'position' => 'bottom',
+                    'fontColor' => '#fff',
+                ],
+                'scales' => [
+                    'xAxes' => [
+                        [
+                            //'id' => 'first-y-axis',
+                            'type' => 'linear',
+                            'ticks' => [
+                                'beginAtZero' => false,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ])->all();
+
+        return $statistics;
+    }
+
+    /**
+     * Retrieve statistics about artworks without information (department, date of creation, etc.).
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unknown()
+    {
+        $globalArtworks = Artwork::count();
+        //$chartAnonymous = Artist::where('artist_type', 'anonyme')->get();
+        $chartNoArtist = Artist::withCount('hasArtworks')->where('artist_type', 'anonyme')->get();
+        dd($chartNoArtist->count());
+        $chartNoDate = Artwork::where('object_date', null)->count();
+        $chartNoDepartment = Artwork::with('inDepartement')->where('department_name', 'Inconnu')->count();
+
+        $statistics = collect([
+            'data' => [
+                'total' => $globalArtworks,
+            ],
+            'chart' => [
+                'labels' => 'test',
+                'datasets' => [
+                    [
+                        'label' => 'Oeuvre sans auteur',
+                        'data' => $chartNoArtist,
+                        'backgroundColor' => '#60A5FA',
+                        'borderColor' => '#fff',
+                        //'barThickness' => 10,
+                    ],
+                    [
+                        'label' => 'Oeuvre sans date',
+                        'data' => $chartNoDate,
+                        'backgroundColor' => '#60A5FA',
+                        'borderColor' => '#fff',
+                        //'barThickness' => 10,
+                    ],
+                    [
+                        'label' => 'Oeuvre dans un département inconnu',
+                        'data' => $chartNoDepartment,
+                        'backgroundColor' => '#F87171',
+                        'borderColor' => '#fff',
+                        //'barThickness' => 10,
+                    ],
+
                 ],
             ],
             'options' => [
