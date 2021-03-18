@@ -31,7 +31,7 @@ class Artwork extends Model
      * @var array
      */
     protected $fillable = [
-        'museum_department',
+        'department_uuid',
         'artist_uuid',
         'navigart_id',
         'object_inventory',
@@ -77,6 +77,7 @@ class Artwork extends Model
      */
     protected $casts = [
         'uuid' => 'uuid',
+        'department_uuid' => 'uuid',
         'artist_uuid' => 'uuid',
         'art_movement' => 'uuid',
     ];
@@ -124,6 +125,18 @@ class Artwork extends Model
             'App\Models\Acquisition',
             'uuid',
             'acquisition_uuid'
+        );
+    }
+
+    /**
+     * Get the department for a specific artwork.
+     */
+    public function inDepartement()
+    {
+        return $this->hasOne(
+            'App\Models\Department',
+            'uuid',
+            'department_uuid'
         );
     }
 

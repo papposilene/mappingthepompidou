@@ -15,7 +15,7 @@ class Department extends Model
      *
      * @var string
      */
-    protected $table = 'departments';
+    protected $table = 'museum_departments';
     protected $primaryKey = 'uuid';
 
     /**

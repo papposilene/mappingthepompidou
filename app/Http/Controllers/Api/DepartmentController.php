@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Acquisition;
-use App\Models\Artist;
-use App\Models\Artwork;
+use App\Models\Department;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\AcquisitionResource;
-use App\Http\Resources\ArtistResource;
-use App\Http\Resources\ArtworkResource;
+use App\Http\Resources\DepartmentResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class AcquisitionController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +20,7 @@ class AcquisitionController extends Controller
     {
         $whitelist = [
             'created_at', 'acquired_artists_count',
-            'acquisition_name', 'acquisition_slug',
+            'department_name', 'department_slug',
         ];
 
         $query = $request->query();
@@ -45,11 +41,11 @@ class AcquisitionController extends Controller
             }
         }
 
-        return AcquisitionResource::collection(Acquisition::withCount(
+        return DepartmentResource::collection(Acquisition::withCount(
             [
-                'acquiredArtists',
-                'acquiredArtworks',
-                //'acquiredMovements',
+                'conservedArtists',
+                'conservedArtworks',
+                //'conservedMovements',
             ])->orderBy($order_key, $order_value)->paginate(20));
     }
 
@@ -61,8 +57,8 @@ class AcquisitionController extends Controller
      */
     public function artworks($slug)
     {
-        $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->orderBy('object_date', 'desc')->paginate(20));
+        $department = Department::where('department_slug', $slug)->firstOrFail();
+        return ArtworkResource::collection(Artwork::where('department_slug', $department->uuid)->orderBy('object_date', 'desc')->paginate(20));
     }
 
     /**
@@ -73,12 +69,12 @@ class AcquisitionController extends Controller
      */
     public function show($slug)
     {
-        Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return AcquisitionResource::collection(Acquisition::where('acquisition_slug', $slug)->withCount(
+        Department::where('department_slug', $slug)->firstOrFail();
+        return DepartmentResource::collection(Department::where('department_slug', $slug)->withCount(
             [
-                'acquiredArtists',
-                'acquiredArtworks',
-                //'acquiredMovements',
+                'conservedArtists',
+                'conservedArtworks',
+                //'conservedMovements',
             ])->get());
     }
 

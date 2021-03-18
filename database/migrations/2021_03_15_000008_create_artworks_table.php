@@ -15,7 +15,8 @@ class CreateArtworksTable extends Migration
     {
         Schema::create('artworks', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-            $table->string('museum_department', 255);
+            $table->uuid('department_uuid');
+            $table->foreign('department_uuid')->references('uuid')->on('departments');
             $table->uuid('artist_uuid');
             $table->foreign('artist_uuid')->references('uuid')->on('artists');
             $table->string('navigart_id', 255)->unique();

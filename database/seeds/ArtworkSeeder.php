@@ -5,6 +5,7 @@ use App\Models\Artist;
 use App\Models\ArtistMovement;
 use App\Models\Artwork;
 use App\Models\ArtworkMovement;
+use App\Models\Department;
 use App\Models\Movement;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -20,12 +21,14 @@ class ArtworkSeeder extends Seeder
     public function run()
     {
 		// Drop the table
-        DB::table('artists')->delete();
-        DB::table('movements')->delete();
-        DB::table('acquisition_types')->delete();
-        DB::table('artworks')->delete();
         DB::table('artist_movements')->delete();
         DB::table('artwork_movements')->delete();
+        DB::table('acquisition_types')->delete();
+        DB::table('artworks')->delete();
+        DB::table('artists')->delete();
+        DB::table('departments')->delete();
+        DB::table('movements')->delete();
+
 
         // Retrieve the dump of Navigart
         $artworksFile = File::get('database/data/cnam.navigart.json');
@@ -33,6 +36,16 @@ class ArtworkSeeder extends Seeder
 
         foreach ($artworksData as $data)
         {
+            // Find (or create) the museum department
+            $departmentData = Department::firstOrCreate(
+                [
+                    'department_name' => $data->department,
+                ],
+                [
+                    'department_slug' => Str::slug($data->department, '-'),
+                ]
+            );
+
             // Find (or create) the artist
             $artistData = Artist::firstOrCreate(
                 [
@@ -51,7 +64,7 @@ class ArtworkSeeder extends Seeder
             // Find (or create) the acquisition type
             $acquisitionData = Acquisition::firstOrCreate(
                 [
-                    'acquisition_name' => $data->acquisition_type,
+                    'acquisition_name' => ucfirst($data->acquisition_type),
                 ],
                 [
                     'acquisition_slug' => Str::slug($data->acquisition_type, '-'),
@@ -65,7 +78,7 @@ class ArtworkSeeder extends Seeder
                     'navigart_id' => $data->id,
                 ],
                 [
-                    'museum_department' => $data->department,
+                    'department_uuid' => $departmentData->uuid,
                     'artist_uuid' => $artistData->uuid,
                     'object_inventory' => $data->object_inventory,
                     'object_title' => $data->object_title,
@@ -90,7 +103,7 @@ class ArtworkSeeder extends Seeder
             {
                 $movementData = Movement::firstOrCreate(
                     [
-                        'movement_name' => $movement,
+                        'movement_name' => ucfirst($movement),
                     ],
                     [
                         'movement_slug' => Str::of($movement)->slug('-'),
