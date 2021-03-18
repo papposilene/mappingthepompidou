@@ -66,22 +66,6 @@ class AcquisitionController extends Controller
     }
 
     /**
-     * Retrieve artworks for a specified art movements.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function artists($slug)
-    {
-        $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        $artworks = Artwork::where('acquisition_uuid', $acquisition_uuid)->get();
-
-        dd($artworks->hasArtists());
-
-        return ArtistResource::collection(Artwork::where('acquisition_uuid', $acquisition_uuid)->paginate(20));
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  string  $slug

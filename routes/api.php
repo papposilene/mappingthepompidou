@@ -33,7 +33,6 @@ Route::middleware('api')->namespace('Api')->group(function () {
 
     Route::get('/acquisitions', 'AcquisitionController@index')->name('api.acquisition.index');
     Route::get('/acquisitions/show/{slug}', 'AcquisitionController@show')->name('api.acquisition.show');
-    Route::get('/acquisitions/show/{slug}/artists', 'AcquisitionController@artists')->name('api.acquisition.artists');
     Route::get('/acquisitions/show/{slug}/artworks', 'AcquisitionController@artworks')->name('api.acquisition.artworks');
 
     Route::get('/movements', 'MovementController@index')->name('api.movement.index');

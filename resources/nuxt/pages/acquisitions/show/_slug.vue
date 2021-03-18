@@ -34,35 +34,8 @@
                     </li>
                 </ol>
             </div>
-            <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-green-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ artistsTotal }} artistes</span>
-                </h2>
-                <div v-if="artistsLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
-                    Chargement en cours...
-                </div>
 
-                <div v-else class="px-4">
-                    <div class="flex flex-col w-full px-0 mt-4">
-                        <div class="flex flex-col w-full">
-                            <ThePaginator :pagination="artistsPaginator" @paginate="fetchArtists()" :offset="4" />
-                            <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data1 in artistsStreamData.data" :key="data1.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
-                                    <router-link :to="`/artists/show/${data1.uuid}`" class="w-full">
-                                        <span>{{ data1.artist_name }}</span><br />
-                                        <span class="text-gray-400 text-sm">
-                                            Catégorie : {{ data1.artist_type }}. Genre : {{ data1.artist_gender }}.<br />
-                                            Naissance : {{ data1.artist_birth }}. Décès : {{ data1.artist_death }}.
-                                        </span>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex-col w-4/12 px-0">
+            <div class="flex-col w-8/12 px-0">
                 <h2 class="flex flex-col bg-yellow-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
@@ -115,11 +88,6 @@ export default {
             globalGenderWomen: 0,
             globalGenderGroups: 0,
             globalGenderUnknown: 0,
-            artistsErrored: false,
-            artistsLoading: true,
-            artistsStreamData: null,
-            artistsPaginator: {},
-            artistsTotal: 0,
             artworksErrored: false,
             artworksLoading: true,
             artworksStreamData: null,
