@@ -41,28 +41,36 @@ class AcquisitionController extends Controller
             }
         }
 
-        return AcquisitionResource::collection(Acquisition::withCount('acquiredArtists')->orderBy($order_key, $order_value)->paginate(20));
+        return AcquisitionResource::collection(Acquisition::withCount(
+            [
+                'acquiredArtists',
+                'acquiredArtworks',
+                //'acquiredMovements',
+            ])->orderBy($order_key, $order_value)->paginate(20));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Retrieve artists for a specified art movements.
      *
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function artists($slug)
     {
-        //
+        $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
+        return ArtistResource::collection(Artist::where('acquisition_uuid', $acquisition->uuid)->paginate(20));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Retrieve artworks for a specified art movements.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function artworks($slug)
     {
-        //
+        Acquisition::where('acquisition_slug', $slug)->firstOrFail();
+        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->paginate(20));
     }
 
     /**
@@ -74,40 +82,12 @@ class AcquisitionController extends Controller
     public function show($slug)
     {
         Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return AcquisitionResource::collection(Acquisition::where('acquisition_slug', $slug)->get());
+        return AcquisitionResource::collection(Acquisition::where('acquisition_slug', $slug)->withCount(
+            [
+                'acquiredArtists',
+                'acquiredArtworks',
+                //'acquiredMovements',
+            ])->get());
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($uuid)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $uuid)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($uuid)
-    {
-        //
-    }
 }

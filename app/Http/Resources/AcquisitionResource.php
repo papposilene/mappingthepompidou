@@ -19,6 +19,8 @@ class AcquisitionResource extends JsonResource
             'acquisition_name' => $this->acquisition_name,
             'acquisition_slug' => $this->acquisition_slug,
             'acquired_artists_count' => $this->acquired_artists_count,
+            'acquired_artworks_count' => $this->acquired_artworks_count,
+            //'acquired_movements_count' => $this->acquired_movements_count,
             'artists' => [
                 'total' => $this->acquiredArtists()->count(),
                 'gender_women' => $this->acquiredArtists()->where('artist_gender', 'woman')->count(),
@@ -27,7 +29,7 @@ class AcquisitionResource extends JsonResource
                 'gender_unknown' => $this->acquiredArtists()->where('artist_gender', null)->count(),
             ],
             'artworks' => [
-                'total' => $this->hasArtworks()->count(),
+                'total' => $this->acquiredArtworks()->count(),
             ],
         ];
     }

@@ -143,7 +143,7 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.uuid )
+            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.acquisition_slug )
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
@@ -165,7 +165,7 @@ export default {
             this.artistsLoading = true;
             let currentPage = this.artistsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/movements/show/' + this.$route.params.uuid + '/artists?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.acquisition_slug + '/artists?page=' + pageNumber)
                 .then(response => {
                     this.artistsLoading = false;
                     this.artistsStreamData = response.data;
@@ -177,14 +177,14 @@ export default {
                     this.artistsError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artistsLoading = false);
-            console.info("Component mounted: Artists by Movements.");
+            console.info("Component mounted: Artists by Acquisitions.");
         },
         async fetchArtworks() {
             this.artworksErrored = false;
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/movements/show/' + this.$route.params.uuid + '/artworks?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.acquisition_slug + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;
@@ -196,7 +196,7 @@ export default {
                     this.artworksError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Movements.");
+            console.info("Component mounted: Artworks by Acquisitions.");
         }
     }
 };

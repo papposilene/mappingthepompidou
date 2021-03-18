@@ -90,7 +90,7 @@ class Acquisition extends Model
     /**
      * Get all the artworks for a specific artist.
      */
-    public function hasArtworks()
+    public function acquiredArtworks()
     {
         return $this->hasMany(
             'App\Models\Artwork',
@@ -111,21 +111,6 @@ class Acquisition extends Model
             'uuid',
             'uuid',
             'artist_uuid',
-        );
-    }
-
-    /**
-     * Get all the artworks for a specific acquistion type.
-     */
-    public function acquiredArtworks()
-    {
-        return $this->hasManyThrough(
-            'App\Models\Artwork',
-            'App\Models\ArtworkMovement',
-            'artwork_uuid',
-            'uuid',
-            'uuid',
-            'movement_uuid'
         );
     }
 }
