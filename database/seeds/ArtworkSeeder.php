@@ -29,7 +29,6 @@ class ArtworkSeeder extends Seeder
         DB::table('museum_departments')->delete();
         DB::table('movements')->delete();
 
-
         // Retrieve the dump of Navigart
         $artworksFile = File::get('database/data/cnam.navigart.json');
         $artworksData = json_decode($artworksFile);

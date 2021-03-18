@@ -15,7 +15,7 @@ class Acquisition extends Model
      *
      * @var string
      */
-    protected $table = 'acquisitions_types';
+    protected $table = 'acquisition_types';
     protected $primaryKey = 'uuid';
 
     /**
