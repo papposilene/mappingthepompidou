@@ -9,16 +9,23 @@
   {
     "name": "artists",
     "path": "/artists",
-    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artists.vue",
-    "chunkName": "pages/artists",
-    "_name": "_5f3866ae"
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artists/index.vue",
+    "chunkName": "pages/artists/index",
+    "_name": "_3124706c"
   },
   {
     "name": "movements",
     "path": "/movements",
-    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements.vue",
-    "chunkName": "pages/movements",
-    "_name": "_d59841fe"
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements/index.vue",
+    "chunkName": "pages/movements/index",
+    "_name": "_794360c4"
+  },
+  {
+    "name": "movements-show-uuid",
+    "path": "/movements/show/:uuid?",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements/show/_uuid.vue",
+    "chunkName": "pages/movements/show/_uuid",
+    "_name": "_5d4ef386"
   },
   {
     "name": "index",

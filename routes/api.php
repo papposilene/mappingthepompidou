@@ -36,6 +36,8 @@ Route::middleware('api')->namespace('Api')->group(function () {
 
     Route::get('/movements', 'MovementController@index')->name('api.movement.index');
     Route::get('/movements/show/{uuid}', 'MovementController@show')->name('api.movement.show');
+    Route::get('/movements/show/{uuid}/artists', 'MovementController@artists')->name('api.movement.artists');
+    Route::get('/movements/show/{uuid}/artworks', 'MovementController@artworks')->name('api.movement.artworks');
 
 
     Route::get('/statistics', 'StatisticController@index')->name('api.statistic.index');

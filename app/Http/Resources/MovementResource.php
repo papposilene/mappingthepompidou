@@ -25,6 +25,7 @@ class MovementResource extends JsonResource
                 'gender_men' => $this->hasInspired()->where('artist_gender', 'man')->count(),
                 'gender_groups' => $this->hasInspired()->where('artist_gender', 'group')->count(),
                 'gender_unknown' => $this->hasInspired()->where('artist_gender', null)->count(),
+                'list' => $this->hasInspired()->orderBy('artist_name', 'asc')->paginate(20),
             ],
             'artworks' => [
                 'total' => $this->hasArtworks()->count(),

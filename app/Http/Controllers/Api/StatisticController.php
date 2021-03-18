@@ -111,7 +111,7 @@ class StatisticController extends Controller
     {
         $globalMovements = Movement::all();
         // Offset(1) to avoid unknown art movement
-        $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(21)->offset(1)->get();
+        $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(11)->offset(1)->get();
 
         $statistics = collect([
             'data' => [
@@ -121,14 +121,18 @@ class StatisticController extends Controller
                 'labels' => $chartMovements->pluck('movement_name'),
                 'datasets' => [
                     [
+                        'label' => 'Oeuvre par mouvement',
                         'data' => $chartMovements->pluck('has_artworks_count'),
                         'backgroundColor' => '#F87171',
-                        'label' => 'Oeuvre par mouvement',
+                        'borderColor' => '#fff',
+                        //'barThickness' => 10,
                     ],
                     [
+                        'label' => 'Artistes par mouvement',
                         'data' => $chartMovements->pluck('has_inspired_count'),
                         'backgroundColor' => '#60A5FA',
-                        'label' => 'Artistes par mouvement',
+                        'borderColor' => '#fff',
+                        //'barThickness' => 10,
                     ],
                 ],
             ],
@@ -137,7 +141,7 @@ class StatisticController extends Controller
                     'display' => true,
                     'fontColor' => '#fff',
                     'position' => 'bottom',
-                    'text' => 'Top 20 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
+                    'text' => 'Top 10 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
                 ],
                 'responsive' => true,
                 'legend' => [
@@ -146,7 +150,7 @@ class StatisticController extends Controller
                     'fontColor' => '#fff',
                 ],
                 'scales' => [
-                    'yAxes' => [
+                    'xAxes' => [
                         [
                             //'id' => 'first-y-axis',
                             'type' => 'linear',

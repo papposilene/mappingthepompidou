@@ -5,8 +5,9 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _78a75037 = () => interopDefault(import('../resources/nuxt/pages/api.vue' /* webpackChunkName: "pages/api" */))
-const _5f3866ae = () => interopDefault(import('../resources/nuxt/pages/artists.vue' /* webpackChunkName: "pages/artists" */))
-const _d59841fe = () => interopDefault(import('../resources/nuxt/pages/movements.vue' /* webpackChunkName: "pages/movements" */))
+const _3124706c = () => interopDefault(import('../resources/nuxt/pages/artists/index.vue' /* webpackChunkName: "pages/artists/index" */))
+const _794360c4 = () => interopDefault(import('../resources/nuxt/pages/movements/index.vue' /* webpackChunkName: "pages/movements/index" */))
+const _5d4ef386 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_uuid.vue' /* webpackChunkName: "pages/movements/show/_uuid" */))
 const _13ccd5af = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -26,12 +27,16 @@ export const routerOptions = {
     name: "api"
   }, {
     path: "/artists",
-    component: _5f3866ae,
+    component: _3124706c,
     name: "artists"
   }, {
     path: "/movements",
-    component: _d59841fe,
+    component: _794360c4,
     name: "movements"
+  }, {
+    path: "/movements/show/:uuid?",
+    component: _5d4ef386,
+    name: "movements-show-uuid"
   }, {
     path: "/",
     component: _13ccd5af,

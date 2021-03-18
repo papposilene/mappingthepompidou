@@ -88,4 +88,28 @@ class ArtistMovement extends Model
             $model->uuid = (string) Str::uuid();
         });
     }
+
+    /**
+     * Get all the artists for a specific movement.
+     */
+    public function isArtist()
+    {
+        return $this->hasOne(
+            'App\Models\Artist',
+            'uuid',
+            'artist_uuid'
+        );
+    }
+
+    /**
+     * Get all the movements for a specific artist.
+     */
+    public function inMovement()
+    {
+        return $this->hasOne(
+            'App\Models\Movement',
+            'uuid',
+            'movement_uuid'
+        );
+    }
 }

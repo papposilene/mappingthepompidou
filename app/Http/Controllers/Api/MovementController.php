@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\ArtistMovement;
+use App\Models\ArtworkMovement;
 use App\Models\Movement;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ArtistMovementResource;
+use App\Http\Resources\ArtworkMovementResource;
 use App\Http\Resources\MovementResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -11,7 +15,7 @@ use Illuminate\Http\Request;
 class MovementController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retrieve art movements data.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -41,22 +45,11 @@ class MovementController extends Controller
             }
         }
 
-        return MovementResource::collection(Movement::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(20));
+        return MovementResource::collection(Movement::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Retrieve a specified art movements (artists, artworks).
      *
      * @param  uuid  $uuid
      * @return \Illuminate\Http\Response
@@ -64,7 +57,31 @@ class MovementController extends Controller
     public function show($uuid)
     {
         Movement::findOrFail($uuid);
-        return MovementResource::collection(Movement::where('uuid', $uuid)->get());
+        return MovementResource::collection(Movement::where('uuid', $uuid)->withCount('hasArtworks')->get());
+    }
+
+    /**
+     * Retrieve artists for a specified art movements.
+     *
+     * @param  uuid  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function artists($uuid)
+    {
+        Movement::findOrFail($uuid);
+        return ArtistMovementResource::collection(ArtistMovement::where('movement_uuid', $uuid)->paginate(20));
+    }
+
+    /**
+     * Retrieve artworks for a specified art movements.
+     *
+     * @param  uuid  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function artworks($uuid)
+    {
+        Movement::findOrFail($uuid);
+        return ArtworkMovementResource::collection(ArtworkMovement::where('movement_uuid', $uuid)->paginate(20));
     }
 
     /**

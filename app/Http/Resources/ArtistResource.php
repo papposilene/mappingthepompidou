@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArtistResource extends JsonResource
+class ArtistMovementResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -16,7 +16,7 @@ class ArtistResource extends JsonResource
     {
         return [
             'uuid' => $this->uuid,
-            'navigart_id' => $this->artist_id,
+            'navigart_id' => $this->navigart_id,
             'artist_name' => $this->artist_name,
             'artist_birth' => $this->artist_birth,
             'artist_death' => $this->artist_death,

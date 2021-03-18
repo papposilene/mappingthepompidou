@@ -1,5 +1,5 @@
 <template>
-    <ul class="flex justify-end list-reset font-sans">
+    <ul class="flex justify-center list-reset font-sans">
         <li v-if="pagination.current_page > 1">
             <a class="block bg-gray-700 border-r border-gray-600 hover:text-white hover:bg-blue-500 text-black px-3 py-2 rounded-l-lg"
                 href="#" @click.prevent="change(pagination.current_page - 1)" title="Previous page">
