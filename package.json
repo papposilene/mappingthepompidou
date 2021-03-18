@@ -19,7 +19,8 @@
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.4.0",
         "chart.js": "^2.9.4",
-        "nuxt": "^2.15.3"
+        "nuxt": "^2.15.3",
+        "nuxt-matomo": "^1.2.4"
     },
     "devDependencies": {
         "@nuxtjs/tailwindcss": "^4.0.1",

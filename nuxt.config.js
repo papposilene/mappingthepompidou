@@ -6,6 +6,16 @@ export default {
     ],
     modules: [
         '@nuxtjs/axios',
+        [
+            'nuxt-matomo',
+            {
+                matomoUrl: '//pwk.psln.nl/',
+                siteId: 12,
+                doNotTrack: true,
+                debug: true,
+                verbose: true
+            }
+        ],
     ],
     //components: true,
     components: {
