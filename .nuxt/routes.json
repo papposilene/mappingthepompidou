@@ -1,5 +1,12 @@
 [
   {
+    "name": "acquisitions",
+    "path": "/acquisitions",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/acquisitions/index.vue",
+    "chunkName": "pages/acquisitions/index",
+    "_name": "_7dc9defc"
+  },
+  {
     "name": "api",
     "path": "/api",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/api.vue",

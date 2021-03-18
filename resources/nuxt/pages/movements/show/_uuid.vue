@@ -2,16 +2,12 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div v-if="globalErrored" class="flex flex-row w-full px-0 mt-12 text-black bg-red-400 p-4 my-5 rounded uppercase">
-            Bim bam boum, c'est tout cassé !
-        </div>
-
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0">
                 <h2 class="flex flex-col bg-pink-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ movementName }}</span>
                 </h2>
-                <ol>
+                <ol class="px-4">
                     <li class="p-2">
                         <span class="flex float-right bg-blue-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
                             {{ globalGenderMen }}
@@ -46,7 +42,7 @@
                     Chargement en cours...
                 </div>
 
-                <div v-else>
+                <div v-else class="px-4">
                     <div class="flex flex-col w-full px-0 mt-4">
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="artistsPaginator" @paginate="fetchArtists()" :offset="4" />
@@ -55,7 +51,8 @@
                                     <router-link :to="`/artists/show/${data1.uuid}`" class="w-full">
                                         <span>{{ data1.artist_name }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Genre : {{ data.artist_gender }}.
+                                            Catégorie : {{ data1.artist_type }}. Genre : {{ data1.artist_gender }}.<br />
+                                            Naissance : {{ data1.artist_birth }}. Décès : {{ data1.artist_death }}.
                                         </span>
                                     </router-link>
                                 </li>
@@ -73,7 +70,7 @@
                     Chargement en cours...
                 </div>
 
-                <div v-else>
+                <div v-else class="px-4">
                     <div class="flex flex-col w-full px-0 mt-4">
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="artworksPaginator" @paginate="fetchArtworks()" :offset="4" />
@@ -82,7 +79,8 @@
                                     <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Creation : {{ data2.object_date }}.
+                                            Date de création : {{ data2.object_date }}.<br />
+                                            Département : {{ data2.museum_department }}.
                                         </span>
                                     </router-link>
                                 </li>
@@ -110,7 +108,7 @@ export default {
     },
     data() {
         return{
-            movementName: null,
+            movementName: 'Chargement en cours',
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
@@ -131,6 +129,7 @@ export default {
         }
     },
     created() {
+        this.fetchData()
         this.$watch(
             () => this.$route.params,
             () => {
@@ -149,11 +148,11 @@ export default {
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
-                    this.globalTotal = globalStreamData.meta.total;
-                    this.globalGenderMen = globalStreamData.artists.gender_men;
-                    this.globalGenderWomen = globalStreamData.artists.gender_women;
-                    this.globalGenderGroups = globalStreamData.artists.gender_groups;
-                    this.globalGenderUnknown = globalStreamData.artists.gender_unknown;
+                    this.movementName = this.globalStreamData.movement_name;
+                    this.globalGenderMen = this.globalStreamData.artists.gender_men;
+                    this.globalGenderWomen = this.globalStreamData.artists.gender_women;
+                    this.globalGenderGroups = this.globalStreamData.artists.gender_groups;
+                    this.globalGenderUnknown = this.globalStreamData.artists.gender_unknown;
                 })
                 .catch(error => {
                     this.globalErrored = true;
@@ -165,14 +164,14 @@ export default {
         async fetchArtists() {
             this.artistsErrored = false;
             this.artistsLoading = true;
-            let currentPage = this.paginator.current_page;
+            let currentPage = this.artistsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
             axios.get('http://localhost:8000/api/movements/show/' + this.$route.params.uuid + '/artists?page=' + pageNumber)
                 .then(response => {
                     this.artistsLoading = false;
                     this.artistsStreamData = response.data;
-                    this.artistsPaginator = artistsStreamData.meta;
-                    this.artistsTotal = artistsStreamData.meta.total;
+                    this.artistsPaginator = this.artistsStreamData.meta;
+                    this.artistsTotal = this.artistsStreamData.meta.total;
                 })
                 .catch(error => {
                     this.artistsErrored = true;
@@ -188,12 +187,10 @@ export default {
             let pageNumber = currentPage ? currentPage : 1;
             axios.get('http://localhost:8000/api/movements/show/' + this.$route.params.uuid + '/artworks?page=' + pageNumber)
                 .then(response => {
-
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;
-                    this.artworksPaginator = artworksStreamData.meta;
-                    this.artworksTotal = artworksStreamData.meta.total;
-console.log(this.artworksTotal);
+                    this.artworksPaginator = this.artworksStreamData.meta;
+                    this.artworksTotal = this.artworksStreamData.meta.total;
                 })
                 .catch(error => {
                     this.artworksErrored = true;
