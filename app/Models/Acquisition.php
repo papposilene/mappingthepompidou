@@ -115,12 +115,12 @@ class Acquisition extends Model
     }
 
     /**
-     * Get all the movements for a specific acquistion type.
+     * Get all the artworks for a specific acquistion type.
      */
-    public function acquiredMovements()
+    public function acquiredArtworks()
     {
         return $this->hasManyThrough(
-            'App\Models\Movement',
+            'App\Models\Artwork',
             'App\Models\ArtworkMovement',
             'artwork_uuid',
             'uuid',

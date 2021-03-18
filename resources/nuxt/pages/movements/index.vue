@@ -59,7 +59,6 @@ export default {
             apiStreamData: {},
             apiLoading: true,
             apiErrored: false,
-            chartStreamData: {},
             chartLoading: true,
             chartErrored: false,
             paginator: {},

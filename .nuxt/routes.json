@@ -28,6 +28,13 @@
     "_name": "_794360c4"
   },
   {
+    "name": "acquisitions-show-slug",
+    "path": "/acquisitions/show/:slug?",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/acquisitions/show/_slug.vue",
+    "chunkName": "pages/acquisitions/show/_slug",
+    "_name": "_0780973e"
+  },
+  {
     "name": "movements-show-uuid",
     "path": "/movements/show/:uuid?",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements/show/_uuid.vue",

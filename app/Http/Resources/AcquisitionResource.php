@@ -14,12 +14,11 @@ class AcquisitionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $movementsTop10 = $this->acquiredMovements()->limit(10)->get();
-
         return [
             'uuid' => $this->uuid,
             'acquisition_name' => $this->acquisition_name,
             'acquisition_slug' => $this->acquisition_slug,
+            'acquired_artists_count' => $this->acquired_artists_count,
             'artists' => [
                 'total' => $this->acquiredArtists()->count(),
                 'gender_women' => $this->acquiredArtists()->where('artist_gender', 'woman')->count(),
@@ -30,9 +29,6 @@ class AcquisitionResource extends JsonResource
             'artworks' => [
                 'total' => $this->hasArtworks()->count(),
             ],
-            //'movements' => [
-            //    $movementsTop10,
-            //],
         ];
     }
 }

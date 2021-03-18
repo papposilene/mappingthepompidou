@@ -19,7 +19,8 @@ class AcquisitionController extends Controller
     public function index(Request $request)
     {
         $whitelist = [
-            'created_at', 'acquisition_name', 'acquisition_slug',
+            'created_at', 'acquired_artists_count',
+            'acquisition_name', 'acquisition_slug',
         ];
 
         $query = $request->query();
@@ -29,8 +30,8 @@ class AcquisitionController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'created_at';
-            $order_value = 'asc';
+            $order_key = 'acquired_artists_count';
+            $order_value = 'desc';
         } else {
             $order_key = array_keys($query)[0];
             $order_value = $query[array_keys($query)[0]];
@@ -40,7 +41,7 @@ class AcquisitionController extends Controller
             }
         }
 
-        return AcquisitionResource::collection(Acquisition::orderBy($order_key, $order_value)->paginate(20));
+        return AcquisitionResource::collection(Acquisition::withCount('acquiredArtists')->orderBy($order_key, $order_value)->paginate(20));
     }
 
     /**

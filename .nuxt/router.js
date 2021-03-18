@@ -8,6 +8,7 @@ const _7dc9defc = () => interopDefault(import('../resources/nuxt/pages/acquisiti
 const _78a75037 = () => interopDefault(import('../resources/nuxt/pages/api.vue' /* webpackChunkName: "pages/api" */))
 const _3124706c = () => interopDefault(import('../resources/nuxt/pages/artists/index.vue' /* webpackChunkName: "pages/artists/index" */))
 const _794360c4 = () => interopDefault(import('../resources/nuxt/pages/movements/index.vue' /* webpackChunkName: "pages/movements/index" */))
+const _0780973e = () => interopDefault(import('../resources/nuxt/pages/acquisitions/show/_slug.vue' /* webpackChunkName: "pages/acquisitions/show/_slug" */))
 const _5d4ef386 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_uuid.vue' /* webpackChunkName: "pages/movements/show/_uuid" */))
 const _13ccd5af = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -38,6 +39,10 @@ export const routerOptions = {
     path: "/movements",
     component: _794360c4,
     name: "movements"
+  }, {
+    path: "/acquisitions/show/:slug?",
+    component: _0780973e,
+    name: "acquisitions-show-slug"
   }, {
     path: "/movements/show/:uuid?",
     component: _5d4ef386,

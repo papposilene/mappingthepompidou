@@ -2,7 +2,7 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div v-if="acquisitionsErrored" class="flex flex-row w-full px-0 mt-12 text-black bg-purple-400 p-4 my-5 rounded uppercase">
+        <div v-if="acquisitionsErrored" class="flex w-full text-black bg-red-400 p-4 my-5 mt-12 rounded uppercase">
             Bim bam boum, c'est tout cassé !
         </div>
 
@@ -18,7 +18,7 @@
                             <ThePaginator :pagination="acquisitionsPaginator" @paginate="fetchData()" :offset="4" />
                             <ul class="flex flex-col list-none text-white my-5 rounded">
                                 <li v-for="data in acquisitionsStreamData.data" :key="data.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
-                                    <router-link :to="`/acquisitions/show/${data.uuid}`" class="w-full">
+                                    <router-link :to="`/acquisitions/show/${data.acquisition_slug}`" class="w-full">
                                         <span>{{ data.acquisition_name }}</span><br />
                                         <span class="text-gray-400 text-sm">
                                             Oeuvres entrées par ce type d‘acquisition : {{ data.artworks.total }}.
@@ -59,9 +59,8 @@ export default {
             acquisitionsStreamData: {},
             acquisitionsPaginator: {},
             acquisitionsTotal: 0,
-            chartStreamData: {},
+            chartErrored: false,
             chartLoading: true,
-            chartErrored: false
         }
     },
     created() {
@@ -99,9 +98,9 @@ export default {
             this.chartLoading = false;
             axios.get('http://localhost:8000/api/statistics/acquisitions')
                 .then(response => {
-                    const ctx = document.getElementById('chartMovements').getContext('2d');
+                    const ctx = document.getElementById('chartAcquisitions').getContext('2d');
                     const myChart = new Chart(ctx, {
-                        type: 'horizontalBar',
+                        type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });

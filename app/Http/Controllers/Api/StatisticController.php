@@ -49,6 +49,55 @@ class StatisticController extends Controller
     }
 
     /**
+     * Retrieve statistics about acquisitions.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function acquisitions()
+    {
+        $globalAcquisitions = Acquisition::all();
+        $chartAcquisitions = Acquisition::withCount(['acquiredArtists', 'acquiredArtworks'])->orderBy('acquired_artists_count', 'desc')->limit(10)->get();
+
+        $statistics = collect([
+            'data' => [
+                'total' => count($globalAcquisitions),
+            ],
+            'chart' => [
+                'labels' => $chartAcquisitions->pluck('acquisition_name'),
+                'datasets' => [
+                    [
+                        'label' => 'Artistes par type d’acquisition',
+                        'data' => $chartAcquisitions->pluck('acquired_artists_count'),
+                        'backgroundColor' => [
+                            '#F87171',
+                            '#FBBF24',
+                            '#34D399',
+                            '#60A5FA',
+                            '#818CF8',
+                            '#FCA5A5',
+                            '#FCD34D',
+                            '#6EE7B7',
+                            '#93C5FD',
+                            '#A5B4FC',
+                        ],
+                        'borderColor' => '#fff',
+                    ],
+                ],
+            ],
+            'options' => [
+                'responsive' => true,
+                'legend' => [
+                    'display' => true,
+                    'position' => 'bottom',
+                    'fontColor' => '#fff',
+                ],
+            ],
+        ])->all();
+
+        return $statistics;
+    }
+
+    /**
      * Retrieve statistics about genders for the artists.
      *
      * @return \Illuminate\Http\Response
@@ -111,7 +160,7 @@ class StatisticController extends Controller
     {
         $globalMovements = Movement::all();
         // Offset(1) to avoid unknown art movement
-        $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(11)->offset(1)->get();
+        $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(10)->offset(1)->get();
 
         $statistics = collect([
             'data' => [
