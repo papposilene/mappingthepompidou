@@ -21,6 +21,13 @@
     "_name": "_3124706c"
   },
   {
+    "name": "departments",
+    "path": "/departments",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/index.vue",
+    "chunkName": "pages/departments/index",
+    "_name": "_237c05fe"
+  },
+  {
     "name": "movements",
     "path": "/movements",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements/index.vue",
@@ -33,6 +40,13 @@
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/acquisitions/show/_slug.vue",
     "chunkName": "pages/acquisitions/show/_slug",
     "_name": "_0780973e"
+  },
+  {
+    "name": "departments-show-slug",
+    "path": "/departments/show/:slug?",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/show/_slug.vue",
+    "chunkName": "pages/departments/show/_slug",
+    "_name": "_5bf37459"
   },
   {
     "name": "movements-show-uuid",

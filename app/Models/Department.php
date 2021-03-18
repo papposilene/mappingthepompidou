@@ -88,29 +88,14 @@ class Department extends Model
     }
 
     /**
-     * Get all the artworks for a specific artist.
+     * Get all the artworks for a specific museum department.
      */
-    public function hasArtworks()
+    public function conservedArtworks()
     {
         return $this->hasMany(
             'App\Models\Artwork',
             'department_uuid',
             'uuid'
-        );
-    }
-
-    /**
-     * Get all the artists for a specific acquistion type.
-     */
-    public function acquiredArtists()
-    {
-        return $this->hasManyThrough(
-            'App\Models\Artist',
-            'App\Models\Artwork',
-            'acquisition_uuid',
-            'uuid',
-            'uuid',
-            'artist_uuid',
         );
     }
 }

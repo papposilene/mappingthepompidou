@@ -61,16 +61,16 @@ class ArtworkSeeder extends Seeder
             );
 
             // Find (or create) the acquisition type
-            $cleanAcquisition = ucfirst($data->acquisition_type);
-            $cleanAcquisition = Str::of($cleanAcquisition)->trim('.');
-            $cleanAcquisition = Str::of($cleanAcquisition)->trim('(référence)');
-            $cleanAcquisition = Str::of($cleanAcquisition)->trim();
+            $cleanAcquisition = ($data->acquisition_type ? $data->acquisition_type : 'Unknown');
+            $cleanAcquisition = ucfirst($cleanAcquisition);
+            $cleanAcquisition = Str::of($cleanAcquisition)->rtrim('(référence)');
+
             $acquisitionData = Acquisition::firstOrCreate(
                 [
-                    'acquisition_name' => $cleanAcquisition,
+                    'acquisition_slug' => Str::slug($data->acquisition_type, '-'),
                 ],
                 [
-                    'acquisition_slug' => Str::slug($data->acquisition_type, '-'),
+                    'acquisition_name' => $cleanAcquisition,
                 ]
             );
 

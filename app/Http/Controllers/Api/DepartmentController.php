@@ -19,7 +19,7 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $whitelist = [
-            'created_at', 'acquired_artists_count',
+            'created_at', 'conserved_artworks_count',
             'department_name', 'department_slug',
         ];
 
@@ -30,7 +30,7 @@ class DepartmentController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'acquired_artists_count';
+            $order_key = 'conserved_artworks_count';
             $order_value = 'desc';
         } else {
             $order_key = array_keys($query)[0];
@@ -41,11 +41,9 @@ class DepartmentController extends Controller
             }
         }
 
-        return DepartmentResource::collection(Acquisition::withCount(
+        return DepartmentResource::collection(Department::withCount(
             [
-                'conservedArtists',
                 'conservedArtworks',
-                //'conservedMovements',
             ])->orderBy($order_key, $order_value)->paginate(20));
     }
 
@@ -72,9 +70,7 @@ class DepartmentController extends Controller
         Department::where('department_slug', $slug)->firstOrFail();
         return DepartmentResource::collection(Department::where('department_slug', $slug)->withCount(
             [
-                'conservedArtists',
                 'conservedArtworks',
-                //'conservedMovements',
             ])->get());
     }
 
