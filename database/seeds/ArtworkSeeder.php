@@ -26,7 +26,7 @@ class ArtworkSeeder extends Seeder
         DB::table('acquisition_types')->delete();
         DB::table('artworks')->delete();
         DB::table('artists')->delete();
-        DB::table('departments')->delete();
+        DB::table('museum_departments')->delete();
         DB::table('movements')->delete();
 
 
@@ -62,9 +62,13 @@ class ArtworkSeeder extends Seeder
             );
 
             // Find (or create) the acquisition type
+            $cleanAcquisition = ucfirst($data->acquisition_type);
+            $cleanAcquisition = Str::of($cleanAcquisition)->trim('.');
+            $cleanAcquisition = Str::of($cleanAcquisition)->trim('(référence)');
+            $cleanAcquisition = Str::of($cleanAcquisition)->trim();
             $acquisitionData = Acquisition::firstOrCreate(
                 [
-                    'acquisition_name' => ucfirst($data->acquisition_type),
+                    'acquisition_name' => $cleanAcquisition,
                 ],
                 [
                     'acquisition_slug' => Str::slug($data->acquisition_type, '-'),

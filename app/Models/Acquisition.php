@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
-class Department extends Model
+class Acquisition extends Model
 {
     use SoftDeletes;
 
@@ -15,7 +15,7 @@ class Department extends Model
      *
      * @var string
      */
-    protected $table = 'departments';
+    protected $table = 'acquisitions_types';
     protected $primaryKey = 'uuid';
 
     /**
