@@ -17,7 +17,7 @@
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="acquisitionsPaginator" @paginate="fetchData()" :offset="4" />
                             <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data in acquisitionsStreamData.data" :key="data.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                                <li v-for="data in acquisitionsStreamData.data" :key="data.acquisition_slug" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
                                     <router-link :to="`/acquisitions/show/${data.acquisition_slug}`" class="w-full">
                                         <span>{{ data.acquisition_name }}</span><br />
                                         <span class="text-gray-400 text-sm">

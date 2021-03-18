@@ -8,26 +8,26 @@
                     <span class="text-black">{{ acquisitionName }}</span>
                 </h2>
                 <ol class="px-4">
-                    <li class="p-2">
-                        <span class="flex float-right bg-blue-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-blue-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderMen }}
                         </span>
                         <span>Hommes</span>
                     </li>
-                    <li class="p-2">
-                        <span class="flex float-right bg-red-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-red-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderWomen }}
                         </span>
                         <span>Femmes</span>
                     </li>
-                    <li class="p-2">
-                        <span class="flex float-right bg-purple-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-purple-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderGroups }}
                         </span>
                         <span>Groupes</span>
                     </li>
-                    <li class="p-2">
-                        <span class="flex float-right bg-gray-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-gray-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderUnknown }}
                         </span>
                         <span>Inconnu</span>
@@ -133,7 +133,6 @@ export default {
             () => this.$route.params,
             () => {
                 this.fetchData()
-                this.fetchArtists()
                 this.fetchArtworks()
             },
             { immediate: true }
@@ -143,7 +142,7 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.acquisition_slug )
+            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.slug )
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
@@ -160,31 +159,12 @@ export default {
                 .finally(() => this.globalLoading = false);
             console.info("Component mounted: Art Movement.");
         },
-        async fetchArtists() {
-            this.artistsErrored = false;
-            this.artistsLoading = true;
-            let currentPage = this.artistsPaginator.current_page;
-            let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.acquisition_slug + '/artists?page=' + pageNumber)
-                .then(response => {
-                    this.artistsLoading = false;
-                    this.artistsStreamData = response.data;
-                    this.artistsPaginator = this.artistsStreamData.meta;
-                    this.artistsTotal = this.artistsStreamData.meta.total;
-                })
-                .catch(error => {
-                    this.artistsErrored = true;
-                    this.artistsError = error.response.data.message || error.message;
-                })
-                .finally(() => this.artistsLoading = false);
-            console.info("Component mounted: Artists by Acquisitions.");
-        },
         async fetchArtworks() {
             this.artworksErrored = false;
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.acquisition_slug + '/artworks?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;

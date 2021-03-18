@@ -8,26 +8,26 @@
                     <span class="text-black">{{ movementName }}</span>
                 </h2>
                 <ol class="px-4">
-                    <li class="p-2">
-                        <span class="flex float-right bg-blue-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-blue-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderMen }}
                         </span>
                         <span>Hommes</span>
                     </li>
-                    <li class="p-2">
-                        <span class="flex float-right bg-red-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-red-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderWomen }}
                         </span>
                         <span>Femmes</span>
                     </li>
-                    <li class="p-2">
-                        <span class="flex float-right bg-purple-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-purple-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderGroups }}
                         </span>
                         <span>Groupes</span>
                     </li>
-                    <li class="p-2">
-                        <span class="flex float-right bg-gray-400 text-black h-8 w-8 py-3 px-6 items-center justify-center rounded-full">
+                    <li class="p-2 bg-gray-400 text-black">
+                        <span class="flex float-right">
                             {{ globalGenderUnknown }}
                         </span>
                         <span>Inconnu</span>

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Acquisition;
+use App\Models\Artist;
+use App\Models\Artwork;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AcquisitionResource;
+use App\Http\Resources\ArtistResource;
+use App\Http\Resources\ArtworkResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -50,15 +54,15 @@ class AcquisitionController extends Controller
     }
 
     /**
-     * Retrieve artists for a specified art movements.
+     * Retrieve artworks for a specified art movements.
      *
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function artists($slug)
+    public function artworks($slug)
     {
         $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return ArtistResource::collection(Artist::where('acquisition_uuid', $acquisition->uuid)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->paginate(20));
     }
 
     /**
@@ -67,10 +71,14 @@ class AcquisitionController extends Controller
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function artworks($slug)
+    public function artists($slug)
     {
-        Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->paginate(20));
+        $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
+        $artworks = Artwork::where('acquisition_uuid', $acquisition_uuid)->get();
+
+        dd($artworks->hasArtists());
+
+        return ArtistResource::collection(Artwork::where('acquisition_uuid', $acquisition_uuid)->paginate(20));
     }
 
     /**
