@@ -191,7 +191,7 @@ class StatisticController extends Controller
                 'unknown' => $genderUnknown,
             ],
             'chart' => [
-                'labels' => ['Women', 'Men', 'Groups', 'Unknown'],
+                'labels' => ['Men', 'Women', 'Groups', 'Genre inconnu'],
                 'datasets' => [
                     [
                         'data' => [

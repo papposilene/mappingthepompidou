@@ -19,7 +19,7 @@ class ArtistController extends Controller
     public function index(Request $request)
     {
         $whitelist = [
-            'created_at', 'navigart_id',
+            'created_at', 'has_artworks_count', 'navigart_id',
             'artist_name', 'artist_type', 'artist_gender',
             'artist_birth', 'artist_death', 'artist_nationality',
         ];
@@ -31,8 +31,8 @@ class ArtistController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'created_at';
-            $order_value = 'asc';
+            $order_key = 'has_artworks_count';
+            $order_value = 'desc';
         } else {
             $order_key = array_keys($query)[0];
             $order_value = $query[array_keys($query)[0]];
@@ -42,7 +42,7 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::orderBy($order_key, $order_value)->paginate(20));
+        return ArtistResource::collection(Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(20));
     }
 
     /**
