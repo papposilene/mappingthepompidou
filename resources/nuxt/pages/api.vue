@@ -31,7 +31,14 @@
                             <li><a href="#api_artworks_year">Year of creation</a></li>
                         </ol>
                     </li>
-                    <li><a href="#api_departments">Departments</a></li>
+                    <li>
+                        <a href="#api_departments">Departments</a>
+                        <ol class="list-decimal pl-9 font-mono">
+                            <li><a href="#api_departments_details">Specific departement</a></li>
+                            <li><a href="#api_departments_details_artists">Specific departement and details for artists</a></li>
+                            <li><a href="#api_departments_details_artworks">Specific departement and details for artworks</a></li>
+                        </ol>
+                    </li>
                     <li><a href="#api_movements">Movements</a></li>
                     <li><a href="#api_statistics">Statistics</a></li>
                 </ol>
@@ -39,83 +46,7 @@
             <div class="flex-col w-9/12 px-0 mt-4">
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions">GET /api/acquisitions</h2>
                 <p>
-                    <span class="font-mono">/api/acquisitions</span> returns a listing of all valid types of accessions available to use.
-                </p>
-                <table class="table-fixed my-4 w-full">
-                    <thead>
-                        <tr class="bg-gray-700">
-                            <th class="w-3/12 py-3">Parameters</th>
-                            <th class="w-3/12 py-3">Format</th>
-                            <th class="w-1/12 py-3">Default</th>
-                            <th class="w-5/12 py-3">Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-gray-700">
-                        <tr>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">acquired_artists_count</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">asc</span> or
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="text-green-400">Optional.</span> Query string.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">created_at</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">asc</span> or
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">[]</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="text-green-400">Optional.</span> Query string.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">acquisition_name</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">asc</span> or
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">[]</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="text-green-400">Optional.</span> Query string.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">acquisition_slug</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">asc</span> or
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">[]</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="text-green-400">Optional.</span> Query string.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions">GET /api/acquisitions</h2>
-                <p>
-                    <span class="font-mono">/api/acquisitions</span> returns a listing of all valid types of accessions available to use.
+                    <span class="font-mono">/api/acquisitions</span> returns a listing of all valid types of accessions.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -191,7 +122,7 @@
                 </table>
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions_details">GET /api/acquisitions/show/{slug}</h2>
                 <p>
-                    <span class="font-mono">/api/acquisitions/show/{slug}</span> returns a listing of all valid types of accessions available to use.
+                    <span class="font-mono">/api/acquisitions/show/{slug}</span> returns informations for a specified type of accessions.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -281,7 +212,7 @@
                 </table>
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions_details_artworks">GET /api/acquisitions/show/{slug}/artworks</h2>
                 <p>
-                    <span class="font-mono">/api/acquisitions/show/{slug}/artworks</span> returns a listing of all valid artworks data for a specified type of accessions available to use.
+                    <span class="font-mono">/api/acquisitions/show/{slug}/artworks</span> returns informations about artworks for a specified type of accessions.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -371,7 +302,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists">GET /api/artists</h2>
                 <p>
-                    <span class="font-mono">/api/artists</span> returns a listing of all valid artists available to use.
+                    <span class="font-mono">/api/artists</span> returns a listing of all artists.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -522,7 +453,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_details">GET /api/artists/show/{uuid}</h2>
                 <p>
-                    <span class="font-mono">/api/artists/show/{uuid}</span> returns informations for a valid artist.
+                    <span class="font-mono">/api/artists/show/{uuid}</span> returns informations for a specified artist.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -672,7 +603,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_gender">GET /api/artists/gender</h3>
                 <p>
-                    <span class="font-mono">/api/artists/gender/{gender}</span> returns a listing of all valid artists available to use.
+                    <span class="font-mono">/api/artists/gender/{gender}</span> returns informations about genders for artists.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -825,7 +756,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_nationality">GET /api/artists/nationality/{cca3}</h3>
                 <p>
-                    <span class="font-mono">/api/artists/nationality/{cca3}</span> returns a listing of all valid artists available to use.
+                    <span class="font-mono">/api/artists/nationality/{cca3}</span> returns informations about artists for a specified country.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -975,7 +906,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks">GET /api/artworks</h2>
                 <p>
-                    <span class="font-mono">/api/artworks</span> returns a listing of all valid artworks available to use.
+                    <span class="font-mono">/api/artworks</span> returns a listing of all valid artworks.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -1185,6 +1116,9 @@
                     </tbody>
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_acquisitiondate">GET /api/artworks/acquisition_date/{year}</h3>
+                <p>
+                    <span class="font-mono">/api/artworks/acquisition_date/{year}</span> returns informations on artworks for a specified accession year.
+                </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
                         <tr class="bg-gray-700">
@@ -1407,6 +1341,9 @@
                     </tbody>
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_exposed">GET /api/artworks/exposed/{bool}</h3>
+                <p>
+                    <span class="font-mono">/api/artworks/exposed/{bool}</span> returns informations on currently exposed (or not) artworks.
+                </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
                         <tr class="bg-gray-700">
@@ -1629,6 +1566,9 @@
                     </tbody>
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_year">GET /api/artworks/year/{year}</h3>
+                <p>
+                    <span class="font-mono">/api/artworks/year/{year}</span> returns artwork's informations for a specified year.
+                </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
                         <tr class="bg-gray-700">
@@ -1851,6 +1791,9 @@
                     </tbody>
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_acquisitiontype">GET /api/artworks/acquisition_type/{slug}</h3>
+                <p>
+                    <span class="font-mono">/api/artworks/acquisition_type/{slug}</span> returns informations for a valid accession type.
+                </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
                         <tr class="bg-gray-700">
@@ -2086,6 +2029,186 @@
                         </tr>
                     </thead>
                     <tbody class="bg-gray-700">
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">conserved_artworks_count</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">created_at</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">movement_name</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">movement_slug</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_departments_details">GET /api/departments/{slug}</h2>
+                <p>
+                    <span class="font-mono">/api/departments/{slug}</span> returns informations for a valid museum departement.
+                </p>
+                <table class="table-fixed my-4 w-full">
+                    <thead>
+                        <tr class="bg-gray-700">
+                            <th class="w-3/12 py-3">Parameters</th>
+                            <th class="w-3/12 py-3">Format</th>
+                            <th class="w-1/12 py-3">Default</th>
+                            <th class="w-5/12 py-3">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-700">
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">{slug}</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">string</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-red-400">Mandatory parameter.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">conserved_artworks_count</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">created_at</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">movement_name</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">movement_slug</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_departments_details_artworks">GET /api/departments/{slug}/artworks</h2>
+                <p>
+                    <span class="font-mono">/api/{slug}/artworks</span> returns informations for a valid museum department and all associated artworks.
+                </p>
+                <table class="table-fixed my-4 w-full">
+                    <thead>
+                        <tr class="bg-gray-700">
+                            <th class="w-3/12 py-3">Parameters</th>
+                            <th class="w-3/12 py-3">Format</th>
+                            <th class="w-1/12 py-3">Default</th>
+                            <th class="w-5/12 py-3">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-700">
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">{slug}</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">string</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-red-400">Mandatory parameter.</span> Query string.
+                            </td>
+                        </tr>
                         <tr>
                             <td class="px-3 pb-2">
                                 <span class="font-mono">conserved_artworks_count</span>
