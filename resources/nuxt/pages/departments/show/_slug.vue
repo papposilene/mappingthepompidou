@@ -7,32 +7,6 @@
                 <h2 class="flex flex-col bg-indigo-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ departmentName }}</span>
                 </h2>
-                <ol class="px-4">
-                    <li class="p-2 bg-blue-400 text-black">
-                        <span class="flex float-right">
-                            {{ globalGenderMen }}
-                        </span>
-                        <span>Hommes</span>
-                    </li>
-                    <li class="p-2 bg-red-400 text-black">
-                        <span class="flex float-right">
-                            {{ globalGenderWomen }}
-                        </span>
-                        <span>Femmes</span>
-                    </li>
-                    <li class="p-2 bg-purple-400 text-black">
-                        <span class="flex float-right">
-                            {{ globalGenderGroups }}
-                        </span>
-                        <span>Groupes</span>
-                    </li>
-                    <li class="p-2 bg-gray-400 text-black">
-                        <span class="flex float-right">
-                            {{ globalGenderUnknown }}
-                        </span>
-                        <span>Inconnu</span>
-                    </li>
-                </ol>
             </div>
 
             <div class="flex-col w-8/12 px-0">
@@ -84,10 +58,6 @@ export default {
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
-            globalGenderMen : 0,
-            globalGenderWomen: 0,
-            globalGenderGroups: 0,
-            globalGenderUnknown: 0,
             artworksErrored: false,
             artworksLoading: true,
             artworksStreamData: null,
@@ -114,11 +84,7 @@ export default {
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
-                    this.acquisitionName = this.globalStreamData.department_name;
-                    this.globalGenderMen = this.globalStreamData.artists.gender_men;
-                    this.globalGenderWomen = this.globalStreamData.artists.gender_women;
-                    this.globalGenderGroups = this.globalStreamData.artists.gender_groups;
-                    this.globalGenderUnknown = this.globalStreamData.artists.gender_unknown;
+                    this.departmentName = this.globalStreamData.department_name;
                 })
                 .catch(error => {
                     this.globalErrored = true;
