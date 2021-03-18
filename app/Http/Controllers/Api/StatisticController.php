@@ -20,13 +20,17 @@ class StatisticController extends Controller
      */
     public function index()
     {
-        $acquisitions = Acquisition::all();
+        $acquisitions = Acquisition::count();
         $artists = Artist::all();
-        $artworks = Artwork::all();
-        $movements = Movement::all();
+        $artworks = Artwork::count();
+        $departments = Department::count();
+        $movements = Movement::count();
 
         $statistics = collect([
             'data' => [
+                'acquisitions' => [
+                    'total' => $acquisitions,
+                ],
                 'artists' => [
                     'total' => count($artists),
                     'gender_women' => $artists->where('artist_gender', 'woman')->count(),
@@ -35,14 +39,15 @@ class StatisticController extends Controller
                     'gender_unknown' => $artists->where('artist_gender', null)->count(),
                 ],
                 'artworks' => [
-                    'total' => count($artworks),
+                    'total' => $artworks,
+                ],
+                'departments' => [
+                    'total' => $departments,
                 ],
                 'movements' => [
-                    'total' => count($movements),
+                    'total' => $movements,
                 ],
-                'acquisitions' => [
-                    'total' => count($acquisitions),
-                ]
+
             ]
         ])->all();
 
