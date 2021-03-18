@@ -52,7 +52,7 @@
                                     <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Date de création : {{ data2.object_date }}.<br />
+                                            Date de création : {{ data2.object_date ? data2.object_date : 'sans date' }}.<br />
                                             Département : {{ data2.museum_department }}.
                                         </span>
                                     </router-link>

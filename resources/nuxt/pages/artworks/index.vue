@@ -21,6 +21,7 @@
                                     <router-link :to="`/artworks/show/${data.uuid}`" class="w-full">
                                         <span>{{ data.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
+                                            Date de création : {{ data.object_date ? data.object_date : 'sans date' }}.<br />
                                             Département de convervation : {{ data.museum_department.department_name }}.
                                         </span>
                                     </router-link>
