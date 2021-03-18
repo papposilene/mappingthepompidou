@@ -2183,7 +2183,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_departments_details_artworks">GET /api/departments/{slug}/artworks</h2>
                 <p>
-                    <span class="font-mono">/api/{slug}/artworks</span> returns informations for a valid museum department and all associated artworks.
+                    <span class="font-mono">/api/departments/{slug}/artworks</span> returns informations for a valid museum department and all associated artworks.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
