@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Artwork;
 use App\Models\Department;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ArtworkResource;
 use App\Http\Resources\DepartmentResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -56,7 +58,7 @@ class DepartmentController extends Controller
     public function artworks($slug)
     {
         $department = Department::where('department_slug', $slug)->firstOrFail();
-        return ArtworkResource::collection(Artwork::where('department_slug', $department->uuid)->orderBy('object_date', 'desc')->paginate(20));
+        return ArtworkResource::collection(Artwork::where('department_uuid', $department->uuid)->orderBy('object_date', 'desc')->paginate(20));
     }
 
     /**

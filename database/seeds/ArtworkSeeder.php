@@ -36,17 +36,17 @@ class ArtworkSeeder extends Seeder
         foreach ($artworksData as $data)
         {
             // Find (or create) the museum department
-            $departmentData = Department::firstOrCreate(
-                [
-                    'department_name' => $data->department,
-                ],
+            $departmentData = Department::updateOrCreate(
                 [
                     'department_slug' => Str::slug($data->department, '-'),
+                ],
+                [
+                    'department_name' => $data->department,
                 ]
             );
 
             // Find (or create) the artist
-            $artistData = Artist::firstOrCreate(
+            $artistData = Artist::updateOrCreate(
                 [
                     'artist_name' => $data->artist_name,
                 ],
@@ -63,9 +63,7 @@ class ArtworkSeeder extends Seeder
             // Find (or create) the acquisition type
             $cleanAcquisition = ($data->acquisition_type ? $data->acquisition_type : 'Unknown');
             $cleanAcquisition = ucfirst($cleanAcquisition);
-            $cleanAcquisition = Str::of($cleanAcquisition)->rtrim('(référence)');
-
-            $acquisitionData = Acquisition::firstOrCreate(
+            $acquisitionData = Acquisition::updateOrCreate(
                 [
                     'acquisition_slug' => Str::slug($data->acquisition_type, '-'),
                 ],
@@ -76,7 +74,7 @@ class ArtworkSeeder extends Seeder
 
             // Seed the artworks table
             // We hope that Navigart ID is unique...
-            $artworkData = Artwork::firstOrCreate(
+            $artworkData = Artwork::updateOrCreate(
                 [
                     'navigart_id' => $data->id,
                 ],
@@ -104,12 +102,12 @@ class ArtworkSeeder extends Seeder
             $movementNames = Str::of($movementName)->split('/, +/');
             foreach($movementNames as $movement)
             {
-                $movementData = Movement::firstOrCreate(
-                    [
-                        'movement_name' => ucfirst($movement),
-                    ],
+                $movementData = Movement::updateOrCreate(
                     [
                         'movement_slug' => Str::of($movement)->slug('-'),
+                    ],
+                    [
+                        'movement_name' => ucfirst($movement),
                     ]
                 );
 

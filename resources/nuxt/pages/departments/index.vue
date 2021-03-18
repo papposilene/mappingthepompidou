@@ -21,7 +21,7 @@
                                     <router-link :to="`/departments/show/${data.department_slug}`" class="w-full">
                                         <span>{{ data.department_name }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Oeuvres entrées par ce type d‘acquisition : {{ data.conserved_artworks_count }}.
+                                            Oeuvres conservées dans ce département : {{ data.conserved_artworks_count }}.
                                         </span>
                                     </router-link>
                                 </li>

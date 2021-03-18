@@ -5,7 +5,7 @@
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0">
                 <h2 class="flex flex-col bg-pink-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ acquisitionName }}</span>
+                    <span class="text-black">{{ departmentName }}</span>
                 </h2>
                 <ol class="px-4">
                     <li class="p-2 bg-blue-400 text-black">
@@ -52,8 +52,8 @@
                                     <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Date de création : {{ data2.object_date }}.<br />
-                                            Département : {{ data2.museum_department }}.
+                                            Artiste : {{ data2.artists[0].artist_name }}.<br />
+                                            Date de création : {{ data2.object_date }}.
                                         </span>
                                     </router-link>
                                 </li>
@@ -75,12 +75,12 @@ import Chart from 'chart.js';
 export default {
     head() {
         return {
-            title: 'Acquisition'
+            title: 'Département'
         }
     },
     data() {
         return{
-            acquisitionName: 'Chargement en cours',
+            departmentName: 'Chargement en cours',
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
@@ -110,11 +110,11 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.slug )
+            axios.get('http://localhost:8000/api/departments/show/' + this.$route.params.slug )
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
-                    this.acquisitionName = this.globalStreamData.acquisition_name;
+                    this.acquisitionName = this.globalStreamData.department_name;
                     this.globalGenderMen = this.globalStreamData.artists.gender_men;
                     this.globalGenderWomen = this.globalStreamData.artists.gender_women;
                     this.globalGenderGroups = this.globalStreamData.artists.gender_groups;
@@ -125,14 +125,14 @@ export default {
                     this.globalError = error.response.data.message || error.message;
                 })
                 .finally(() => this.globalLoading = false);
-            console.info("Component mounted: Art Movement.");
+            console.info("Component mounted: Museum Departments.");
         },
         async fetchArtworks() {
             this.artworksErrored = false;
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/departments/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;
@@ -144,7 +144,7 @@ export default {
                     this.artworksError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Acquisitions.");
+            console.info("Component mounted: Artworks by Departments.");
         }
     }
 };

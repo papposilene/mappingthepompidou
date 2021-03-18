@@ -38,6 +38,7 @@ Route::middleware('api')->namespace('Api')->group(function () {
     // Museum departements
     Route::get('/departments', 'DepartmentController@index')->name('api.department.index');
     Route::get('/departments/show/{slug}', 'DepartmentController@show')->name('api.department.show');
+    Route::get('/departments/show/{slug}/artworks', 'DepartmentController@artworks')->name('api.department.artworks');
     // Art movements
     Route::get('/movements', 'MovementController@index')->name('api.movement.index');
     Route::get('/movements/show/{uuid}', 'MovementController@show')->name('api.movement.show');
