@@ -36,7 +36,7 @@
                 <h2 class="flex flex-col bg-indigo-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
-                <canvas id="chartArtworks"></canvas>
+                <canvas id="chartUnknown"></canvas>
             </div>
         </div>
     </main>
@@ -97,9 +97,9 @@ export default {
         async renderChart() {
             this.chartErrored = false;
             this.chartLoading = false;
-            axios.get('http://localhost:8000/api/statistics/artworks')
+            axios.get('http://localhost:8000/api/statistics/artworks/unknown')
                 .then(response => {
-                    const ctx = document.getElementById('chartArtworks').getContext('2d');
+                    const ctx = document.getElementById('chartUnknown').getContext('2d');
                     const myChart = new Chart(ctx, {
                         type: 'horizontalBar',
                         data: response.data.chart,

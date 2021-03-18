@@ -4,16 +4,13 @@
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0 mt-4">
-                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="mb-2">Artists</span>
-                    <span class="mt-2">{{ artistsTotal }}</span>
+                <h2 class="flex flex-col bg-yellow-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="mb-2">{{ artistsTotal }} artists</span>
                 </h2>
-            </div>
-            <div class="flex-col w-4/12 px-0 mt-4">
-
-            </div>
-            <div class="flex-col w-4/12 px-0 mt-4">
                 <canvas id="chartArtistsGenders"></canvas>
+            </div>
+            <div class="flex-col w-8/12 px-0 mt-4">
+
             </div>
         </div>
     </main>

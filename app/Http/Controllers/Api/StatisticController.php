@@ -185,8 +185,8 @@ class StatisticController extends Controller
         $statistics = collect([
             'data' => [
                 'total' => count($artists),
-                'women' => $genderWomen,
                 'men' => $genderMen,
+                'women' => $genderWomen,
                 'groups' => $genderGroups,
                 'unknown' => $genderUnknown,
             ],
@@ -195,14 +195,14 @@ class StatisticController extends Controller
                 'datasets' => [
                     [
                         'data' => [
-                            $genderWomen,
                             $genderMen,
+                            $genderWomen,
                             $genderGroups,
                             $genderUnknown,
                         ],
                         'backgroundColor' => [
-                            '#F87171',
                             '#60A5FA',
+                            '#F87171',
                             '#A78BFA',
                             '#9CA3AF',
                         ],
@@ -294,67 +294,50 @@ class StatisticController extends Controller
      */
     public function unknown()
     {
-        $globalArtworks = Artwork::count();
-        //$chartAnonymous = Artist::where('artist_type', 'anonyme')->get();
-        $chartNoArtist = Artist::withCount('hasArtworks')->where('artist_type', 'anonyme')->get();
-        dd($chartNoArtist->count());
-        $chartNoDate = Artwork::where('object_date', null)->count();
-        $chartNoDepartment = Artwork::with('inDepartement')->where('department_name', 'Inconnu')->count();
+        $chartAnonymous = Artist::where('artist_type', 'anonyme')->count();
+        $chartArtistUnknown = Artist::where('artist_type', 'anonyme')->withCount('hasArtworks')->get();
+        $chartArtworkNoDate = Artwork::where('object_date', null)->count();
+        $departmentUnknown = Department::where('department_slug', 'inconnu')->first();
+        $chartNoDepartment = Artwork::where('department_uuid', $departmentUnknown->uuid)->count();
+
+        $chartTotalArtistUnknown = 0;
+        foreach ($chartArtistUnknown as $noArtist) {
+            $chartTotalArtistUnknown += (int) $noArtist->has_artworks_count;
+        }
 
         $statistics = collect([
             'data' => [
-                'total' => $globalArtworks,
+                'artist_unknown' => $chartAnonymous,
+                'artwork_artist_unknown' => $chartTotalArtistUnknown,
+                'artwork_date_unknown' => $chartArtworkNoDate,
+                'department_unknown' => $chartNoDepartment,
             ],
             'chart' => [
-                'labels' => 'test',
+                'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
                 'datasets' => [
                     [
-                        'label' => 'Oeuvre sans auteur',
-                        'data' => $chartNoArtist,
-                        'backgroundColor' => '#60A5FA',
-                        'borderColor' => '#fff',
-                        //'barThickness' => 10,
+                        'data' => [
+                            $chartAnonymous,
+                            $chartTotalArtistUnknown,
+                            $chartArtworkNoDate,
+                            $chartNoDepartment,
+                        ],
+                        'backgroundColor' => [
+                            '#F87171',
+                            '#60A5FA',
+                            '#A78BFA',
+                            '#9CA3AF',
+                        ],
+                        'label' => 'Statistiques des inconnues',
                     ],
-                    [
-                        'label' => 'Oeuvre sans date',
-                        'data' => $chartNoDate,
-                        'backgroundColor' => '#60A5FA',
-                        'borderColor' => '#fff',
-                        //'barThickness' => 10,
-                    ],
-                    [
-                        'label' => 'Oeuvre dans un département inconnu',
-                        'data' => $chartNoDepartment,
-                        'backgroundColor' => '#F87171',
-                        'borderColor' => '#fff',
-                        //'barThickness' => 10,
-                    ],
-
                 ],
             ],
             'options' => [
-                'title' => [
-                    'display' => true,
-                    'fontColor' => '#fff',
-                    'position' => 'bottom',
-                    'text' => 'Top 10 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
-                ],
                 'responsive' => true,
                 'legend' => [
                     'display' => true,
                     'position' => 'bottom',
                     'fontColor' => '#fff',
-                ],
-                'scales' => [
-                    'xAxes' => [
-                        [
-                            //'id' => 'first-y-axis',
-                            'type' => 'linear',
-                            'ticks' => [
-                                'beginAtZero' => false,
-                            ],
-                        ],
-                    ],
                 ],
             ],
         ])->all();
