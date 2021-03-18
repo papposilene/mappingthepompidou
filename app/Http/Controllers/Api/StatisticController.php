@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Acquisition;
 use App\Models\Artist;
 use App\Models\Artwork;
+use App\Models\Department;
 use App\Models\Movement;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -90,6 +91,72 @@ class StatisticController extends Controller
                     'display' => true,
                     'position' => 'bottom',
                     'fontColor' => '#fff',
+                ],
+            ],
+        ])->all();
+
+        return $statistics;
+    }
+
+    /**
+     * Retrieve statistics about departments.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function departments()
+    {
+        $globalDepartments = Department::all();
+        $chartDepartments = Department::withCount(['conservedArtworks'])->orderBy('conserved_artworks_count', 'desc')->limit(10)->get();
+
+        $statistics = collect([
+            'data' => [
+                'total' => count($globalDepartments),
+            ],
+            'chart' => [
+                'labels' => $chartDepartments->pluck('department_name'),
+                'datasets' => [
+                    [
+                        'label' => 'Oeuvre par département',
+                        'data' => $chartDepartments->pluck('conserved_artworks_count'),
+                        'backgroundColor' => [
+                            '#F87171',
+                            '#FBBF24',
+                            '#34D399',
+                            '#60A5FA',
+                            '#818CF8',
+                            '#FCA5A5',
+                            '#FCD34D',
+                            '#6EE7B7',
+                            '#93C5FD',
+                            '#A5B4FC',
+                        ],
+                        'borderColor' => '#fff',
+                    ],
+                ],
+            ],
+            'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'bottom',
+                    'text' => 'Top 10 des départements (classés par le nombre d’oeuvres conservées)',
+                ],
+                'responsive' => true,
+                'legend' => [
+                    'display' => true,
+                    'position' => 'bottom',
+                    'fontColor' => '#fff',
+                ],
+                'scales' => [
+                    'xAxes' => [
+                        [
+                            //'id' => 'first-y-axis',
+                            'type' => 'linear',
+                            'ticks' => [
+                                'beginAtZero' => false,
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ])->all();

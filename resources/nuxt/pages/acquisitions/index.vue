@@ -56,7 +56,7 @@ export default {
         return{
             acquisitionsErrored: false,
             acquisitionsLoading: true,
-            acquisitionsStreamData: {},
+            acquisitionsStreamData: null,
             acquisitionsPaginator: {},
             acquisitionsTotal: 0,
             chartErrored: false,

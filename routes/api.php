@@ -46,6 +46,7 @@ Route::middleware('api')->namespace('Api')->group(function () {
     // Statistics
     Route::get('/statistics', 'StatisticController@index')->name('api.statistic.index');
     Route::get('/statistics/acquisitions', 'StatisticController@acquisitions')->name('api.statistic.acquisitions');
-    Route::get('/statistics/artists/genders', 'StatisticController@genders')->name('api.statistic.genders');
+    Route::get('/statistics/artists/genders', 'StatisticController@genders')->name('api.statistic.artists.genders');
+    Route::get('/statistics/departments', 'StatisticController@departments')->name('api.statistic.departments');
     Route::get('/statistics/movements', 'StatisticController@movements')->name('api.statistic.movement');
 });

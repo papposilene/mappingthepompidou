@@ -56,7 +56,7 @@ export default {
         return{
             departmentsErrored: false,
             departmentsLoading: true,
-            departmentsStreamData: {},
+            departmentsStreamData: null,
             departmentsPaginator: {},
             departmentsTotal: 0,
             chartErrored: false,
@@ -100,7 +100,7 @@ export default {
                 .then(response => {
                     const ctx = document.getElementById('chartDepartments').getContext('2d');
                     const myChart = new Chart(ctx, {
-                        type: 'bar',
+                        type: 'horizontalBar',
                         data: response.data.chart,
                         options: response.data.options,
                     });
