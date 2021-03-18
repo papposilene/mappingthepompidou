@@ -103,6 +103,66 @@ class StatisticController extends Controller
     }
 
     /**
+     * Retrieve statistics about art movements (artists, artworks).
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function movements()
+    {
+        $globalMovements = Movement::all();
+        // Offset(1) to avoid unknown art movement
+        $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(21)->offset(1)->get();
+
+        $statistics = collect([
+            'data' => [
+                'total' => count($globalMovements),
+            ],
+            'chart' => [
+                'labels' => $chartMovements->pluck('movement_name'),
+                'datasets' => [
+                    [
+                        'data' => $chartMovements->pluck('has_artworks_count'),
+                        'backgroundColor' => '#F87171',
+                        'label' => 'Oeuvre par mouvement',
+                    ],
+                    [
+                        'data' => $chartMovements->pluck('has_inspired_count'),
+                        'backgroundColor' => '#60A5FA',
+                        'label' => 'Artistes par mouvement',
+                    ],
+                ],
+            ],
+            'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'bottom',
+                    'text' => 'Top 20 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
+                ],
+                'responsive' => true,
+                'legend' => [
+                    'display' => true,
+                    'position' => 'bottom',
+                    'fontColor' => '#fff',
+                ],
+                'scales' => [
+                    'yAxes' => [
+                        [
+                            //'id' => 'first-y-axis',
+                            'type' => 'linear',
+                            'ticks' => [
+                                'beginAtZero' => false,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ])->all();
+
+        return $statistics;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

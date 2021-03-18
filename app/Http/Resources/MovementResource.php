@@ -18,6 +18,7 @@ class MovementResource extends JsonResource
             'uuid' => $this->uuid,
             'movement_name' => $this->movement_name,
             'movement_slug' => $this->movement_slug,
+            'has_artworks_count' => $this->has_artworks_count,
             'artists' => [
                 'total' => $this->hasInspired()->count(),
                 'gender_women' => $this->hasInspired()->where('artist_gender', 'woman')->count(),

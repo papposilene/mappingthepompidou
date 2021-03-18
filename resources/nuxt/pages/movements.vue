@@ -3,12 +3,18 @@
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-row w-full px-0 mt-12">
+            <div class="flex-col w-full px-0 mt-4">
+                <canvas id="chartMovements"></canvas>
+            </div>
+        </div>
+        <div class="flex flex-row w-full px-0 mt-12">
+
             <div class="flex-col w-4/12 px-0 mt-4">
                 <h2 class="flex flex-col bg-pink-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="mb-2">Mouvements</span>
                     <span class="mt-2">{{ movementsTotal }}</span>
                 </h2>
-                <canvas id="chartArtistsGenders"></canvas>
+
             </div>
             <div class="flex-col w-8/12 px-0 mt-4">
                 <div v-if="apiErrored" class="text-black bg-red-500 p-4 my-5 rounded uppercase">
@@ -22,7 +28,7 @@
 
                     <div v-else>
                         <ThePaginator :pagination="paginator" @paginate="fetchData()" :offset="4" />
-                        <ul class="list-none text-white rounded">
+                        <ul class="list-none text-white my-5 rounded">
                             <li v-for="data in apiStreamData.data" :key="data.uuid" class="bg-gray-800 p-2">
                                 <router-link :to="{ name: 'movements_show', params: { uuid: data.uuid }}">
                                     <span>{{ data.movement_name }}</span><br />
@@ -82,6 +88,7 @@ export default {
                 .then(response => {
                     this.apiLoading = false;
                     this.apiStreamData = response.data;
+                    this.paginator = response.data.meta;
                     this.movementsTotal = response.data.meta.total;
                 })
                 .catch(error => {
@@ -94,11 +101,11 @@ export default {
         createChart() {
             this.chartErrored = false
             this.chartLoading = true
-            axios.get('http://localhost:8000/api/statistics/artists/genders')
+            axios.get('http://localhost:8000/api/statistics/movements')
                 .then(response => {
-                    const ctx = document.getElementById('chartArtistsGenders').getContext('2d');
+                    const ctx = document.getElementById('chartMovements').getContext('2d');
                     const myChart = new Chart(ctx, {
-                        type: 'horizontalBar',
+                        type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });

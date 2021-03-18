@@ -1643,6 +1643,21 @@
                     <tbody class="bg-gray-700">
                         <tr>
                             <td class="px-3 pb-2">
+                                <span class="font-mono">has_artworks_count</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
                                 <span class="font-mono">created_at</span>
                             </td>
                             <td class="px-3 pb-2">
@@ -1650,7 +1665,7 @@
                                 <span class="font-mono">desc</span>
                             </td>
                             <td class="px-3 pb-2">
-                                <span class="font-mono">asc</span>
+                                <span class="font-mono">[]</span>
                             </td>
                             <td class="px-3 pb-2">
                                 <span class="text-green-400">Optional.</span> Query string.

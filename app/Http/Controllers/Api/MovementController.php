@@ -20,6 +20,7 @@ class MovementController extends Controller
     {
         $whitelist = [
             'created_at', 'movement_name', 'movement_slug',
+            'has_artworks_count',
         ];
 
         $query = $request->query();
@@ -29,8 +30,8 @@ class MovementController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'created_at';
-            $order_value = 'asc';
+            $order_key = 'has_artworks_count';
+            $order_value = 'desc';
         } else {
             $order_key = array_keys($query)[0];
             $order_value = $query[array_keys($query)[0]];
@@ -40,17 +41,7 @@ class MovementController extends Controller
             }
         }
 
-        return MovementResource::collection(Movement::orderBy($order_key, $order_value)->paginate(20));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return MovementResource::collection(Movement::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(20));
     }
 
     /**

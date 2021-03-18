@@ -1,6 +1,7 @@
 export default {
     srcDir: 'resources/nuxt',
     buildModules: [
+        '@nuxt/components',
         '@nuxtjs/tailwindcss',
     ],
     modules: [
