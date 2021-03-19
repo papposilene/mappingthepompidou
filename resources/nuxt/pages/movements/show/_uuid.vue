@@ -35,9 +35,9 @@
                 </ol>
             </div>
             <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h3 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artistsTotal }} artistes</span>
-                </h2>
+                </h3>
                 <div v-if="artistsLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>
@@ -63,9 +63,9 @@
             </div>
 
             <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h3 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
-                </h2>
+                </h3>
                 <div v-if="artworksLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>

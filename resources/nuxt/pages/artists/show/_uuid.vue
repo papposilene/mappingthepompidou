@@ -4,44 +4,42 @@
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ acquisitionName }}</span>
+                <h2 class="flex flex-col bg-red-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="text-black">{{ artistName }}</span>
                 </h2>
-                <ol class="px-4 mb-12">
-                    <li class="p-2 mb-2 bg-blue-300 text-black rounded">
-                        <span class="flex float-right">
-                            {{ globalGenderMen }}
-                        </span>
-                        <span>Hommes</span>
+                <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
+                    <li class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                        Nationalité : {{ globalArtistCountry }}.
                     </li>
-                    <li class="p-2 mb-2 bg-red-300 text-black rounded">
-                        <span class="flex float-right">
-                            {{ globalGenderWomen }}
-                        </span>
-                        <span>Femmes</span>
+                    <li class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                        Date de naissance : {{ globalArtistBirth }}.
                     </li>
-                    <li class="p-2 mb-2 bg-purple-300 text-black rounded">
-                        <span class="flex float-right">
-                            {{ globalGenderGroups }}
-                        </span>
-                        <span>Groupes</span>
+                    <li class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                        Date de décès : {{ globalArtistDeath }}.
                     </li>
-                    <li class="p-2 mb-2 bg-gray-300 text-black rounded">
-                        <span class="flex float-right">
-                            {{ globalGenderUnknown }}
-                        </span>
-                        <span>Inconnu</span>
-                    </li>
-                </ol>
-                <div class="h-96">
-                    <canvas id="chartAcquisitions"></canvas>
+                </ul>
+
+                <div v-if="globalLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
+                    Chargement en cours...
+                </div>
+
+                <div v-else class="px-4">
+                    <div class="flex flex-col w-full px-0 mt-4">
+                        <ul class="flex flex-col list-none text-white my-5 rounded">
+                            <li v-for="data1 in globalStreamData.movements.list" :key="data1.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                                <router-link :to="`/movements/show/${data1.uuid}`" class="w-full">
+                                    <span>{{ data1.movement_name }}</span><br />
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div class="flex-col w-8/12 px-0">
-                <h3 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
-                </h3>
+                </h2>
                 <div v-if="artworksLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>
@@ -55,7 +53,7 @@
                                     <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Date de création : {{ data2.object_date ? data2.object_date : 'sans date' }}.<br />
+                                            Date de création : {{ data2.object_date }}.<br />
                                             Département : {{ data2.museum_department.department_name }}.
                                         </span>
                                     </router-link>
@@ -73,31 +71,27 @@
 
 <script>
 window.axios = require('axios');
-import Chart from 'chart.js';
 
 export default {
     head() {
         return {
-            title: 'Acquisition'
+            title: 'Artistes'
         }
     },
     data() {
         return{
-            acquisitionName: 'Chargement en cours',
+            artistName: 'Chargement en cours',
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
-            globalGenderMen : 0,
-            globalGenderWomen: 0,
-            globalGenderGroups: 0,
-            globalGenderUnknown: 0,
+            globalArtistCountry: 'nationalité inconnue',
+            globalArtistBirth: 'date de naissance inconnue',
+            globalArtistDeath: 'date de décès inconnue',
             artworksErrored: false,
             artworksLoading: true,
             artworksStreamData: null,
             artworksPaginator: {},
             artworksTotal: 0,
-            chartErrored: false,
-            chartLoading: true
         }
     },
     created() {
@@ -109,22 +103,20 @@ export default {
                 this.fetchArtworks()
             },
             { immediate: true }
-        ),
-        this.renderChart()
+        )
     },
     methods: {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.slug )
+            axios.get('http://localhost:8000/api/artists/show/' + this.$route.params.uuid )
                 .then(response => {
-                    this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
-                    this.acquisitionName = this.globalStreamData.acquisition_name;
-                    this.globalGenderMen = this.globalStreamData.artists.gender_men;
-                    this.globalGenderWomen = this.globalStreamData.artists.gender_women;
-                    this.globalGenderGroups = this.globalStreamData.artists.gender_groups;
-                    this.globalGenderUnknown = this.globalStreamData.artists.gender_unknown;
+                    this.artistName = this.globalStreamData.artist_name;
+                    this.globalArtistCountry = this.globalStreamData.nationality.country_flag + ' ' + this.globalStreamData.nationality.country_name;
+                    this.globalArtistBirth = this.globalStreamData.artist_birth;
+                    this.globalArtistDeath = this.globalStreamData.artist_death;
+                    this.globalLoading = false;
                 })
                 .catch(error => {
                     this.globalErrored = true;
@@ -138,7 +130,7 @@ export default {
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/acquisitions/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/artists/show/' + this.$route.params.uuid + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;
@@ -150,26 +142,7 @@ export default {
                     this.artworksError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Acquisitions.");
-        },
-        async renderChart() {
-            this.chartErrored = false
-            this.chartLoading = false
-            axios.get('http://localhost:8000/api/statistics/acquisitions/for-' + this.$route.params.slug + '/departments')
-                .then(response => {
-                    new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
-                        type: 'pie',
-                        data: response.data.chart,
-                        options: response.data.options,
-                    });
-                    this.chartLoading = true
-                })
-                .catch(error => {
-                    this.chartErrored = true;
-                    this.chartError = error.response.data.message || error.message;
-                })
-                .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Chart.js.");
+            console.info("Component mounted: Artworks by Movements.");
         }
     }
 };

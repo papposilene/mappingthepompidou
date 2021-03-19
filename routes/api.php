@@ -29,6 +29,8 @@ Route::middleware('api')->namespace('Api')->group(function () {
     Route::get('/artists/nationalities/', 'ArtistController@nationalities')->name('api.artist.nationalities');
     Route::get('/artists/nationality/{cca3}', 'ArtistController@nationality')->name('api.artist.nationality');
     Route::get('/artists/show/{uuid}', 'ArtistController@show')->name('api.artist.show');
+    Route::get('/artists/show/{uuid}/artworks', 'ArtistController@artworks')->name('api.artist.artworks');
+    Route::get('/artists/show/{uuid}/movements', 'ArtistController@movements')->name('api.artist.movements');
     // Artworks
     Route::get('/artworks', 'ArtworkController@index')->name('api.artwork.index');
     Route::get('/artworks/acquisition_date/{year}', 'ArtworkController@acquisition_date')->name('api.artwork.acquisition_date');

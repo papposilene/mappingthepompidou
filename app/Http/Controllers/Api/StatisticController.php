@@ -273,9 +273,15 @@ class StatisticController extends Controller
                 ],
             ],
             'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'top',
+                    'text' => 'Genres des artistes conservés au Centre Pompidou',
+                ],
                 'responsive' => true,
                 'legend' => [
-                    'display' => true,
+                    'display' => false,
                     'position' => 'bottom',
                     'fontColor' => '#fff',
                 ],

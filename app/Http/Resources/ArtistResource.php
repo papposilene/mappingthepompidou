@@ -22,6 +22,11 @@ class ArtistResource extends JsonResource
             'artist_death' => $this->artist_death,
             'artist_type' => $this->artist_type,
             'artist_gender' => $this->artist_gender,
+            'nationality' => [
+                'country_uuid' => $this->hasNationality->uuid,
+                'country_name' => $this->hasNationality->name_common_fra,
+                'country_flag' => $this->hasNationality->flag,
+            ],
             'has_artworks_count' => $this->has_artworks_count,
             'movements' => [
                 'total' => $this->hasWorkedFor()->count(),

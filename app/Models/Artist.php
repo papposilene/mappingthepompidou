@@ -105,6 +105,18 @@ class Artist extends Model
     }
 
     /**
+     * Get all the artworks for a specific artist.
+     */
+    public function hasNationality()
+    {
+        return $this->hasOne(
+            'App\Models\Country',
+            'cca3',
+            'artist_nationality'
+        );
+    }
+
+    /**
      * Get all the objects for a specific artist.
      */
     public function hasWorkedFor()

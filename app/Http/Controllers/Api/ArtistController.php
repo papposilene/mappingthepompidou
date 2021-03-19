@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Artist;
+use App\Models\Artwork;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ArtistResource;
+use App\Http\Resources\ArtworkResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -43,6 +45,19 @@ class ArtistController extends Controller
         }
 
         return ArtistResource::collection(Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(20));
+    }
+
+    /**
+     * Display a listing of artists for the specified nationality.
+     *
+     * @param  uuid  $uuid
+     * @return \Illuminate\Http\Response
+     */
+    public function artworks($uuid)
+    {
+        Artist::findOrFail($uuid);
+
+        return ArtworkResource::collection(Artwork::where('artist_uuid', $uuid)->paginate(20));
     }
 
     /**
@@ -165,7 +180,7 @@ class ArtistController extends Controller
     public function show($uuid)
     {
         Artist::findOrFail($uuid);
-        return ArtistResource::collection(Artist::where('uuid', $uuid)->get());
+        return ArtistResource::collection(Artist::where('uuid', $uuid)->withCount('hasArtworks')->get());
     }
 
     /**

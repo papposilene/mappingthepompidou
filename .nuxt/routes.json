@@ -49,6 +49,13 @@
     "_name": "_0780973e"
   },
   {
+    "name": "artists-show-uuid",
+    "path": "/artists/show/:uuid?",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artists/show/_uuid.vue",
+    "chunkName": "pages/artists/show/_uuid",
+    "_name": "_216d6cde"
+  },
+  {
     "name": "departments-show-slug",
     "path": "/departments/show/:slug?",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/show/_slug.vue",

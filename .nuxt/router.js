@@ -11,6 +11,7 @@ const _479045b5 = () => interopDefault(import('../resources/nuxt/pages/artworks/
 const _237c05fe = () => interopDefault(import('../resources/nuxt/pages/departments/index.vue' /* webpackChunkName: "pages/departments/index" */))
 const _794360c4 = () => interopDefault(import('../resources/nuxt/pages/movements/index.vue' /* webpackChunkName: "pages/movements/index" */))
 const _0780973e = () => interopDefault(import('../resources/nuxt/pages/acquisitions/show/_slug.vue' /* webpackChunkName: "pages/acquisitions/show/_slug" */))
+const _216d6cde = () => interopDefault(import('../resources/nuxt/pages/artists/show/_uuid.vue' /* webpackChunkName: "pages/artists/show/_uuid" */))
 const _5bf37459 = () => interopDefault(import('../resources/nuxt/pages/departments/show/_slug.vue' /* webpackChunkName: "pages/departments/show/_slug" */))
 const _5d4ef386 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_uuid.vue' /* webpackChunkName: "pages/movements/show/_uuid" */))
 const _13ccd5af = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
@@ -54,6 +55,10 @@ export const routerOptions = {
     path: "/acquisitions/show/:slug?",
     component: _0780973e,
     name: "acquisitions-show-slug"
+  }, {
+    path: "/artists/show/:uuid?",
+    component: _216d6cde,
+    name: "artists-show-uuid"
   }, {
     path: "/departments/show/:slug?",
     component: _5bf37459,
