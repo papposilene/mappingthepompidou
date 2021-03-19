@@ -59,8 +59,9 @@ export default {
             departmentsStreamData: null,
             departmentsPaginator: {},
             departmentsTotal: 0,
-            chartErrored: false,
             chartLoading: true,
+            chartErrored: false,
+            chartData: null
         }
     },
     created() {
@@ -95,15 +96,15 @@ export default {
         },
         async renderChart() {
             this.chartErrored = false;
-            this.chartLoading = false;
+            this.chartLoading = true;
             axios.get('http://localhost:8000/api/statistics/departments')
                 .then(response => {
-                    const ctx = document.getElementById('chartDepartments').getContext('2d');
-                    const myChart = new Chart(ctx, {
-                        type: 'horizontalBar',
+                    new Chart(document.getElementById('chartDepartments').getContext('2d'), {
+                        type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });
+                    this.chartLoading = false;
                 })
                 .catch(error => {
                     this.chartErrored = true;

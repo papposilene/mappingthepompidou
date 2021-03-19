@@ -71,7 +71,7 @@ export default {
         }
     },
     created() {
-        this.createChart(),
+        this.renderChart(),
         this.$watch(
             () => this.$route.params,
             () => {
@@ -82,9 +82,9 @@ export default {
     },
     methods: {
         async fetchData() {
-            this.artistsErrored = false;
-            this.artistsLoading = true;
-            let currentPage = this.artistsPaginator.current_page;
+            this.artistsErrored = false
+            this.artistsLoading = true
+            let currentPage = this.artistsPaginator.current_page
             let pageNumber = currentPage ? currentPage : 1;
             axios.get('http://localhost:8000/api/artists/?page=' + pageNumber)
                 .then(response => {
@@ -100,23 +100,22 @@ export default {
                 .finally(() => this.artistsLoading = false);
             console.info("Component mounted: Home.");
         },
-        createChart() {
+        renderChart() {
             this.chartErrored = false
             this.chartLoading = true
             axios.get('http://localhost:8000/api/statistics/artists/genders')
                 .then(response => {
-                    console.log(response.data.chart);
                     const ctx = document.getElementById('chartArtistsGenders').getContext('2d');
                     const myChart = new Chart(ctx, {
                         type: 'horizontalBar',
                         data: response.data.chart,
                         options: response.data.options,
                     });
-                    this.chartLoading = false;
+                    this.chartLoading = false
                 })
                 .catch(error => {
-                    this.chartErrored = true;
-                    this.chartError = error.response.data.message || error.message;
+                    this.chartErrored = true
+                    this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
             console.info("Component mounted: Chart.js.");

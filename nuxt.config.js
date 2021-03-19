@@ -6,6 +6,7 @@ export default {
     ],
     modules: [
         '@nuxtjs/axios',
+        '@nuxt/http',
         [
             'nuxt-matomo',
             {

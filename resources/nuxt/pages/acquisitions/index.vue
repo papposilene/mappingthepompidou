@@ -64,14 +64,14 @@ export default {
         }
     },
     created() {
+        this.renderChart(),
         this.$watch(
             () => this.$route.params,
             () => {
                 this.fetchData()
             },
             { immediate: true }
-        ),
-        this.renderChart()
+        )
     },
     methods: {
         async fetchData() {

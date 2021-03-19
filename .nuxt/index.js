@@ -14,6 +14,8 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 import nuxt_plugin_plugin_6b2feb7b from 'nuxt_plugin_plugin_6b2feb7b' // Source: ./components/plugin.js (mode: 'all')
 import nuxt_plugin_plugin_cb7c70d4 from 'nuxt_plugin_plugin_cb7c70d4' // Source: ./matomo/plugin.js (mode: 'client')
+import nuxt_plugin_httpserver_8445c984 from 'nuxt_plugin_httpserver_8445c984' // Source: ./http.server.js (mode: 'server')
+import nuxt_plugin_http_0b8f351f from 'nuxt_plugin_http_0b8f351f' // Source: ./http.js (mode: 'all')
 import nuxt_plugin_axios_50133711 from 'nuxt_plugin_axios_50133711' // Source: ./axios.js (mode: 'all')
 
 // Component: <ClientOnly>
@@ -180,6 +182,14 @@ async function createApp(ssrContext, config = {}) {
 
   if (process.client && typeof nuxt_plugin_plugin_cb7c70d4 === 'function') {
     await nuxt_plugin_plugin_cb7c70d4(app.context, inject)
+  }
+
+  if (process.server && typeof nuxt_plugin_httpserver_8445c984 === 'function') {
+    await nuxt_plugin_httpserver_8445c984(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_http_0b8f351f === 'function') {
+    await nuxt_plugin_http_0b8f351f(app.context, inject)
   }
 
   if (typeof nuxt_plugin_axios_50133711 === 'function') {

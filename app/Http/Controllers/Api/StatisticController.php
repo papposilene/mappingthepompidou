@@ -152,17 +152,6 @@ class StatisticController extends Controller
                     'position' => 'bottom',
                     'fontColor' => '#fff',
                 ],
-                'scales' => [
-                    'xAxes' => [
-                        [
-                            //'id' => 'first-y-axis',
-                            'type' => 'linear',
-                            'ticks' => [
-                                'beginAtZero' => false,
-                            ],
-                        ],
-                    ],
-                ],
             ],
         ])->all();
 
