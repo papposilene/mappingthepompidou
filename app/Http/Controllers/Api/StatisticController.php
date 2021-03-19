@@ -72,8 +72,8 @@ class StatisticController extends Controller
                 'labels' => $chartAcquisitions->pluck('acquisition_name'),
                 'datasets' => [
                     [
-                        'label' => 'Artistes par type d’acquisition',
-                        'data' => $chartAcquisitions->pluck('acquired_artists_count'),
+                        'label' => 'Oeuvres par type d’acquisition',
+                        'data' => $chartAcquisitions->pluck('acquired_artworks_count'),
                         'backgroundColor' => [
                             '#F87171',
                             '#FBBF24',
@@ -91,9 +91,15 @@ class StatisticController extends Controller
                 ],
             ],
             'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'top',
+                    'text' => 'Nombre d’oeuvres par type d’acquisition',
+                ],
                 'responsive' => true,
                 'legend' => [
-                    'display' => true,
+                    'display' => false,
                     'position' => 'bottom',
                     'fontColor' => '#fff',
                 ],
@@ -143,12 +149,12 @@ class StatisticController extends Controller
                 'title' => [
                     'display' => true,
                     'fontColor' => '#fff',
-                    'position' => 'bottom',
-                    'text' => 'Top 10 des départements (classés par le nombre d’oeuvres conservées)',
+                    'position' => 'top',
+                    'text' => 'Oeuvres par département',
                 ],
                 'responsive' => true,
                 'legend' => [
-                    'display' => true,
+                    'display' => false,
                     'position' => 'bottom',
                     'fontColor' => '#fff',
                 ],
@@ -250,7 +256,7 @@ class StatisticController extends Controller
                 'title' => [
                     'display' => true,
                     'fontColor' => '#fff',
-                    'position' => 'bottom',
+                    'position' => 'top',
                     'text' => 'Top 10 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
                 ],
                 'responsive' => true,

@@ -45,6 +45,7 @@
 
 <script>
 window.axios = require('axios');
+import Chart from 'chart.js';
 
 export default {
     head() {
@@ -99,16 +100,16 @@ export default {
             this.chartLoading = true;
             axios.get('http://localhost:8000/api/statistics/departments')
                 .then(response => {
-                    new Chart(document.getElementById('chartDepartments').getContext('2d'), {
+                    new Chart(document.getElementById('chartDepartments'), {
                         type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });
-                    this.chartLoading = false;
+                    this.chartLoading = false
                 })
                 .catch(error => {
-                    this.chartErrored = true;
-                    this.chartError = error.response.data.message || error.message;
+                    this.chartErrored = true
+                    this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
             console.info("Component mounted: Chart.js.");

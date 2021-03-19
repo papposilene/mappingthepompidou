@@ -45,6 +45,7 @@
 
 <script>
 window.axios = require('axios');
+import Chart from 'chart.js';
 
 export default {
     head() {
@@ -64,14 +65,14 @@ export default {
         }
     },
     created() {
-        this.renderChart(),
         this.$watch(
             () => this.$route.params,
             () => {
                 this.fetchData()
             },
             { immediate: true }
-        )
+        ),
+        this.renderChart()
     },
     methods: {
         async fetchData() {
@@ -94,16 +95,16 @@ export default {
             console.info("Component mounted: Acquisitions.");
         },
         async renderChart() {
-            this.chartErrored = false;
-            this.chartLoading = false;
+            this.chartErrored = false
+            this.chartLoading = false
             axios.get('http://localhost:8000/api/statistics/acquisitions')
                 .then(response => {
-                    const ctx = document.getElementById('chartAcquisitions').getContext('2d');
-                    const myChart = new Chart(ctx, {
+                    new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
                         type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });
+                    this.chartLoading = true
                 })
                 .catch(error => {
                     this.chartErrored = true;

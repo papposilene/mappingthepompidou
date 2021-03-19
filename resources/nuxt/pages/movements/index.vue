@@ -100,16 +100,16 @@ export default {
             this.chartLoading = false;
             axios.get('http://localhost:8000/api/statistics/movements')
                 .then(response => {
-                    const ctx = document.getElementById('chartMovements').getContext('2d');
-                    const myChart = new Chart(ctx, {
+                    new Chart(document.getElementById('chartMovements').getContext('2d'), {
                         type: 'horizontalBar',
                         data: response.data.chart,
                         options: response.data.options,
                     });
+                    this.chartLoading = false
                 })
                 .catch(error => {
-                    this.chartErrored = true;
-                    this.chartError = error.response.data.message || error.message;
+                    this.chartErrored = true
+                    this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
             console.info("Component mounted: Chart.js.");

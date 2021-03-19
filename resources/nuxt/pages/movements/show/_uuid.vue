@@ -97,8 +97,6 @@
 
 <script>
 window.axios = require('axios');
-import Chart from 'chart.js';
-//import Pagination from 'interface/PaginationComponent.vue'
 
 export default {
     head() {

@@ -70,7 +70,6 @@
 
 <script>
 window.axios = require('axios');
-import Chart from 'chart.js';
 
 export default {
     head() {

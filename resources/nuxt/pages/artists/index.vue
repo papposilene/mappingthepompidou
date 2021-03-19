@@ -48,6 +48,7 @@
 <script>
 window.axios = require('axios');
 import Chart from 'chart.js';
+
 export default {
     head() {
         return {
@@ -105,8 +106,7 @@ export default {
             this.chartLoading = true
             axios.get('http://localhost:8000/api/statistics/artists/genders')
                 .then(response => {
-                    const ctx = document.getElementById('chartArtistsGenders').getContext('2d');
-                    const myChart = new Chart(ctx, {
+                    new Chart(document.getElementById('chartArtistsGenders').getContext('2d'), {
                         type: 'horizontalBar',
                         data: response.data.chart,
                         options: response.data.options,
