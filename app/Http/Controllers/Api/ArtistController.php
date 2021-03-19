@@ -90,6 +90,40 @@ class ArtistController extends Controller
     /**
      * Display a listing of artists for the specified nationality.
      *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function nationalities(Request $request)
+    {
+        $whitelist = [
+            'created_at', 'navigart_id',
+            'artist_name', 'artist_type', 'artist_gender',
+            'artist_birth', 'artist_death', 'artist_nationality',
+        ];
+
+        $query = $request->query();
+        $query = array_intersect_key(
+            $query,
+            array_flip($whitelist)
+        );
+        if (empty($query)) {
+            $order_key = 'artist_nationality';
+            $order_value = 'asc';
+        } else {
+            $order_key = array_keys($query)[0];
+            $order_value = $query[array_keys($query)[0]];
+
+            if (! in_array($query[array_keys($query)[0]], ['asc', 'desc'], true)) {
+                $order_value = 'asc';
+            }
+        }
+
+        return ArtistResource::collection(Artist::orderBy($order_key, $order_value)->paginate(20));
+    }
+
+    /**
+     * Display a listing of artists for the specified nationality.
+     *
      * @param  string  $cca3
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

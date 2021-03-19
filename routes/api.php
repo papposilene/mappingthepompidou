@@ -26,6 +26,7 @@ Route::middleware('api')->namespace('Api')->group(function () {
     // Artists
     Route::get('/artists', 'ArtistController@index')->name('api.artist.index');
     Route::get('/artists/gender/{gender}', 'ArtistController@gender')->name('api.artist.gender');
+    Route::get('/artists/nationalities/', 'ArtistController@nationalities')->name('api.artist.nationalities');
     Route::get('/artists/nationality/{cca3}', 'ArtistController@nationality')->name('api.artist.nationality');
     Route::get('/artists/show/{uuid}', 'ArtistController@show')->name('api.artist.show');
     // Artworks

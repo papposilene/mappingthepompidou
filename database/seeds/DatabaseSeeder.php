@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             // Administration
             RolesAndPermissionsSeeder::class,
             SuperAdminSeeder::class,
+            // General data
+            CountriesSeeder::class,
             // Navigart
             ArtworkSeeder::class,
         ]);
