@@ -81,7 +81,7 @@ export default {
             this.apiLoading = true;
             let currentPage = this.paginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/movements?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/movements?page=' + pageNumber)
                 .then(response => {
                     this.apiStreamData = response.data;
                     this.paginator = response.data.meta;
@@ -98,7 +98,7 @@ export default {
         async renderChart() {
             this.chartErrored = false;
             this.chartLoading = false;
-            axios.get('http://localhost:8000/api/statistics/movements')
+            axios.get('https://etp.psln.nl/api/statistics/movements')
                 .then(response => {
                     new Chart(document.getElementById('chartMovements').getContext('2d'), {
                         type: 'horizontalBar',

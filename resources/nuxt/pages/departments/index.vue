@@ -81,7 +81,7 @@ export default {
             this.departmentsLoading = true;
             let currentPage = this.departmentsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/departments?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/departments?page=' + pageNumber)
                 .then(response => {
                     this.departmentsStreamData = response.data;
                     this.departmentsPaginator = this.departmentsStreamData.meta;
@@ -98,7 +98,7 @@ export default {
         async renderChart() {
             this.chartErrored = false;
             this.chartLoading = true;
-            axios.get('http://localhost:8000/api/statistics/departments')
+            axios.get('https://etp.psln.nl/api/statistics/departments')
                 .then(response => {
                     new Chart(document.getElementById('chartDepartments'), {
                         type: 'bar',

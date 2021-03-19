@@ -27,6 +27,9 @@ class StatisticController extends Controller
         $departments = Department::count();
         $movements = Movement::count();
 
+        $artworksExposed = Artwork::where('object_visibility', true)->count();
+        $artworksStocked = Artwork::where('object_visibility', false)->count();
+
         $statistics = collect([
             'data' => [
                 'acquisitions' => [
@@ -41,6 +44,8 @@ class StatisticController extends Controller
                 ],
                 'artworks' => [
                     'total' => $artworks,
+                    'total_visible' => $artworksExposed,
+                    'total_invisible' => $artworksStocked,
                 ],
                 'departments' => [
                     'total' => $departments,
@@ -232,6 +237,59 @@ class StatisticController extends Controller
     }
 
     /**
+     * Retrieve statistics about acquisitions.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function exposed()
+    {
+        $artworksTotal = Artwork::count();
+        $artworksExposed = Artwork::where('object_visibility', true)->count();
+        $artworksStocked = Artwork::where('object_visibility', false)->count();
+
+        $statistics = collect([
+            'data' => [
+                'total' => $artworksTotal,
+                'total_visible' => $artworksExposed,
+                'total_invisible' => $artworksStocked,
+            ],
+            'chart' => [
+                'labels' => ['Oeuvres exposées', 'Oeuvres non exposées'],
+                'datasets' => [
+                    [
+                        'label' => 'Oeuvres visibles/non exposées',
+                        'data' => [
+                            $artworksExposed,
+                            $artworksStocked,
+                        ],
+                        'backgroundColor' => [
+                            '#F87171',
+                            '#60A5FA',
+                        ],
+                        'borderColor' => '#fff',
+                    ],
+                ],
+            ],
+            'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'top',
+                    'text' => 'Proportion d’oeuvres visibles/non exposées',
+                ],
+                'responsive' => true,
+                'legend' => [
+                    'display' => true,
+                    'position' => 'bottom',
+                    'fontColor' => '#fff',
+                ],
+            ],
+        ])->all();
+
+        return $statistics;
+    }
+
+    /**
      * Retrieve statistics about genders for the artists.
      *
      * @return \Illuminate\Http\Response
@@ -384,6 +442,7 @@ class StatisticController extends Controller
                 'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
                 'datasets' => [
                     [
+                        'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
                         'data' => [
                             $chartAnonymous,
                             $chartTotalArtistUnknown,
@@ -396,7 +455,6 @@ class StatisticController extends Controller
                             '#A78BFA',
                             '#9CA3AF',
                         ],
-                        'label' => 'Statistiques des inconnues',
                     ],
                 ],
             ],

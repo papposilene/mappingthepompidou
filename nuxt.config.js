@@ -13,8 +13,8 @@ export default {
                 matomoUrl: '//pwk.psln.nl/',
                 siteId: 12,
                 doNotTrack: true,
-                debug: true,
-                verbose: true
+                debug: false,
+                verbose: false
             }
         ],
     ],

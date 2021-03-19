@@ -16,8 +16,6 @@ export default (context, inject) => {
         return _tracker[fnName](...args)
       }
 
-      debug(`Delaying call to tracker: ${fnName}`)
-
       delayedCalls.push([fnName, ...args])
     }
 
@@ -198,13 +196,6 @@ export default (context, inject) => {
       })
     }
 
-    // Log a warning when piwik doesnt become available within 10s (in debug mode)
-    const hasPiwikCheck = setTimeout(() => {
-      if (!window.Piwik) {
-        debug(`window.Piwik was not set within timeout`)
-      }
-    }, 10000)
-
     // Use a getter/setter to know when window.Piwik becomes available
     let _windowPiwik
     Object.defineProperty(window, 'Piwik', {
@@ -214,11 +205,6 @@ export default (context, inject) => {
         return _windowPiwik
       },
       set (newVal) {
-        clearTimeout(hasPiwikCheck)
-        if (_windowPiwik) {
-          debug(`window.Piwik is already defined`)
-        }
-
         _windowPiwik = newVal
         _tracker = createTracker(delayedCalls)
         delayedCalls = undefined
@@ -254,15 +240,9 @@ export default (context, inject) => {
       const setting = settings[key]
       const fn = setting.shift()
       if (isFn(tracker[fn])) {
-        debug(`Calling matomo.${fn} with args ${JSON.stringify(setting)}`)
-
         tracker[fn].call(null, ...setting)
-      } else {
-        debug(`Unknown matomo function ${fn} with args ${JSON.stringify(setting)}`)
       }
     }
-
-    debug(`Tell matomo to track pageview ${to.fullPath}`, document.title)
 
     // tell Matomo to add a page view (doesnt do anything if tracker is disabled)
     tracker.trackPageView()
@@ -272,8 +252,6 @@ export default (context, inject) => {
   router.afterEach((to, from) => {
     const componentOption = routeOption('matomo', tracker, from, to, store)
     if (componentOption === false) {
-      debug(`Component option returned false, wont (automatically) track pageview ${to.fullPath}`)
-
       return
     }
 
@@ -283,8 +261,6 @@ export default (context, inject) => {
 
 function createTracker (delayedCalls = []) {
   if (!window.Piwik) {
-    debug(`window.Piwik not initialized, unable to create a tracker`)
-
     return
   }
 
@@ -299,26 +275,11 @@ function createTracker (delayedCalls = []) {
     }
   }
 
-  debug(`Created tracker for siteId 12 to //pwk.psln.nl/piwik.php`)
-
-  // wrap all Piwik functions for verbose logging
-  Object.keys(tracker).forEach((key) => {
-    const fn = tracker[key]
-    if (isFn(fn)) {
-      tracker[key] = (...args) => {
-        debug(`Calling tracker.${key} with args ${JSON.stringify(args)}`)
-        return fn.call(tracker, ...args)
-      }
-    }
-  })
-
   tracker.setDoNotTrack(true)
 
   while (delayedCalls.length) {
     const [fnName, ...args] = delayedCalls.shift()
     if (isFn(tracker[fnName])) {
-      debug(`Calling delayed ${fnName} on tracker`)
-
       tracker[fnName](...args)
     }
   }

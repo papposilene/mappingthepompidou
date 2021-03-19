@@ -36,7 +36,17 @@
                 <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
-                <canvas id="chartUnknown"></canvas>
+                <div class="flex flex-row">
+                    <canvas id="chartExposed"></canvas>
+                </div>
+                <div class="flex flex-row mt-12">
+                    <div class="flex w-1/2">
+                        <canvas id="chartUnknown"></canvas>
+                    </div>
+                    <div class="flex w-1/2">
+
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -73,7 +83,8 @@ export default {
             },
             { immediate: true }
         ),
-        this.renderChart()
+        this.renderExposedChart(),
+        this.renderUnknownChart()
     },
     methods: {
         async fetchData() {
@@ -81,7 +92,7 @@ export default {
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/artworks?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksStreamData = response.data;
                     this.artworksPaginator = this.artworksStreamData.meta;
@@ -95,10 +106,29 @@ export default {
                 .finally(() => this.artworksLoading = false);
             console.info("Component mounted: Artworks.");
         },
-        async renderChart() {
+        async renderExposedChart() {
             this.chartErrored = false;
             this.chartLoading = false;
-            axios.get('http://localhost:8000/api/statistics/artworks/unknown')
+            axios.get('https://etp.psln.nl/api/statistics/artworks/exposed')
+                .then(response => {
+                    new Chart(document.getElementById('chartExposed').getContext('2d'), {
+                        type: 'pie',
+                        data: response.data.chart,
+                        options: response.data.options,
+                    });
+                    this.chartLoading = false
+                })
+                .catch(error => {
+                    this.chartErrored = true
+                    this.chartError = error.response.data.message || error.message
+                })
+                .finally(() => this.chartLoading = false);
+            console.info("Component mounted: Exposed Chart.js.");
+        },
+        async renderUnknownChart() {
+            this.chartErrored = false;
+            this.chartLoading = false;
+            axios.get('https://etp.psln.nl/api/statistics/artworks/unknown')
                 .then(response => {
                     new Chart(document.getElementById('chartUnknown').getContext('2d'), {
                         type: 'bar',
@@ -112,7 +142,7 @@ export default {
                     this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Chart.js.");
+            console.info("Component mounted: Unknown Chart.js.");
         }
     }
 };

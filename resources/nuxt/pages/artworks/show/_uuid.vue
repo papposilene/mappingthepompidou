@@ -5,7 +5,7 @@
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0">
                 <h2 class="flex flex-col bg-red-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ artistName }}</span>
+                    <span class="text-black">{{ artworkName }}</span>
                 </h2>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-gray-600 p-2">
@@ -78,12 +78,12 @@ window.axios = require('axios');
 export default {
     head() {
         return {
-            title: 'Artistes'
+            title: 'Oeuvre'
         }
     },
     data() {
         return{
-            artistName: 'Chargement en cours',
+            artworkName: 'Chargement en cours',
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
@@ -91,20 +91,22 @@ export default {
             globalArtistCountry: 'nationalité inconnue',
             globalArtistBirth: 'date de naissance inconnue',
             globalArtistDeath: 'date de décès inconnue',
-            artworksErrored: false,
-            artworksLoading: true,
-            artworksStreamData: null,
-            artworksPaginator: {},
-            artworksTotal: 0,
+            artworkErrored: false,
+            artworkLoading: true,
+            artworkStreamData: null,
+            artworkPaginator: {},
+            artworkTotal: 0,
+            artworkNavigart: 0,
+            artworkDate: 'sans date',
+            artworkType: 'sans type',
+            artworkExposed: 0
         }
     },
     created() {
-        this.fetchData()
         this.$watch(
             () => this.$route.params,
             () => {
                 this.fetchData()
-                this.fetchArtworks()
             },
             { immediate: true }
         )
@@ -113,14 +115,20 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('https://etp.psln.nl/api/artists/show/' + this.$route.params.uuid )
+            axios.get('https://etp.psln.nl/api/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.globalStreamData = response.data.data[0];
-                    this.artistName = this.globalStreamData.artist_name;
-                    this.globalArtistGender = this.globalStreamData.artist_gender;
-                    this.globalArtistCountry = this.globalStreamData.nationality.country_flag + ' ' + this.globalStreamData.nationality.country_name;
-                    this.globalArtistBirth = this.globalStreamData.artist_birth;
-                    this.globalArtistDeath = this.globalStreamData.artist_death;
+                    this.artworkName = this.globalStreamData.object_title;
+                    this.globalArtistGender = this.globalStreamData.artists[0].artist_gender;
+                    this.globalArtistCountry = this.globalStreamData.artists[0].nationality.country_flag + ' ' + this.globalStreamData.nationality.country_name;
+                    this.globalArtistBirth = this.globalStreamData.artists[0].artist_birth;
+                    this.globalArtistDeath = this.globalStreamData.artists[0].artist_death;
+
+                    this.artworkNavigart = this.globalStreamData.navigart_id;
+                    this.artworkDate = this.globalStreamData.object_date;
+                    this.artworkType = this.globalStreamData.object_type;
+                    this.artworkExposed = this.globalStreamData.object_visibility;
+
                     this.globalLoading = false;
                 })
                 .catch(error => {
@@ -130,25 +138,6 @@ export default {
                 .finally(() => this.globalLoading = false);
             console.info("Component mounted: Art Movement.");
         },
-        async fetchArtworks() {
-            this.artworksErrored = false;
-            this.artworksLoading = true;
-            let currentPage = this.artworksPaginator.current_page;
-            let pageNumber = currentPage ? currentPage : 1;
-            axios.get('https://etp.psln.nl/api/artists/show/' + this.$route.params.uuid + '/artworks?page=' + pageNumber)
-                .then(response => {
-                    this.artworksLoading = false;
-                    this.artworksStreamData = response.data;
-                    this.artworksPaginator = this.artworksStreamData.meta;
-                    this.artworksTotal = this.artworksStreamData.meta.total;
-                })
-                .catch(error => {
-                    this.artworksErrored = true;
-                    this.artworksError = error.response.data.message || error.message;
-                })
-                .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Movements.");
-        }
     }
 };
 </script>

@@ -109,7 +109,7 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('http://localhost:8000/api/departments/show/' + this.$route.params.slug )
+            axios.get('https://etp.psln.nl/api/departments/show/' + this.$route.params.slug )
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
@@ -131,7 +131,7 @@ export default {
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/departments/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/departments/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;
