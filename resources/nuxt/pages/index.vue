@@ -20,6 +20,10 @@
                     <span class="mb-2">Mouvements</span><br />
                     <span class="mt-2">{{ statMovements }}</span>
                 </h2>
+                <h2 class="flex-1 bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="mb-2">Acquisitions</span><br />
+                    <span class="mt-2">{{ statAcquisitions }}</span>
+                </h2>
             </div>
             <div class="w-full px-0 mt-4">
                 <p class="mb-4">

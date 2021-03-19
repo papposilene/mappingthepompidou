@@ -49,6 +49,14 @@
                         <span class="pb-1 md:pb-0 text-sm">Mouvements</span>
                     </router-link>
                 </li>
+                <li class="mr-6 my-2 md:my-0">
+                    <router-link to="/acquisitions" class="inline-flex py-1 md:py-3 pl-1 align-middle no-underline text-white hover:text-purple-100 border-b-2 hover:border-purple-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        <span class="pb-1 md:pb-0 text-sm">Acquisitions</span>
+                    </router-link>
+                </li>
             </ul>
         </div>
     </nav>

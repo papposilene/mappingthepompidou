@@ -19,6 +19,7 @@
                         <ol class="list-decimal pl-9 font-mono">
                             <li><a href="#api_artists_details">Specific artist</a></li>
                             <li><a href="#api_artists_gender">Gender</a></li>
+                            <li><a href="#api_artists_nationalities">Nationalities</a></li>
                             <li><a href="#api_artists_nationality">Nationality</a></li>
                         </ol>
                     </li>
@@ -642,6 +643,157 @@
                             </td>
                             <td class="px-3 pb-2">
                                 <span class="font-mono">asc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">navigart_id</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_name</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_type</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_gender</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_birth</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_death</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_nationality</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_nationalities">GET /api/artists/nationalities</h3>
+                <p>
+                    <span class="font-mono">/api/artists/nationalities</span> returns informations about all nationalities of artists.
+                </p>
+                <table class="table-fixed my-4 w-full">
+                    <thead>
+                        <tr class="bg-gray-700">
+                            <th class="w-3/12 py-3">Parameters</th>
+                            <th class="w-3/12 py-3">Format</th>
+                            <th class="w-1/12 py-3">Default</th>
+                            <th class="w-5/12 py-3">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-700">
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">artist_nationality</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="text-green-400">Optional.</span> Query string.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">created_at</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">asc</span> or
+                                <span class="font-mono">desc</span>
+                            </td>
+                            <td class="px-3 pb-2">
+                                <span class="font-mono">[]</span>
                             </td>
                             <td class="px-3 pb-2">
                                 <span class="text-green-400">Optional.</span> Query string.
