@@ -10,6 +10,7 @@ use App\Models\Movement;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class StatisticController extends Controller
 {
@@ -119,31 +120,27 @@ class StatisticController extends Controller
     {
         $globalAcquisitions = Acquisition::withCount(['acquiredArtists', 'acquiredArtworks'])
             ->where('acquisition_slug', $slug)
-            ->orderBy('acquired_artists_count', 'desc')->first();
+            ->orderBy('acquired_artists_count', 'desc')->firstOrFail();
 
-        $artworkDepartment = [];
+        $arrayDepartments = array();
         $globalDepartments = Department::all();
         $globalArtworks = Artwork::with(['acquiredBy', 'inDepartment'])->where('acquisition_uuid', $globalAcquisitions->uuid)->pluck('department_uuid');
         foreach($globalArtworks as $artworkDepartment) {
             $department = $globalDepartments->where('uuid', $artworkDepartment)->pluck('department_name')->first();
-            //dd($department);
-            $artworkDepartment[$department] += 1;
+            if (!array_key_exists($department, $arrayDepartments)) {
+                $arrayDepartments[$department] = 0;
+            }
+            (int) $arrayDepartments[$department]++;
         }
-        dd($artworkDepartment);
-
-        $chartAcquisitions = $globalAcquisitions->acquiredArtworks()->get();
-        dd($chartAcquisitions);
+        arsort($arrayDepartments);
 
         $statistics = collect([
-            'data' => [
-                'total' => count($globalAcquisitions),
-            ],
             'chart' => [
-                'labels' => $chartAcquisitions->pluck('acquisition_name'),
+                'labels' => array_keys($arrayDepartments),
                 'datasets' => [
                     [
                         'label' => 'Oeuvres par type d’acquisition',
-                        'data' => $chartAcquisitions->pluck('acquired_artworks_count'),
+                        'data' => array_values($arrayDepartments),
                         'backgroundColor' => [
                             '#F87171',
                             '#FBBF24',
@@ -165,7 +162,7 @@ class StatisticController extends Controller
                     'display' => true,
                     'fontColor' => '#fff',
                     'position' => 'top',
-                    'text' => 'Nombre d’oeuvres par type d’acquisition',
+                    'text' => 'Classement des départements pour ce type d’acquisition',
                 ],
                 'responsive' => true,
                 'legend' => [

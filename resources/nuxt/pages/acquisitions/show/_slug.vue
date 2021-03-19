@@ -7,7 +7,7 @@
                 <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ acquisitionName }}</span>
                 </h2>
-                <ol class="px-4">
+                <ol class="px-4 mb-12">
                     <li class="p-2 mb-2 bg-blue-300 text-black rounded">
                         <span class="flex float-right">
                             {{ globalGenderMen }}
@@ -33,7 +33,9 @@
                         <span>Inconnu</span>
                     </li>
                 </ol>
-                <canvas id="chartAcquisitions"></canvas>
+                <div class="h-96">
+                    <canvas id="chartAcquisitions"></canvas>
+                </div>
             </div>
 
             <div class="flex-col w-8/12 px-0">
@@ -71,6 +73,7 @@
 
 <script>
 window.axios = require('axios');
+import Chart from 'chart.js';
 
 export default {
     head() {
@@ -152,10 +155,10 @@ export default {
         async renderChart() {
             this.chartErrored = false
             this.chartLoading = false
-            axios.get('http://localhost:8000/api/statistics/acquisitions/show/' + this.$route.params.slug + '/departments')
+            axios.get('http://localhost:8000/api/statistics/acquisitions/for-' + this.$route.params.slug + '/departments')
                 .then(response => {
                     new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
-                        type: 'bar',
+                        type: 'pie',
                         data: response.data.chart,
                         options: response.data.options,
                     });
