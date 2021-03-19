@@ -20,7 +20,14 @@ package-lock.json
 
 .dockerfile/sql
 
+# MacOS
 .DS_Store
+
+# NuxtJS
+.nuxtjs/
+dist/
+
+# Laravel 7
 database/data/
 storage/*.key
 storage/*.index
