@@ -94,7 +94,7 @@ class Acquisition extends Model
     {
         return $this->hasMany(
             'App\Models\Artwork',
-            'department_uuid',
+            'acquisition_uuid',
             'uuid'
         );
     }

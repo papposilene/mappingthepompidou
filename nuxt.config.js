@@ -27,7 +27,7 @@ export default {
         baseURL: process.env.API_URL,
     },
     head: {
-        titleTemplate: '%s - Mapping The Centre Pompidou',
+        titleTemplate: '%s - Exploring The Centre Pompidou',
         meta: [
           { charset: 'utf-8' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },

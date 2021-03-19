@@ -3,7 +3,7 @@
 	    <div class="container w-full mx-auto flex flex-wrap items-center mt-0 py-4">
             <h1>
                 <router-link to="/" class="text-gray-100 text-3xl no-underline hover:no-underline font-bold">
-                    Mapping The Pompidou
+                    Exploring The Pompidou
                 </router-link>
             </h1>
         </div>

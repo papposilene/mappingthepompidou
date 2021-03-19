@@ -3,60 +3,70 @@
     "name": "acquisitions",
     "path": "/acquisitions",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/acquisitions/index.vue",
-    "chunkName": "pages/acquisitions/index"
+    "chunkName": "pages/acquisitions/index",
+    "_name": "_7dc9defc"
   },
   {
     "name": "api",
     "path": "/api",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/api.vue",
-    "chunkName": "pages/api"
+    "chunkName": "pages/api",
+    "_name": "_78a75037"
   },
   {
     "name": "artists",
     "path": "/artists",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artists/index.vue",
-    "chunkName": "pages/artists/index"
+    "chunkName": "pages/artists/index",
+    "_name": "_3124706c"
   },
   {
     "name": "artworks",
     "path": "/artworks",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artworks/index.vue",
-    "chunkName": "pages/artworks/index"
+    "chunkName": "pages/artworks/index",
+    "_name": "_479045b5"
   },
   {
     "name": "departments",
     "path": "/departments",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/index.vue",
-    "chunkName": "pages/departments/index"
+    "chunkName": "pages/departments/index",
+    "_name": "_237c05fe"
   },
   {
     "name": "movements",
     "path": "/movements",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements/index.vue",
-    "chunkName": "pages/movements/index"
+    "chunkName": "pages/movements/index",
+    "_name": "_794360c4"
   },
   {
     "name": "acquisitions-show-slug",
     "path": "/acquisitions/show/:slug?",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/acquisitions/show/_slug.vue",
-    "chunkName": "pages/acquisitions/show/_slug"
+    "chunkName": "pages/acquisitions/show/_slug",
+    "_name": "_0780973e"
   },
   {
     "name": "departments-show-slug",
     "path": "/departments/show/:slug?",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/show/_slug.vue",
-    "chunkName": "pages/departments/show/_slug"
+    "chunkName": "pages/departments/show/_slug",
+    "_name": "_5bf37459"
   },
   {
     "name": "movements-show-uuid",
     "path": "/movements/show/:uuid?",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/movements/show/_uuid.vue",
-    "chunkName": "pages/movements/show/_uuid"
+    "chunkName": "pages/movements/show/_uuid",
+    "_name": "_5d4ef386"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/index.vue",
-    "chunkName": "pages/index"
+    "chunkName": "pages/index",
+    "_name": "_13ccd5af"
   }
 ]
