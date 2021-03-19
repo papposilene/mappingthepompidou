@@ -107,7 +107,7 @@ export default {
             axios.get('http://localhost:8000/api/statistics/artists/genders')
                 .then(response => {
                     new Chart(document.getElementById('chartArtistsGenders').getContext('2d'), {
-                        type: 'bar',
+                        type: 'pie',
                         data: response.data.chart,
                         options: response.data.options,
                     });
@@ -119,7 +119,7 @@ export default {
                 })
                 .finally(() => this.chartLoading = false);
             console.info("Component mounted: Chart.js.");
-        }
+        },
     }
 };
 </script>

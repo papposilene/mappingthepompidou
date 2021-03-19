@@ -101,7 +101,7 @@ export default {
             axios.get('http://localhost:8000/api/statistics/artworks/unknown')
                 .then(response => {
                     new Chart(document.getElementById('chartUnknown').getContext('2d'), {
-                        type: 'horizontalBar',
+                        type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });

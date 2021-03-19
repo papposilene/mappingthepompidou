@@ -8,13 +8,16 @@
                     <span class="text-black">{{ artistName }}</span>
                 </h2>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
-                    <li class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                    <li class="flex border-b border-gray-600 p-2">
+                        Genre : {{ globalArtistGender }}.
+                    </li>
+                    <li class="flex border-b border-gray-600 p-2">
                         Nationalité : {{ globalArtistCountry }}.
                     </li>
-                    <li class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                    <li class="flex border-b border-gray-600 p-2">
                         Date de naissance : {{ globalArtistBirth }}.
                     </li>
-                    <li class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                    <li class="flex border-b border-gray-600 p-2">
                         Date de décès : {{ globalArtistDeath }}.
                     </li>
                 </ul>
@@ -84,6 +87,7 @@ export default {
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
+            globalArtistGender: 'genre inconnu',
             globalArtistCountry: 'nationalité inconnue',
             globalArtistBirth: 'date de naissance inconnue',
             globalArtistDeath: 'date de décès inconnue',
@@ -113,6 +117,7 @@ export default {
                 .then(response => {
                     this.globalStreamData = response.data.data[0];
                     this.artistName = this.globalStreamData.artist_name;
+                    this.globalArtistGender = this.globalStreamData.artist_gender;
                     this.globalArtistCountry = this.globalStreamData.nationality.country_flag + ' ' + this.globalStreamData.nationality.country_name;
                     this.globalArtistBirth = this.globalStreamData.artist_birth;
                     this.globalArtistDeath = this.globalStreamData.artist_death;
