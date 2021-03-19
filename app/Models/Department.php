@@ -98,4 +98,19 @@ class Department extends Model
             'uuid'
         );
     }
+
+    /**
+     * Get all the artists for a specific museum department.
+     */
+    public function conservedArtists()
+    {
+        return $this->hasManyThrough(
+            'App\Models\Artist',
+            'App\Models\Artwork',
+            'department_uuid',
+            'uuid',
+            'uuid',
+            'artist_uuid',
+        );
+    }
 }

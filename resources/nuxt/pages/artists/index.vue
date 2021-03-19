@@ -34,7 +34,7 @@
             </div>
 
             <div class="flex-col w-8/12 px-0 mt-4">
-                <h2 class="flex flex-col bg-yellow-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="mb-2">{{ artistsTotal }} artists</span>
                 </h2>
                 <canvas id="chartArtistsGenders"></canvas>

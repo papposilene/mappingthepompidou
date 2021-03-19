@@ -32,7 +32,7 @@
             </div>
 
             <div class="flex-col w-8/12 px-0 mt-4 min-h-screen">
-                <h2 class="flex flex-col bg-pink-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ acquisitionsTotal }} types d’acquisitions</span>
                 </h2>
                 <canvas id="chartAcquisitions"></canvas>
@@ -61,7 +61,7 @@ export default {
             acquisitionsPaginator: {},
             acquisitionsTotal: 0,
             chartErrored: false,
-            chartLoading: true,
+            chartLoading: true
         }
     },
     created() {

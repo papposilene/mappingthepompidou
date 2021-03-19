@@ -27,12 +27,12 @@
             </div>
             <div class="w-full px-0 mt-4">
                 <p class="mb-4">
-                    <em>Mapping the Pompidou</em> repose sur une extraction de la base de données du Centre national d'art moderne,
+                    <em>Exploring The Pompidou</em> vous permet de vous plonger visuellement dans les collections du Centre national d'art moderne,
                     plus connu sous le nom de Centre Pompidou.
                 </p>
                 <p class="mb-4">
-                    Cette extraction, réalisée sans qu'une API officielle et publique n'existe,
-                    se contente strictement des informations utiles pour les visualisations envisagées. Les données récupérées sont celles
+                    Ce site repose sur une extraction des données disponibles dans Navigart. Réalisée sans qu'une API officielle et publique n'existe,
+                    elle se contente strictement des informations utiles pour les visualisations envisagées. Les données récupérées sont celles
                     disponibles à la date du 16 mars 2021 sur le site des collections du Centre Pompidou (via
                     l'<a href="https://collection.centrepompidou.fr/" class="underline" target="_blank" rel="noopener">application Navigart</a> de
                     <a href="https://www.videomuseum.fr/" class="underline" target="_blank" rel="noopener">Videomuseum</a>),

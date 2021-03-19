@@ -32,7 +32,7 @@
             </div>
 
             <div class="flex-col w-8/12 px-0 mt-4 min-h-screen">
-                <h2 class="flex flex-col bg-indigo-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ departmentsTotal }} départements</span>
                 </h2>
                 <canvas id="chartDepartments"></canvas>

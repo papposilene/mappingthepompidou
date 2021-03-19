@@ -48,6 +48,7 @@ Route::middleware('api')->namespace('Api')->group(function () {
     // Statistics
     Route::get('/statistics', 'StatisticController@index')->name('api.statistic.index');
     Route::get('/statistics/acquisitions', 'StatisticController@acquisitions')->name('api.statistic.acquisitions');
+    Route::get('/statistics/acquisitions/for-{slug}/departments', 'StatisticController@acquisitionsDepartments')->name('api.statistic.acquisitions.departments');
     Route::get('/statistics/artists/genders', 'StatisticController@genders')->name('api.statistic.artists.genders');
     Route::get('/statistics/artworks/unknown', 'StatisticController@unknown')->name('api.statistic.artworks.unknown');
     Route::get('/statistics/departments', 'StatisticController@departments')->name('api.statistic.departments');

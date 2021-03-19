@@ -110,6 +110,76 @@ class StatisticController extends Controller
     }
 
     /**
+     * Retrieve statistics about departements for a specified acquisition type.
+     *
+     * @param  slug  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function acquisitionsDepartments($slug)
+    {
+        $globalAcquisitions = Acquisition::withCount(['acquiredArtists', 'acquiredArtworks'])
+            ->where('acquisition_slug', $slug)
+            ->orderBy('acquired_artists_count', 'desc')->first();
+
+        $artworkDepartment = [];
+        $globalDepartments = Department::all();
+        $globalArtworks = Artwork::with(['acquiredBy', 'inDepartment'])->where('acquisition_uuid', $globalAcquisitions->uuid)->pluck('department_uuid');
+        foreach($globalArtworks as $artworkDepartment) {
+            $department = $globalDepartments->where('uuid', $artworkDepartment)->pluck('department_name')->first();
+            //dd($department);
+            $artworkDepartment[$department] += 1;
+        }
+        dd($artworkDepartment);
+
+        $chartAcquisitions = $globalAcquisitions->acquiredArtworks()->get();
+        dd($chartAcquisitions);
+
+        $statistics = collect([
+            'data' => [
+                'total' => count($globalAcquisitions),
+            ],
+            'chart' => [
+                'labels' => $chartAcquisitions->pluck('acquisition_name'),
+                'datasets' => [
+                    [
+                        'label' => 'Oeuvres par type d’acquisition',
+                        'data' => $chartAcquisitions->pluck('acquired_artworks_count'),
+                        'backgroundColor' => [
+                            '#F87171',
+                            '#FBBF24',
+                            '#34D399',
+                            '#60A5FA',
+                            '#818CF8',
+                            '#FCA5A5',
+                            '#FCD34D',
+                            '#6EE7B7',
+                            '#93C5FD',
+                            '#A5B4FC',
+                        ],
+                        'borderColor' => '#fff',
+                    ],
+                ],
+            ],
+            'options' => [
+                'title' => [
+                    'display' => true,
+                    'fontColor' => '#fff',
+                    'position' => 'top',
+                    'text' => 'Nombre d’oeuvres par type d’acquisition',
+                ],
+                'responsive' => true,
+                'legend' => [
+                    'display' => false,
+                    'position' => 'bottom',
+                    'fontColor' => '#fff',
+                ],
+            ],
+        ])->all();
+
+        return $statistics;
+    }
+
+    /**
      * Retrieve statistics about departments.
      *
      * @return \Illuminate\Http\Response

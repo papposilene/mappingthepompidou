@@ -4,13 +4,39 @@
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-indigo-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ departmentName }}</span>
                 </h2>
+                <ol class="px-4">
+                    <li class="p-2 mb-2 bg-blue-300 text-black rounded">
+                        <span class="flex float-right">
+                            {{ globalGenderMen }}
+                        </span>
+                        <span>Hommes</span>
+                    </li>
+                    <li class="p-2 mb-2 bg-red-300 text-black rounded">
+                        <span class="flex float-right">
+                            {{ globalGenderWomen }}
+                        </span>
+                        <span>Femmes</span>
+                    </li>
+                    <li class="p-2 mb-2 bg-purple-300 text-black rounded">
+                        <span class="flex float-right">
+                            {{ globalGenderGroups }}
+                        </span>
+                        <span>Groupes</span>
+                    </li>
+                    <li class="p-2 mb-2 bg-gray-300 text-black rounded">
+                        <span class="flex float-right">
+                            {{ globalGenderUnknown }}
+                        </span>
+                        <span>Inconnu</span>
+                    </li>
+                </ol>
             </div>
 
             <div class="flex-col w-8/12 px-0">
-                <h2 class="flex flex-col bg-yellow-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
                 <div v-if="artworksLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
@@ -57,6 +83,10 @@ export default {
             globalErrored: false,
             globalLoading: true,
             globalStreamData: null,
+            globalGenderMen : 0,
+            globalGenderWomen: 0,
+            globalGenderGroups: 0,
+            globalGenderUnknown: 0,
             artworksErrored: false,
             artworksLoading: true,
             artworksStreamData: null,
@@ -84,6 +114,10 @@ export default {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
                     this.departmentName = this.globalStreamData.department_name;
+                    this.globalGenderMen = this.globalStreamData.artists.gender_men;
+                    this.globalGenderWomen = this.globalStreamData.artists.gender_women;
+                    this.globalGenderGroups = this.globalStreamData.artists.gender_groups;
+                    this.globalGenderUnknown = this.globalStreamData.artists.gender_unknown;
                 })
                 .catch(error => {
                     this.globalErrored = true;

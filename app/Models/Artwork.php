@@ -131,7 +131,7 @@ class Artwork extends Model
     /**
      * Get the department for a specific artwork.
      */
-    public function inDepartement()
+    public function inDepartment()
     {
         return $this->hasOne(
             'App\Models\Department',

@@ -72,6 +72,7 @@ class DepartmentController extends Controller
         Department::where('department_slug', $slug)->firstOrFail();
         return DepartmentResource::collection(Department::where('department_slug', $slug)->withCount(
             [
+                'conservedArtists',
                 'conservedArtworks',
             ])->get());
     }

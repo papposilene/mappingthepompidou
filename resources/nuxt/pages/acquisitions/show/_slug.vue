@@ -4,39 +4,40 @@
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-row w-full px-0 mt-12">
             <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-pink-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ acquisitionName }}</span>
                 </h2>
                 <ol class="px-4">
-                    <li class="p-2 bg-blue-400 text-black">
+                    <li class="p-2 mb-2 bg-blue-300 text-black rounded">
                         <span class="flex float-right">
                             {{ globalGenderMen }}
                         </span>
                         <span>Hommes</span>
                     </li>
-                    <li class="p-2 bg-red-400 text-black">
+                    <li class="p-2 mb-2 bg-red-300 text-black rounded">
                         <span class="flex float-right">
                             {{ globalGenderWomen }}
                         </span>
                         <span>Femmes</span>
                     </li>
-                    <li class="p-2 bg-purple-400 text-black">
+                    <li class="p-2 mb-2 bg-purple-300 text-black rounded">
                         <span class="flex float-right">
                             {{ globalGenderGroups }}
                         </span>
                         <span>Groupes</span>
                     </li>
-                    <li class="p-2 bg-gray-400 text-black">
+                    <li class="p-2 mb-2 bg-gray-300 text-black rounded">
                         <span class="flex float-right">
                             {{ globalGenderUnknown }}
                         </span>
                         <span>Inconnu</span>
                     </li>
                 </ol>
+                <canvas id="chartAcquisitions"></canvas>
             </div>
 
             <div class="flex-col w-8/12 px-0">
-                <h2 class="flex flex-col bg-yellow-100 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
                 <div v-if="artworksLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
@@ -53,7 +54,7 @@
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
                                             Date de création : {{ data2.object_date ? data2.object_date : 'sans date' }}.<br />
-                                            Département : {{ data2.museum_department }}.
+                                            Département : {{ data2.museum_department.department_name }}.
                                         </span>
                                     </router-link>
                                 </li>
@@ -91,7 +92,9 @@ export default {
             artworksLoading: true,
             artworksStreamData: null,
             artworksPaginator: {},
-            artworksTotal: 0
+            artworksTotal: 0,
+            chartErrored: false,
+            chartLoading: true
         }
     },
     created() {
@@ -103,7 +106,8 @@ export default {
                 this.fetchArtworks()
             },
             { immediate: true }
-        )
+        ),
+        this.renderChart()
     },
     methods: {
         async fetchData() {
@@ -144,6 +148,25 @@ export default {
                 })
                 .finally(() => this.artworksLoading = false);
             console.info("Component mounted: Artworks by Acquisitions.");
+        },
+        async renderChart() {
+            this.chartErrored = false
+            this.chartLoading = false
+            axios.get('http://localhost:8000/api/statistics/acquisitions/show/' + this.$route.params.slug + '/departments')
+                .then(response => {
+                    new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
+                        type: 'bar',
+                        data: response.data.chart,
+                        options: response.data.options,
+                    });
+                    this.chartLoading = true
+                })
+                .catch(error => {
+                    this.chartErrored = true;
+                    this.chartError = error.response.data.message || error.message;
+                })
+                .finally(() => this.chartLoading = false);
+            console.info("Component mounted: Chart.js.");
         }
     }
 };
