@@ -69,7 +69,7 @@ class MovementController extends Controller
     public function artists($uuid)
     {
         Movement::findOrFail($uuid);
-        return ArtistMovementResource::collection(ArtistMovement::where('movement_uuid', $uuid)->paginate(20));
+        return ArtistMovementResource::collection(ArtistMovement::where('movement_uuid', $uuid)->paginate(10));
     }
 
     /**
@@ -81,7 +81,7 @@ class MovementController extends Controller
     public function artworks($uuid)
     {
         Movement::findOrFail($uuid);
-        return ArtworkMovementResource::collection(ArtworkMovement::where('movement_uuid', $uuid)->paginate(20));
+        return ArtworkMovementResource::collection(ArtworkMovement::where('movement_uuid', $uuid)->paginate(10));
     }
 
     /**

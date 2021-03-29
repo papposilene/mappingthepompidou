@@ -46,7 +46,7 @@ class DepartmentController extends Controller
         return DepartmentResource::collection(Department::withCount(
             [
                 'conservedArtworks',
-            ])->orderBy($order_key, $order_value)->paginate(20));
+            ])->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -58,7 +58,7 @@ class DepartmentController extends Controller
     public function artworks($slug)
     {
         $department = Department::where('department_slug', $slug)->firstOrFail();
-        return ArtworkResource::collection(Artwork::where('department_uuid', $department->uuid)->orderBy('object_date', 'desc')->paginate(20));
+        return ArtworkResource::collection(Artwork::where('department_uuid', $department->uuid)->orderBy('object_date', 'desc')->paginate(10));
     }
 
     /**

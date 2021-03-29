@@ -43,7 +43,7 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::orderBy($order_key, $order_value)->paginate(20));
+        return ArtworkResource::collection(Artwork::orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -80,7 +80,7 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('acquisition_date', $year)->orderBy($order_key, $order_value)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('acquisition_date', $year)->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -117,7 +117,7 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('acquisition_type', $slug)->orderBy($order_key, $order_value)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('acquisition_type', $slug)->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -154,7 +154,7 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('object_visibility', $bool)->orderBy($order_key, $order_value)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('object_visibility', $bool)->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -191,7 +191,7 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('object_date', 'LIKE', '%' . $year . '%')->orderBy($order_key, $order_value)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('object_date', 'LIKE', '%' . $year . '%')->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**

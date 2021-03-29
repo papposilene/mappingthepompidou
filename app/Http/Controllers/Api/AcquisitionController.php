@@ -50,7 +50,7 @@ class AcquisitionController extends Controller
                 'acquiredArtists',
                 'acquiredArtworks',
                 //'acquiredMovements',
-            ])->orderBy($order_key, $order_value)->paginate(20));
+            ])->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -62,7 +62,7 @@ class AcquisitionController extends Controller
     public function artworks($slug)
     {
         $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->orderBy('object_date', 'desc')->paginate(20));
+        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->orderBy('object_date', 'desc')->paginate(10));
     }
 
     /**

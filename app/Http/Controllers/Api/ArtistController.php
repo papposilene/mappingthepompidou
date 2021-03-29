@@ -44,7 +44,7 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(20));
+        return ArtistResource::collection(Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -57,7 +57,7 @@ class ArtistController extends Controller
     {
         Artist::findOrFail($uuid);
 
-        return ArtworkResource::collection(Artwork::where('artist_uuid', $uuid)->paginate(20));
+        return ArtworkResource::collection(Artwork::where('artist_uuid', $uuid)->paginate(10));
     }
 
     /**
@@ -99,7 +99,7 @@ class ArtistController extends Controller
 
         if ($gender === 'unknown') $gender = null;
 
-        return ArtistResource::collection(Artist::where('artist_gender', $gender)->orderBy($order_key, $order_value)->paginate(20));
+        return ArtistResource::collection(Artist::where('artist_gender', $gender)->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -133,7 +133,7 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::orderBy($order_key, $order_value)->paginate(20));
+        return ArtistResource::collection(Artist::orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -168,7 +168,7 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::where('artist_nationality', $cca3)->orderBy($order_key, $order_value)->paginate(20));
+        return ArtistResource::collection(Artist::where('artist_nationality', $cca3)->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
