@@ -47,7 +47,7 @@
             <div class="flex-col w-9/12 px-0 mt-4">
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions">GET /api/acquisitions</h2>
                 <p>
-                    <span class="font-mono">/api/acquisitions</span> returns a listing of all valid types of accessions.
+                    <span class="font-mono">/api/1.1/acquisitions</span> returns a listing of all valid types of accessions.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -123,7 +123,7 @@
                 </table>
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions_details">GET /api/acquisitions/show/{slug}</h2>
                 <p>
-                    <span class="font-mono">/api/acquisitions/show/{slug}</span> returns informations for a specified type of accessions.
+                    <span class="font-mono">/api/1.1/acquisitions/show/{slug}</span> returns informations for a specified type of accessions.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -213,7 +213,7 @@
                 </table>
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions_details_artworks">GET /api/acquisitions/show/{slug}/artworks</h2>
                 <p>
-                    <span class="font-mono">/api/acquisitions/show/{slug}/artworks</span> returns informations about artworks for a specified type of accessions.
+                    <span class="font-mono">/api/1.1/acquisitions/show/{slug}/artworks</span> returns informations about artworks for a specified type of accessions.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -303,7 +303,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists">GET /api/artists</h2>
                 <p>
-                    <span class="font-mono">/api/artists</span> returns a listing of all artists.
+                    <span class="font-mono">/api/1.1/artists</span> returns a listing of all artists.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -454,7 +454,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_details">GET /api/artists/show/{uuid}</h2>
                 <p>
-                    <span class="font-mono">/api/artists/show/{uuid}</span> returns informations for a specified artist.
+                    <span class="font-mono">/api/1.1/artists/show/{uuid}</span> returns informations for a specified artist.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -604,7 +604,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_gender">GET /api/artists/gender</h3>
                 <p>
-                    <span class="font-mono">/api/artists/gender/{gender}</span> returns informations about genders for artists.
+                    <span class="font-mono">/api/1.1/artists/gender/{gender}</span> returns informations about genders for artists.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -757,7 +757,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_nationalities">GET /api/artists/nationalities</h3>
                 <p>
-                    <span class="font-mono">/api/artists/nationalities</span> returns informations about all nationalities of artists.
+                    <span class="font-mono">/api/1.1/artists/nationalities</span> returns informations about all nationalities of artists.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -908,7 +908,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artists_nationality">GET /api/artists/nationality/{cca3}</h3>
                 <p>
-                    <span class="font-mono">/api/artists/nationality/{cca3}</span> returns informations about artists for a specified country.
+                    <span class="font-mono">/api/1.1/artists/nationality/{cca3}</span> returns informations about artists for a specified country.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -1058,7 +1058,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks">GET /api/artworks</h2>
                 <p>
-                    <span class="font-mono">/api/artworks</span> returns a listing of all valid artworks.
+                    <span class="font-mono">/api/1.1/artworks</span> returns a listing of all valid artworks.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -1269,7 +1269,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_acquisitiondate">GET /api/artworks/acquisition_date/{year}</h3>
                 <p>
-                    <span class="font-mono">/api/artworks/acquisition_date/{year}</span> returns informations on artworks for a specified accession year.
+                    <span class="font-mono">/api/1.1/artworks/acquisition_date/{year}</span> returns informations on artworks for a specified accession year.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -1494,7 +1494,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_exposed">GET /api/artworks/exposed/{bool}</h3>
                 <p>
-                    <span class="font-mono">/api/artworks/exposed/{bool}</span> returns informations on currently exposed (or not) artworks.
+                    <span class="font-mono">/api/1.1/artworks/exposed/{bool}</span> returns informations on currently exposed (or not) artworks.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -1719,7 +1719,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_year">GET /api/artworks/year/{year}</h3>
                 <p>
-                    <span class="font-mono">/api/artworks/year/{year}</span> returns artwork's informations for a specified year.
+                    <span class="font-mono">/api/1.1/artworks/year/{year}</span> returns artwork's informations for a specified year.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -1944,7 +1944,7 @@
                 </table>
                 <h3 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_artworks_acquisitiontype">GET /api/artworks/acquisition_type/{slug}</h3>
                 <p>
-                    <span class="font-mono">/api/artworks/acquisition_type/{slug}</span> returns informations for a valid accession type.
+                    <span class="font-mono">/api/1.1/artworks/acquisition_type/{slug}</span> returns informations for a valid accession type.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -2169,7 +2169,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_departments">GET /api/departments</h2>
                 <p>
-                    <span class="font-mono">/api/departments</span> returns a listing of all valid museum departments available to use.
+                    <span class="font-mono">/api/1.1/departments</span> returns a listing of all valid museum departments available to use.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -2245,7 +2245,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_departments_details">GET /api/departments/{slug}</h2>
                 <p>
-                    <span class="font-mono">/api/departments/{slug}</span> returns informations for a valid museum departement.
+                    <span class="font-mono">/api/1.1/departments/{slug}</span> returns informations for a valid museum departement.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -2335,7 +2335,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_departments_details_artworks">GET /api/departments/{slug}/artworks</h2>
                 <p>
-                    <span class="font-mono">/api/departments/{slug}/artworks</span> returns informations for a valid museum department and all associated artworks.
+                    <span class="font-mono">/api/1.1/departments/{slug}/artworks</span> returns informations for a valid museum department and all associated artworks.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -2425,7 +2425,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_movements">GET /api/movements</h2>
                 <p>
-                    <span class="font-mono">/api/movements</span> returns a listing of all valid art movements available to use.
+                    <span class="font-mono">/api/1.1/movements</span> returns a listing of all valid art movements available to use.
                 </p>
                 <table class="table-fixed my-4 w-full">
                     <thead>
@@ -2501,7 +2501,7 @@
                 </table>
                 <h2 class="mb-4 mt-6 font-mono font-bold text-xl" id="api_statistics">GET /api/statistics</h2>
                 <p>
-                    <span class="font-mono">/api/statistics</span> returns a listing of all valid statistics available to use.
+                    <span class="font-mono">/api/1.1/statistics</span> returns a listing of all valid statistics available to use.
                 </p>
             </div>
         </div>
