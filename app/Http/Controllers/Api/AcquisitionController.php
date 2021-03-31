@@ -11,6 +11,7 @@ use App\Http\Resources\ArtistResource;
 use App\Http\Resources\ArtworkResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class AcquisitionController extends Controller
 {
@@ -45,12 +46,14 @@ class AcquisitionController extends Controller
             }
         }
 
-        return AcquisitionResource::collection(Acquisition::withCount(
-            [
-                'acquiredArtists',
-                'acquiredArtworks',
-                //'acquiredMovements',
-            ])->orderBy($order_key, $order_value)->paginate(10));
+        if (Cache::has('_acquisitions_data_withcounts')) {
+            $acquisitions_data = Cache::get('_acquisitions_data_withcounts');
+        } else {
+            $acquisitions_data = Acquisition::withCount(['acquiredArtists', 'acquiredArtworks'])->get();
+            Cache::put('_acquisitions_data_withcounts', $acquisitions_data);
+        }
+
+        return AcquisitionResource::collection($acquisitions_data->orderBy($order_key, $order_value)->paginate(10));
     }
 
     /**
@@ -62,7 +65,15 @@ class AcquisitionController extends Controller
     public function artworks($slug)
     {
         $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return ArtworkResource::collection(Artwork::where('acquisition_uuid', $acquisition->uuid)->orderBy('object_date', 'desc')->paginate(10));
+
+        if (Cache::has('_artworks_data_for-' . $slug)) {
+            $artworks_data = Cache::get('_artworks_data_for-' . $slug);
+        } else {
+            $artworks_data = Artwork::where('acquisition_uuid', $acquisition->uuid)->get();
+            Cache::put('_artworks_data_for-' . $slug, $artworks_data);
+        }
+
+        return ArtworkResource::collection($artworks_data->orderBy('object_date', 'desc')->paginate(10));
     }
 
     /**
@@ -74,12 +85,19 @@ class AcquisitionController extends Controller
     public function show($slug)
     {
         Acquisition::where('acquisition_slug', $slug)->firstOrFail();
-        return AcquisitionResource::collection(Acquisition::where('acquisition_slug', $slug)->withCount(
-            [
-                'acquiredArtists',
-                'acquiredArtworks',
-                //'acquiredMovements',
-            ])->get());
+
+        if (Cache::has('_acquisitions_data_withcounts_for-' . $slug)) {
+            $acquisitions_data = Cache::get('_acquisitions_data_withcounts_for-' . $slug);
+        } else {
+            $acquisitions_data = Acquisition::where('acquisition_slug', $slug)->withCount(
+                [
+                    'acquiredArtists',
+                    'acquiredArtworks',
+                ])->get();
+            Cache::put('_acquisitions_data_withcounts_for-' . $slug, $acquisitions_data);
+        }
+
+        return AcquisitionResource::collection($acquisitions_data);
     }
 
 }

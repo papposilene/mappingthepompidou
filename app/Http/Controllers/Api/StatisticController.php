@@ -62,11 +62,32 @@ class StatisticController extends Controller
                 Cache::put('_movements_count', $movements_count);
             }
 
-            if (Cache::has('_artists_data')) {
-                $artists_data = Cache::get('_artists_data');
+            if (Cache::has('_artists_gender_woman_count')) {
+                $artists_genderWomen = Cache::get('_artists_gender_woman_count');
             } else {
-                $artists_data = Artist::all();
-                Cache::put('_artists_data', $artists_data);
+                $artists_genderWomen = Artist::where('artist_gender', 'woman')->count();
+                Cache::put('_artists_gender_woman_count', $artists_genderWomen);
+            }
+
+            if (Cache::has('_artists_gender_man_count')) {
+                $artists_genderMen = Cache::get('_artists_gender_man_count');
+            } else {
+                $artists_genderMen = Artist::where('artist_gender', 'man')->count();
+                Cache::put('_artists_gender_man_count', $artists_genderMen);
+            }
+
+            if (Cache::has('_artists_gender_group_count')) {
+                $artists_genderGroups = Cache::get('_artists_gender_group_count');
+            } else {
+                $artists_genderGroups = Artist::where('artist_gender', 'group')->count();
+                Cache::put('_artists_gender_group_count', $artists_genderGroups);
+            }
+
+            if (Cache::has('_artists_gender_unknown_count')) {
+                $artists_genderUnknown = Cache::get('_artists_gender_unknown_count');
+            } else {
+                $artists_genderUnknown = Artist::where('artist_gender', null)->count();
+                Cache::put('_artists_gender_unknown_count', $artists_genderUnknown);
             }
 
             if (Cache::has('_artworks_exposed')) {
@@ -90,10 +111,10 @@ class StatisticController extends Controller
                     ],
                     'artists' => [
                         'total' => $artists_count,
-                        'gender_women' => $artists_data->where('artist_gender', 'woman')->count(),
-                        'gender_men' => $artists_data->where('artist_gender', 'man')->count(),
-                        'gender_groups' => $artists_data->where('artist_gender', 'group')->count(),
-                        'gender_unknown' => $artists_data->where('artist_gender', null)->count(),
+                        'gender_women' => $artists_genderWomen,
+                        'gender_men' => $artists_genderMen,
+                        'gender_groups' => $artists_genderGroups,
+                        'gender_unknown' => $artists_genderUnknown,
                     ],
                     'artworks' => [
                         'total' => $artworks_count,
@@ -204,7 +225,7 @@ class StatisticController extends Controller
             if (Cache::has('_departments_data')) {
                 $departments_data = Cache::get('_departments_data');
             } else {
-                $departments_data = Department::all();
+                $departments_data = Department::withCount(['conservedArtworks'])->get();
                 Cache::put('_departments_data', $departments_data);
             }
 
@@ -283,19 +304,31 @@ class StatisticController extends Controller
         if (Cache::has($cache_key)) {
             $statistics = Cache::get($cache_key);
         } else {
-            $globalDepartments = Department::all();
-            $chartDepartments = Department::withCount(['conservedArtworks'])->orderBy('conserved_artworks_count', 'desc')->limit(10)->get();
+            if (Cache::has('_departments_count')) {
+                $departments_count = Cache::get('_departments_count');
+            } else {
+                $departments_count = Department::count();
+                Cache::put('_departments_count', $departments_count);
+            }
+
+            if (Cache::has('_departments_data')) {
+                $departments_data = Cache::get('_departments_data');
+            } else {
+                $departments_data = Department::withCount(['conservedArtists', 'conservedArtworks'])
+                    ->orderBy('conserved_artworks_count', 'desc')->get();
+                Cache::put('_departments_data', $departments_data);
+            }
 
             $statistics = collect([
                 'data' => [
-                    'total' => count($globalDepartments),
+                    'total' => $departments_count,
                 ],
                 'chart' => [
-                    'labels' => $chartDepartments->pluck('department_name'),
+                    'labels' => $departments_data->pluck('department_name'),
                     'datasets' => [
                         [
                             'label' => 'Oeuvre par département',
-                            'data' => $chartDepartments->pluck('conserved_artworks_count'),
+                            'data' => $departments_data->pluck('conserved_artworks_count'),
                             'backgroundColor' => [
                                 '#F87171',
                                 '#FBBF24',
@@ -305,8 +338,6 @@ class StatisticController extends Controller
                                 '#FCA5A5',
                                 '#FCD34D',
                                 '#6EE7B7',
-                                '#93C5FD',
-                                '#A5B4FC',
                             ],
                             'borderColor' => '#000',
                         ],
@@ -339,48 +370,71 @@ class StatisticController extends Controller
      */
     public function exposed()
     {
-        $artworksTotal = Artwork::count();
-        $artworksExposed = Artwork::where('object_visibility', true)->count();
-        $artworksStocked = Artwork::where('object_visibility', false)->count();
+        $cache_key = 'api_statistics_exposed';
 
-        $statistics = collect([
-            'data' => [
-                'total' => $artworksTotal,
-                'total_visible' => $artworksExposed,
-                'total_invisible' => $artworksStocked,
-            ],
-            'chart' => [
-                'labels' => ['Oeuvres exposées', 'Oeuvres non exposées'],
-                'datasets' => [
-                    [
-                        'label' => 'Oeuvres visibles/non exposées',
-                        'data' => [
-                            $artworksExposed,
-                            $artworksStocked,
+        if (Cache::has($cache_key)) {
+            $statistics = Cache::get($cache_key);
+        } else {
+            if (Cache::has('_artworks_count')) {
+                $artworks_count = Cache::get('_artworks_count');
+            } else {
+                $artworks_count = Artwork::count();
+                Cache::put('_artworks_count', $artworks_count);
+            }
+
+            if (Cache::has('_artworks_exposed')) {
+                $artworksExposed_count = Cache::get('_artworks_exposed');
+            } else {
+                $artworksExposed_count = Artwork::where('object_visibility', true)->count();
+                Cache::put('_artworks_exposed', $artworksExposed_count);
+            }
+
+            if (Cache::has('_artworks_stocked')) {
+                $artworksStocked_count = Cache::get('_artworks_stocked');
+            } else {
+                $artworksStocked_count = Artwork::where('object_visibility', false)->count();
+                Cache::put('_artworks_stocked', $artworksStocked_count);
+            }
+
+            $statistics = collect([
+                'data' => [
+                    'total' => $artworks_count,
+                    'total_visible' => $artworksExposed_count,
+                    'total_invisible' => $artworksStocked_count,
+                ],
+                'chart' => [
+                    'labels' => ['Oeuvres exposées', 'Oeuvres non exposées'],
+                    'datasets' => [
+                        [
+                            'label' => 'Oeuvres visibles/non exposées',
+                            'data' => [
+                                $artworksExposed_count,
+                                $artworksStocked_count,
+                            ],
+                            'backgroundColor' => [
+                                '#F87171',
+                                '#60A5FA',
+                            ],
+                            'borderColor' => '#000',
                         ],
-                        'backgroundColor' => [
-                            '#F87171',
-                            '#60A5FA',
-                        ],
-                        'borderColor' => '#000',
                     ],
                 ],
-            ],
-            'options' => [
-                'title' => [
-                    'display' => true,
-                    'fontColor' => '#fff',
-                    'position' => 'top',
-                    'text' => 'Proportion d’oeuvres visibles/non exposées',
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'fontColor' => '#fff',
+                        'position' => 'top',
+                        'text' => 'Proportion d’oeuvres visibles/non exposées',
+                    ],
+                    'responsive' => true,
+                    'legend' => [
+                        'display' => true,
+                        'position' => 'bottom',
+                        'fontColor' => '#fff',
+                    ],
                 ],
-                'responsive' => true,
-                'legend' => [
-                    'display' => true,
-                    'position' => 'bottom',
-                    'fontColor' => '#fff',
-                ],
-            ],
-        ])->all();
+            ])->all();
+        }
 
         return $statistics;
     }
@@ -392,55 +446,90 @@ class StatisticController extends Controller
      */
     public function genders()
     {
-        $artists = Artist::all();
-        $genderWomen = $artists->where('artist_gender', 'woman')->count();
-        $genderMen = $artists->where('artist_gender', 'man')->count();
-        $genderGroups = $artists->where('artist_gender', 'group')->count();
-        $genderUnknown = $artists->where('artist_gender', null)->count();
+        $cache_key = 'api_statistics_genders';
 
-        $statistics = collect([
-            'data' => [
-                'total' => count($artists),
-                'men' => $genderMen,
-                'women' => $genderWomen,
-                'groups' => $genderGroups,
-                'unknown' => $genderUnknown,
-            ],
-            'chart' => [
-                'labels' => ['Men', 'Women', 'Groups', 'Genre inconnu'],
-                'datasets' => [
-                    [
-                        'data' => [
-                            $genderMen,
-                            $genderWomen,
-                            $genderGroups,
-                            $genderUnknown,
+        if (Cache::has($cache_key)) {
+            $statistics = Cache::get($cache_key);
+        } else {
+            if (Cache::has('_artists_count')) {
+                $artists_count = Cache::get('_artists_count');
+            } else {
+                $artists_count = Artist::count();
+                Cache::put('_artists_count', $artists_count);
+            }
+
+            if (Cache::has('_artists_gender_woman_count')) {
+                $artists_genderWomen = Cache::get('_artists_gender_woman_count');
+            } else {
+                $artists_genderWomen = Artist::where('artist_gender', 'woman')->count();
+                Cache::put('_artists_gender_woman_count', $artists_genderWomen);
+            }
+
+            if (Cache::has('_artists_gender_man_count')) {
+                $artists_genderMen = Cache::get('_artists_gender_man_count');
+            } else {
+                $artists_genderMen = Artist::where('artist_gender', 'man')->count();
+                Cache::put('_artists_gender_man_count', $artists_genderMen);
+            }
+
+            if (Cache::has('_artists_gender_group_count')) {
+                $artists_genderGroups = Cache::get('_artists_gender_group_count');
+            } else {
+                $artists_genderGroups = Artist::where('artist_gender', 'group')->count();
+                Cache::put('_artists_gender_group_count', $artists_genderGroups);
+            }
+
+            if (Cache::has('_artists_gender_unknown_count')) {
+                $artists_genderUnknown = Cache::get('_artists_gender_unknown_count');
+            } else {
+                $artists_genderUnknown = Artist::where('artist_gender', null)->count();
+                Cache::put('_artists_gender_unknown_count', $artists_genderUnknown);
+            }
+
+            $statistics = collect([
+                'data' => [
+                    'total' => $artists_count,
+                    'men' => $artists_genderMen,
+                    'women' => $artists_genderWomen,
+                    'groups' => $artists_genderGroups,
+                    'unknown' => $artists_genderUnknown,
+                ],
+                'chart' => [
+                    'labels' => ['Men', 'Women', 'Groups', 'Genre inconnu'],
+                    'datasets' => [
+                        [
+                            'data' => [
+                                $artists_genderMen,
+                                $artists_genderWomen,
+                                $artists_genderGroups,
+                                $artists_genderUnknown,
+                            ],
+                            'backgroundColor' => [
+                                '#60A5FA',
+                                '#F87171',
+                                '#A78BFA',
+                                '#9CA3AF',
+                            ],
+                            'label' => 'Genres des artistes',
                         ],
-                        'backgroundColor' => [
-                            '#60A5FA',
-                            '#F87171',
-                            '#A78BFA',
-                            '#9CA3AF',
-                        ],
-                        'label' => 'Genres des artistes',
                     ],
                 ],
-            ],
-            'options' => [
-                'title' => [
-                    'display' => true,
-                    'fontColor' => '#fff',
-                    'position' => 'top',
-                    'text' => 'Genres des artistes conservés au Centre Pompidou',
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'fontColor' => '#fff',
+                        'position' => 'top',
+                        'text' => 'Genres des artistes conservés au Centre Pompidou',
+                    ],
+                    'responsive' => true,
+                    'legend' => [
+                        'display' => false,
+                        'position' => 'bottom',
+                        'fontColor' => '#fff',
+                    ],
                 ],
-                'responsive' => true,
-                'legend' => [
-                    'display' => false,
-                    'position' => 'bottom',
-                    'fontColor' => '#fff',
-                ],
-            ],
-        ])->all();
+            ])->all();
+        }
 
         return $statistics;
     }
@@ -452,57 +541,73 @@ class StatisticController extends Controller
      */
     public function movements()
     {
-        $globalMovements = Movement::count();
-        // Offset(1) to avoid unknown art movement
-        $chartMovements = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->limit(10)->offset(1)->get();
+        $cache_key = 'api_statistics_movements';
 
-        $statistics = collect([
-            'data' => [
-                'total' => $globalMovements,
-            ],
-            'chart' => [
-                'labels' => $chartMovements->pluck('movement_name'),
-                'datasets' => [
-                    [
-                        'label' => 'Oeuvre par mouvement',
-                        'data' => $chartMovements->pluck('has_artworks_count'),
-                        'backgroundColor' => '#F87171',
-                        'borderColor' => '#000',
-                    ],
-                    [
-                        'label' => 'Artistes par mouvement',
-                        'data' => $chartMovements->pluck('has_inspired_count'),
-                        'backgroundColor' => '#60A5FA',
-                        'borderColor' => '#000',
-                    ],
+        if (Cache::has($cache_key)) {
+            $statistics = Cache::get($cache_key);
+        } else {
+            if (Cache::has('_movements_count')) {
+                $movements_count = Cache::get('_movements_count');
+            } else {
+                $movements_count = Movement::count();
+                Cache::put('_movements_count', $movements_count);
+            }
+
+            if (Cache::has('_movements_data')) {
+                $movements_data = Cache::get('_movements_data');
+            } else {
+                $movements_data = Movement::withCount(['hasArtworks', 'hasInspired'])->orderBy('has_artworks_count', 'desc')->get();
+                Cache::put('_movements_data', $movements_data);
+            }
+
+            $statistics = collect([
+                'data' => [
+                    'total' => $movements_count,
                 ],
-            ],
-            'options' => [
-                'title' => [
-                    'display' => true,
-                    'fontColor' => '#fff',
-                    'position' => 'top',
-                    'text' => 'Top 10 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
-                ],
-                'responsive' => true,
-                'legend' => [
-                    'display' => true,
-                    'position' => 'bottom',
-                    'fontColor' => '#fff',
-                ],
-                'scales' => [
-                    'xAxes' => [
+                'chart' => [
+                    'labels' => $movements_data->splice(1, 10)->pluck('movement_name'),
+                    'datasets' => [
                         [
-                            //'id' => 'first-y-axis',
-                            'type' => 'linear',
-                            'ticks' => [
-                                'beginAtZero' => false,
+                            'label' => 'Oeuvre par mouvement',
+                            'data' => $movements_data->splice(1, 10)->pluck('has_artworks_count'),
+                            'backgroundColor' => '#F87171',
+                            'borderColor' => '#000',
+                        ],
+                        [
+                            'label' => 'Artistes par mouvement',
+                            'data' => $movements_data->splice(1, 10)->pluck('has_inspired_count'),
+                            'backgroundColor' => '#60A5FA',
+                            'borderColor' => '#000',
+                        ],
+                    ],
+                ],
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'fontColor' => '#fff',
+                        'position' => 'top',
+                        'text' => 'Top 10 des mouvements artistisques (classés par le nombre d’oeuvres conservées)',
+                    ],
+                    'responsive' => true,
+                    'legend' => [
+                        'display' => true,
+                        'position' => 'bottom',
+                        'fontColor' => '#fff',
+                    ],
+                    'scales' => [
+                        'xAxes' => [
+                            [
+                                //'id' => 'first-y-axis',
+                                'type' => 'linear',
+                                'ticks' => [
+                                    'beginAtZero' => false,
+                                ],
                             ],
                         ],
                     ],
                 ],
-            ],
-        ])->all();
+            ])->all();
+        }
 
         return $statistics;
     }
@@ -514,59 +619,88 @@ class StatisticController extends Controller
      */
     public function unknown()
     {
-        $chartAnonymous = Artist::where('artist_type', 'anonyme')->count();
-        $chartArtistUnknown = Artist::where('artist_type', 'anonyme')->withCount('hasArtworks')->get();
-        $chartArtworkNoDate = Artwork::where('object_date', null)->count();
-        $departmentUnknown = Department::where('department_slug', 'inconnu')->first();
-        $chartNoDepartment = Artwork::where('department_uuid', $departmentUnknown->uuid)->count();
+        $cache_key = '_api_statistics_unknwon';
 
-        $chartTotalArtistUnknown = 0;
-        foreach ($chartArtistUnknown as $noArtist) {
-            $chartTotalArtistUnknown += (int) $noArtist->has_artworks_count;
-        }
+        if (Cache::has($cache_key)) {
+            $statistics = Cache::get($cache_key);
+        } else {
+            if (Cache::has('_statistics_artists_anonymous')) {
+                $artists_anonymous = Cache::get('_statistics_artists_anonymous');
+            } else {
+                $artists_anonymous = Artist::where('artist_type', 'anonyme')->count();
+                Cache::put('_statistics_artists_anonymous', $artists_anonymous);
+            }
 
-        $statistics = collect([
-            'data' => [
-                'artist_unknown' => $chartAnonymous,
-                'artwork_artist_unknown' => $chartTotalArtistUnknown,
-                'artwork_date_unknown' => $chartArtworkNoDate,
-                'department_unknown' => $chartNoDepartment,
-            ],
-            'chart' => [
-                'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
-                'datasets' => [
-                    [
-                        'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
-                        'data' => [
-                            $chartAnonymous,
-                            $chartTotalArtistUnknown,
-                            $chartArtworkNoDate,
-                            $chartNoDepartment,
-                        ],
-                        'backgroundColor' => [
-                            '#F87171',
-                            '#60A5FA',
-                            '#A78BFA',
-                            '#9CA3AF',
+            if (Cache::has('_statistics_artworks_noauthor')) {
+                $artworks_noauthor = Cache::get('_statistics_artworks_noauthor');
+            } else {
+                $artworks_noauthor = Artist::where('artist_type', 'anonyme')->withCount('hasArtworks')->get();
+                Cache::put('_statistics_artworks_noauthor', $artworks_noauthor);
+            }
+
+            if (Cache::has('_statistics_artworks_nodate')) {
+                $artworks_nodate = Cache::get('_statistics_artworks_nodate');
+            } else {
+                $artworks_nodate = Artwork::where('object_date', null)->count();
+                Cache::put('_statistics_artworks_nodate', $artworks_nodate);
+            }
+
+            if (Cache::has('_statistics_artworks_nodepartment')) {
+                $statistics_artworks_nodepartment = Cache::get('_statistics_artworks_nodepartment');
+            } else {
+                $departmentUnknown = Department::where('department_slug', 'inconnu')->first();
+                $statistics_artworks_nodepartment = Artwork::where('department_uuid', $departmentUnknown->uuid)->count();
+                Cache::put('_statistics_artworks_nodepartment', $statistics_artworks_nodepartment);
+            }
+
+            $chartTotalArtistUnknown = 0;
+            foreach ($artworks_noauthor as $noArtist) {
+                $chartTotalArtistUnknown += (int) $noArtist->has_artworks_count;
+            }
+
+            $statistics = collect([
+                'data' => [
+                    'artist_unknown' => $artists_anonymous,
+                    'artwork_artist_unknown' => $chartTotalArtistUnknown,
+                    'artwork_date_unknown' => $artworks_nodate,
+                    'department_unknown' => $statistics_artworks_nodepartment,
+                ],
+                'chart' => [
+                    'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
+                    'datasets' => [
+                        [
+                            'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
+                            'data' => [
+                                $artists_anonymous,
+                                $chartTotalArtistUnknown,
+                                $artworks_nodate,
+                                $statistics_artworks_nodepartment,
+                            ],
+                            'backgroundColor' => [
+                                '#F87171',
+                                '#60A5FA',
+                                '#A78BFA',
+                                '#9CA3AF',
+                            ],
                         ],
                     ],
                 ],
-            ],
-            'options' => [
-                'title' => [
-                    'display' => true,
-                    'fontColor' => '#fff',
-                    'position' => 'top',
-                    'text' => 'Statistiques sur les oeuvres orphelines (auteur, datation, département)',
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'fontColor' => '#fff',
+                        'position' => 'top',
+                        'text' => 'Statistiques sur les oeuvres orphelines (auteur, datation, département)',
+                    ],
+                    'responsive' => true,
+                    'legend' => [
+                        'display' => false,
+                        'position' => 'bottom',
+                        'fontColor' => '#fff',
+                    ],
                 ],
-                'responsive' => true,
-                'legend' => [
-                    'display' => false,
-                    'position' => 'bottom',
-                    'fontColor' => '#fff',
-                ],
-            ],
-        ])->all();
+            ])->all();
+        }
 
         return $statistics;
     }
