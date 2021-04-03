@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('1.1')->middleware('api')->namespace('API')->group(function () {
+Route::prefix('1.1')->namespace('API')->group(function () {
     // Acquisitions
     Route::get('/acquisitions', 'AcquisitionController@index')->name('api.acquisition.index');
     Route::get('/acquisitions/show/{slug}', 'AcquisitionController@show')->name('api.acquisition.show');

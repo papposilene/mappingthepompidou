@@ -35,8 +35,8 @@ class AcquisitionController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'acquired_artists_count';
-            $order_value = 'desc';
+            $order_key = 'acquisition_name';
+            $order_value = 'asc';
         } else {
             $order_key = array_keys($query)[0];
             $order_value = $query[array_keys($query)[0]];
@@ -46,14 +46,9 @@ class AcquisitionController extends Controller
             }
         }
 
-        if (Cache::has('_acquisitions_data_withcounts')) {
-            $acquisitions_data = Cache::get('_acquisitions_data_withcounts');
-        } else {
-            $acquisitions_data = Acquisition::withCount(['acquiredArtists', 'acquiredArtworks'])->get();
-            Cache::put('_acquisitions_data_withcounts', $acquisitions_data);
-        }
-
-        return AcquisitionResource::collection($acquisitions_data->orderBy($order_key, $order_value)->paginate(10));
+        return AcquisitionResource::collection(
+            Acquisition::orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**

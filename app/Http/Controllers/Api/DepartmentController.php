@@ -44,18 +44,10 @@ class DepartmentController extends Controller
             }
         }
 
-        if (Cache::has('_departments_data_withcounts')) {
-            $departments_data = Cache::get('_departments_data_withcounts');
-        } else {
-            $departments_data = Department::withCount(
-                [
-                    'conservedArtists',
-                    'conservedArtworks',
-                ])->orderBy($order_key, $order_value)->get();
-            Cache::put('_departments_data_withcounts', $departments_data);
-        }
-
-        return DepartmentResource::collection($departments_data->paginate(10));
+        return DepartmentResource::collection(
+            Department::withCount('conservedArtworks')
+                ->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -68,14 +60,10 @@ class DepartmentController extends Controller
     {
         $department = Department::where('department_slug', $slug)->firstOrFail();
 
-        if (Cache::has('_artworks_data_for-' . $slug)) {
-            $artworks_data = Cache::get('_artworks_data_for-' . $slug);
-        } else {
-            $artworks_data = Artwork::where('department_uuid', $department->uuid)->get();
-            Cache::put('_artworks_data_for-' . $slug, $artworks_data);
-        }
-
-        return ArtworkResource::collection($artworks_data->orderBy('object_date', 'desc')->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('department_uuid', $department->uuid)
+                ->orderBy('object_date', 'desc')->paginate(10)
+        );
     }
 
     /**
@@ -88,18 +76,10 @@ class DepartmentController extends Controller
     {
         Department::where('department_slug', $slug)->firstOrFail();
 
-        if (Cache::has('_departments_data_withcounts_for-' . $slug)) {
-            $departments_data = Cache::get('_departments_data_withcounts_for-' . $slug);
-        } else {
-            $departments_data = Department::where('department_slug', $slug)->withCount(
-                [
-                    'conservedArtists',
-                    'conservedArtworks',
-                ])->get();
-            Cache::put('_departments_data_withcounts_for-' . $slug, $departments_data);
-        }
-
-        return DepartmentResource::collection($departments_data);
+        return DepartmentResource::collection(
+            Department::where('department_slug', $slug)
+                ->withCount('conservedArtworks')->get()
+        );
     }
 
 }

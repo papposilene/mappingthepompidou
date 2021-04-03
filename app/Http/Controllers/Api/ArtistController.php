@@ -44,7 +44,9 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10));
+        return ArtistResource::collection(
+            Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -57,7 +59,9 @@ class ArtistController extends Controller
     {
         Artist::findOrFail($uuid);
 
-        return ArtworkResource::collection(Artwork::where('artist_uuid', $uuid)->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('artist_uuid', $uuid)->paginate(10)
+        );
     }
 
     /**
@@ -99,7 +103,10 @@ class ArtistController extends Controller
 
         if ($gender === 'unknown') $gender = null;
 
-        return ArtistResource::collection(Artist::where('artist_gender', $gender)->orderBy($order_key, $order_value)->paginate(10));
+        return ArtistResource::collection(
+            Artist::where('artist_gender', $gender)
+                ->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -133,7 +140,9 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::orderBy($order_key, $order_value)->paginate(10));
+        return ArtistResource::collection(
+            Artist::orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -168,7 +177,10 @@ class ArtistController extends Controller
             }
         }
 
-        return ArtistResource::collection(Artist::where('artist_nationality', $cca3)->orderBy($order_key, $order_value)->paginate(10));
+        return ArtistResource::collection(
+            Artist::where('artist_nationality', $cca3)
+                ->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -180,40 +192,8 @@ class ArtistController extends Controller
     public function show($uuid)
     {
         Artist::findOrFail($uuid);
-        return ArtistResource::collection(Artist::where('uuid', $uuid)->withCount('hasArtworks')->get());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($uuid)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $uuid)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($uuid)
-    {
-        //
+        return ArtistResource::collection(
+            Artist::where('uuid', $uuid)->withCount('hasArtworks')->get()
+        );
     }
 }

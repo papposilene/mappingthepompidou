@@ -45,7 +45,9 @@ class MovementController extends Controller
             }
         }
 
-        return MovementResource::collection(Movement::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10));
+        return MovementResource::collection(
+            Movement::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -57,7 +59,10 @@ class MovementController extends Controller
     public function show($uuid)
     {
         Movement::findOrFail($uuid);
-        return MovementResource::collection(Movement::where('uuid', $uuid)->withCount('hasArtworks')->get());
+
+        return MovementResource::collection(
+            Movement::where('uuid', $uuid)->get()
+        );
     }
 
     /**
@@ -69,7 +74,10 @@ class MovementController extends Controller
     public function artists($uuid)
     {
         Movement::findOrFail($uuid);
-        return ArtistMovementResource::collection(ArtistMovement::where('movement_uuid', $uuid)->paginate(10));
+
+        return ArtistMovementResource::collection(
+            ArtistMovement::where('movement_uuid', $uuid)->paginate(10)
+        );
     }
 
     /**
@@ -81,40 +89,9 @@ class MovementController extends Controller
     public function artworks($uuid)
     {
         Movement::findOrFail($uuid);
-        return ArtworkMovementResource::collection(ArtworkMovement::where('movement_uuid', $uuid)->paginate(10));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($uuid)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $uuid)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($uuid)
-    {
-        //
+        return ArtworkMovementResource::collection(
+            ArtworkMovement::where('movement_uuid', $uuid)->paginate(10)
+        );
     }
 }
