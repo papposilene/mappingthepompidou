@@ -144,8 +144,8 @@ export default (ctx, inject) => {
 
   // prefixUrl
   const prefixUrl = process.browser
-      ? (runtimeConfig.browserBaseURL || 'https://etp.psln.nl')
-      : (runtimeConfig.baseURL || process.env._HTTP_BASE_URL_ || 'https://etp.psln.nl')
+      ? (runtimeConfig.browserBaseURL || 'http://localhost:8000')
+      : (runtimeConfig.baseURL || process.env._HTTP_BASE_URL_ || 'http://localhost:8000')
 
   const headers = {}
 
