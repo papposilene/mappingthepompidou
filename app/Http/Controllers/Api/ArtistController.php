@@ -33,8 +33,8 @@ class ArtistController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'has_artworks_count';
-            $order_value = 'desc';
+            $order_key = 'artist_name';
+            $order_value = 'asc';
         } else {
             $order_key = array_keys($query)[0];
             $order_value = $query[array_keys($query)[0]];
@@ -45,7 +45,7 @@ class ArtistController extends Controller
         }
 
         return ArtistResource::collection(
-            Artist::withCount('hasArtworks')->orderBy($order_key, $order_value)->paginate(10)
+            Artist::orderBy($order_key, $order_value)->paginate(10)
         );
     }
 

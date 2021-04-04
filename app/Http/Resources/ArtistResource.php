@@ -17,6 +17,13 @@ class ArtistResource extends JsonResource
     {
         $slug = $this->navigart_id;
 
+        if (Cache::has('_has_artworks_count_for-' . $slug)) {
+            $has_artworks_count = Cache::get('_has_artworks_count_for-' . $slug);
+        } else {
+            $has_artworks_count = $this->hasArtworks()->count();
+            Cache::put('_has_artworks_count_for-' . $slug, $has_artworks_count);
+        }
+
         if (Cache::has('_has_worked_count_for-' . $slug)) {
             $has_worked_count = Cache::get('_has_worked_count_for-' . $slug);
         } else {
@@ -42,9 +49,9 @@ class ArtistResource extends JsonResource
             'nationality' => [
                 'country_uuid' => ($this->hasNationality ? $this->hasNationality->uuid : null),
                 'country_name' => ($this->hasNationality ? $this->hasNationality->name_common_fra : 'Pays inconnu'),
-                'country_flag' => ($this->hasNationality ? $this->hasNationality->flag : null),
+                'country_flag' => ($this->hasNationality ? $this->hasNationality->flag : '🏳️'),
             ],
-            'has_artworks_count' => $this->has_artworks_count,
+            'has_artworks_count' => $has_artworks_count,
             'movements' => [
                 'total' => $has_worked_count,
                 'list' => $has_worked,
