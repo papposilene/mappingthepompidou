@@ -52,7 +52,7 @@
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="artworksPaginator" @paginate="fetchArtworks()" :offset="4" />
                             <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data2 in artworksStreamData.data" :key="data2.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                                <li v-for="data2 in artworkStreamData.data" :key="data2.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
                                     <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">

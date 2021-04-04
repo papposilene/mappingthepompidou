@@ -43,7 +43,9 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::orderBy($order_key, $order_value)->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -80,7 +82,9 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('acquisition_date', $year)->orderBy($order_key, $order_value)->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('acquisition_date', $year)->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -117,7 +121,9 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('acquisition_type', $slug)->orderBy($order_key, $order_value)->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('acquisition_type', $slug)->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -154,7 +160,9 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('object_visibility', $bool)->orderBy($order_key, $order_value)->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('object_visibility', $bool)->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
@@ -191,32 +199,13 @@ class ArtworkController extends Controller
             }
         }
 
-        return ArtworkResource::collection(Artwork::where('object_date', 'LIKE', '%' . $year . '%')->orderBy($order_key, $order_value)->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('object_date', 'LIKE', '%' . $year . '%')->orderBy($order_key, $order_value)->paginate(10)
+        );
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Display the specified artwork.
      *
      * @param  uuid  $uuid
      * @return \Illuminate\Http\Response
@@ -224,40 +213,9 @@ class ArtworkController extends Controller
     public function show($uuid)
     {
         Artwork::findOrFail($uuid);
-        return ArtworkResource::collection(Artwork::where('uuid', $uuid)->get());
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($uuid)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $uuid)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  uuid  $uuid
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($uuid)
-    {
-        //
+        return ArtworkResource::collection(
+            Artwork::where('uuid', $uuid)->get()
+        );
     }
 }

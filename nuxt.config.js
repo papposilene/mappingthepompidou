@@ -40,7 +40,7 @@ export default {
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         bodyAttrs: {
-            class: 'bg-gray-900 sm:m-10'
+            class: 'bg-gray-900 sm:m-8'
         }
     },
     ssr: false,
