@@ -4,36 +4,37 @@
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-col w-full px-0 mt-12">
             <div class="flex flex-wrap w-full px-0 mt-4">
-                <router-link to="/departments">
-                    <h2 class="flex-1 bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex-1 bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <router-link to="/departments">
                         <span class="mb-2">Départements</span><br />
                         <span class="mt-2">{{ statDepartments }}</span>
-                    </h2>
-                </router-link>
-                <router-link to="/artists">
-                    <h2 class="flex-1 bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    </router-link>
+                </h2>
+                <h2 class="flex-1 bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <router-link to="/artists">
                         <span class="mb-2">Artistes</span><br />
                         <span class="mt-2">{{ statArtists }}</span>
-                    </h2>
-                </router-link>
-                <router-link to="/artworks">
-                    <h2 class="flex-1 bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    </router-link>
+                </h2>
+                <h2 class="flex-1 bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <router-link to="/artworks">
                         <span class="mb-2">Oeuvres</span><br />
                         <span class="mt-2">{{ statArtworks }}</span>
-                    </h2>
-                </router-link>
-                <router-link to="/movements">
-                    <h2 class="flex-1 bg-pink-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    </router-link>
+                </h2>
+
+                <h2 class="flex-1 bg-pink-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <router-link to="/movements">
                         <span class="mb-2">Mouvements</span><br />
                         <span class="mt-2">{{ statMovements }}</span>
-                    </h2>
-                </router-link>
-                <router-link to="/acquisitions">
-                    <h2 class="flex-1 bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    </router-link>
+                </h2>
+                <h2 class="flex-1 bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <router-link to="/acquisitions">
                         <span class="mb-2">Acquisitions</span><br />
                         <span class="mt-2">{{ statAcquisitions }}</span>
-                    </h2>
-                </router-link>
+                    </router-link>
+                </h2>
             </div>
             <div class="w-full px-0 mt-4">
                 <p class="mb-4">
@@ -95,7 +96,7 @@ export default {
         async fetchData() {
             this.statErrored = false
             this.statLoading = true
-            axios.get('https://etp.psln.nl/api/1.1/statistics/')
+            axios.get('http://localhost:8000/api/1.1/statistics/')
                 .then(response => {
                     this.statDataStream = response.data.data;
                     this.statAcquisitions = this.statDataStream.acquisitions.total;

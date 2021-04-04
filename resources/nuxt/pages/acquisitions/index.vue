@@ -80,7 +80,7 @@ export default {
             this.acquisitionsLoading = true;
             let currentPage = this.acquisitionsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('https://etp.psln.nl/api/1.1/acquisitions?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/acquisitions?page=' + pageNumber)
                 .then(response => {
                     this.acquisitionsStreamData = response.data;
                     this.acquisitionsPaginator = this.acquisitionsStreamData.meta;
@@ -97,7 +97,7 @@ export default {
         async renderChart() {
             this.chartErrored = false
             this.chartLoading = false
-            axios.get('https://etp.psln.nl/api/1.1/statistics/acquisitions')
+            axios.get('http://localhost:8000/api/1.1/statistics/acquisitions')
                 .then(response => {
                     new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
                         type: 'bar',

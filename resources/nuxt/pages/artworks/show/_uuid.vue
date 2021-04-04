@@ -115,7 +115,7 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('https://etp.psln.nl/api/1.1/artworks/show/' + this.$route.params.uuid )
+            axios.get('http://localhost:8000/api/1.1/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.globalStreamData = response.data.data[0];
                     this.artworkName = this.globalStreamData.object_title;

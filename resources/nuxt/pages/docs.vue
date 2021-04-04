@@ -2,8 +2,8 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div class="flex flex-row w-full px-0 mt-12">
-            <div class="flex-col w-3/12 px-0 mt-4">
+        <div class="flex flex-wrap w-full px-0 mt-12">
+            <div class="md:flex-col md:w-3/12 sm:w-full px-0 mt-4">
                 <p class="font-mono font-bold mb-4 text-xl">Summary</p>
                 <ol class="list-decimal font-mono text-xl">
                     <li>
@@ -44,7 +44,7 @@
                     <li><a href="#api_statistics">Statistics</a></li>
                 </ol>
             </div>
-            <div class="flex-col w-9/12 px-0 mt-4">
+            <div class="md:flex-col md:w-9/12 sm:w-full px-0 mt-4">
                 <h2 class="mb-4 font-mono font-bold text-xl" id="api_acquisitions">GET /api/acquisitions</h2>
                 <p>
                     <span class="font-mono">/api/1.1/acquisitions</span> returns a listing of all valid types of accessions.
@@ -59,21 +59,6 @@
                         </tr>
                     </thead>
                     <tbody class="bg-gray-700">
-                        <tr>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">acquired_artists_count</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">asc</span> or
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="font-mono">desc</span>
-                            </td>
-                            <td class="px-3 pb-2">
-                                <span class="text-green-400">Optional.</span> Query string.
-                            </td>
-                        </tr>
                         <tr>
                             <td class="px-3 pb-2">
                                 <span class="font-mono">created_at</span>
@@ -98,7 +83,7 @@
                                 <span class="font-mono">desc</span>
                             </td>
                             <td class="px-3 pb-2">
-                                <span class="font-mono">[]</span>
+                                <span class="font-mono">asc</span>
                             </td>
                             <td class="px-3 pb-2">
                                 <span class="text-green-400">Optional.</span> Query string.
