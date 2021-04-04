@@ -21,8 +21,8 @@
                                     <router-link :to="`/movements/show/${data.uuid}`" class="w-full">
                                         <span>{{ data.movement_name }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Artistes : {{ data.artists.total }}.
-                                            Oeuvres : {{ data.artworks.total }}.
+                                            Artistes : {{ data.has_artists_count }}.
+                                            Oeuvres : {{ data.has_artworks_count }}.
                                         </span>
                                     </router-link>
                                 </li>

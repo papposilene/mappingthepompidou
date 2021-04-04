@@ -17,13 +17,6 @@ class AcquisitionResource extends JsonResource
     {
         $slug = $this->acquisition_slug;
 
-        if (Cache::has('_acquired_artists_count_for-' . $slug)) {
-            $acquired_artists_count = Cache::get('_acquired_artists_count_for-' . $slug);
-        } else {
-            $acquired_artists_count = $this->acquiredArtists()->count();
-            Cache::put('_acquired_artists_count_for-' . $slug, $acquired_artists_count);
-        }
-
         if (Cache::has('_acquired_artworks_count_for-' . $slug)) {
             $acquired_artworks_count = Cache::get('_acquired_artworks_count_for-' . $slug);
         } else {
@@ -63,7 +56,6 @@ class AcquisitionResource extends JsonResource
             'uuid' => $this->uuid,
             'acquisition_name' => $this->acquisition_name,
             'acquisition_slug' => $this->acquisition_slug,
-            'acquired_artists_count' => $acquired_artists_count,
             'acquired_artworks_count' => $acquired_artworks_count,
             'artists' => [
                 'gender_men' => $men_count,

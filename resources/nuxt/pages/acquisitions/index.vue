@@ -21,7 +21,7 @@
                                     <router-link :to="`/acquisitions/show/${data.acquisition_slug}`" class="w-full">
                                         <span>{{ data.acquisition_name }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Oeuvres entrées par ce type d‘acquisition : {{ data.artworks.total }}.
+                                            Oeuvres entrées par ce type d‘acquisition : {{ data.acquired_artworks_count }}.
                                         </span>
                                     </router-link>
                                 </li>

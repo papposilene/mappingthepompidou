@@ -15,6 +15,22 @@ class ArtistResource extends JsonResource
      */
     public function toArray($request)
     {
+        $slug = $this->navigart_id;
+
+        if (Cache::has('_has_worked_count_for-' . $slug)) {
+            $has_worked_count = Cache::get('_has_worked_count_for-' . $slug);
+        } else {
+            $has_worked_count = $this->hasWorkedFor()->count();
+            Cache::put('_has_worked_count_for-' . $slug, $has_worked_count);
+        }
+
+        if (Cache::has('_has_worked_for-' . $slug)) {
+            $has_worked = Cache::get('_has_worked_for-' . $slug);
+        } else {
+            $has_worked = $this->hasWorkedFor()->get();
+            Cache::put('_has_worked_for-' . $slug, $has_worked);
+        }
+
         return [
             'uuid' => $this->uuid,
             'navigart_id' => $this->navigart_id,
@@ -30,8 +46,8 @@ class ArtistResource extends JsonResource
             ],
             'has_artworks_count' => $this->has_artworks_count,
             'movements' => [
-                'total' => $this->hasWorkedFor()->count(),
-                'list' => $this->hasWorkedFor()->get(),
+                'total' => $has_worked_count,
+                'list' => $has_worked,
             ],
         ];
     }

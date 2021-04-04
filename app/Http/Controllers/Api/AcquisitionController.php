@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Cache;
 class AcquisitionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the acquisition mode.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -52,7 +52,7 @@ class AcquisitionController extends Controller
     }
 
     /**
-     * Retrieve artworks for a specified art movements.
+     * Retrieve artworks for a specified acquisition mode.
      *
      * @param  string  $slug
      * @return \Illuminate\Http\Response
@@ -61,18 +61,13 @@ class AcquisitionController extends Controller
     {
         $acquisition = Acquisition::where('acquisition_slug', $slug)->firstOrFail();
 
-        if (Cache::has('_artworks_data_for-' . $slug)) {
-            $artworks_data = Cache::get('_artworks_data_for-' . $slug);
-        } else {
-            $artworks_data = Artwork::where('acquisition_uuid', $acquisition->uuid)->get();
-            Cache::put('_artworks_data_for-' . $slug, $artworks_data);
-        }
-
-        return ArtworkResource::collection($artworks_data->orderBy('object_date', 'desc')->paginate(10));
+        return ArtworkResource::collection(
+            Artwork::where('acquisition_uuid', $acquisition->uuid)->orderBy('object_date', 'desc')->paginate(10)
+        );
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified acquisition mode.
      *
      * @param  string  $slug
      * @return \Illuminate\Http\Response
@@ -81,18 +76,9 @@ class AcquisitionController extends Controller
     {
         Acquisition::where('acquisition_slug', $slug)->firstOrFail();
 
-        if (Cache::has('_acquisitions_data_withcounts_for-' . $slug)) {
-            $acquisitions_data = Cache::get('_acquisitions_data_withcounts_for-' . $slug);
-        } else {
-            $acquisitions_data = Acquisition::where('acquisition_slug', $slug)->withCount(
-                [
-                    'acquiredArtists',
-                    'acquiredArtworks',
-                ])->get();
-            Cache::put('_acquisitions_data_withcounts_for-' . $slug, $acquisitions_data);
-        }
-
-        return AcquisitionResource::collection($acquisitions_data);
+        return AcquisitionResource::collection(
+            Acquisition::where('acquisition_slug', $slug)->get()
+        );
     }
 
 }

@@ -15,6 +15,22 @@ class ArtworkResource extends JsonResource
      */
     public function toArray($request)
     {
+        $slug = $this->navigart_id;
+
+        if (Cache::has('_has_artists_for-' . $slug)) {
+            $has_artists = Cache::get('_has_artists_count_for-' . $slug);
+        } else {
+            $has_artists = $this->hasArtists()->get();
+            Cache::put('_has_artists_for-' . $slug, $has_artists);
+        }
+
+        if (Cache::has('_in_movements_for-' . $slug)) {
+            $in_movements = Cache::get('_in_movements_for-' . $slug);
+        } else {
+            $in_movements = $this->inMovements()->get();
+            Cache::put('_in_movements_for-' . $slug, $in_movements);
+        }
+
         return [
             'uuid' => $this->uuid,
             'museum_department' => [
@@ -22,7 +38,7 @@ class ArtworkResource extends JsonResource
                 'department_name' => $this->inDepartment->department_name,
                 'department_slug' => $this->inDepartment->department_slug,
             ],
-            'artists' => $this->hasArtists()->get(),
+            'artists' => $has_artists,
             'navigart_id' => $this->navigart_id,
             'object_inventory' => $this->object_inventory,
             'object_title' => $this->object_title,
@@ -40,7 +56,7 @@ class ArtworkResource extends JsonResource
                 'acquisition_slug' => $this->acquiredBy->acquisition_slug,
                 'acquisition_date' => $this->acquisition_date,
             ],
-            'movements' => $this->inMovements()->get(),
+            'movements' => $in_movements,
         ];
     }
 }

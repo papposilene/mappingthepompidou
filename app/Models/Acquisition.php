@@ -98,19 +98,4 @@ class Acquisition extends Model
             'uuid'
         );
     }
-
-    /**
-     * Get all the artists for a specific acquistion type.
-     */
-    public function acquiredArtists()
-    {
-        return $this->hasManyThrough(
-            'App\Models\Artist',
-            'App\Models\Artwork',
-            'acquisition_uuid',
-            'uuid',
-            'uuid',
-            'artist_uuid',
-        );
-    }
 }
