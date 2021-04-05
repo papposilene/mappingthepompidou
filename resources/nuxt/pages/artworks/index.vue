@@ -6,7 +6,7 @@
             Bim bam boum, c'est tout cassé !
         </div>
 
-        <div class="flex flex-row w-full px-0 mt-12">
+        <div class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="flex-col w-4/12 px-0">
                 <div v-if="artworksLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...

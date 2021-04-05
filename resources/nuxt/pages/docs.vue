@@ -2,7 +2,7 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div class="flex flex-wrap w-full px-0 mt-12">
+        <div class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="md:flex-col md:w-3/12 sm:w-full px-0 mt-4">
                 <p class="font-mono font-bold mb-4 text-xl">Summary</p>
                 <ol class="list-decimal font-mono text-xl">

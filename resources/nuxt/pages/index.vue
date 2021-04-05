@@ -2,7 +2,7 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div class="flex flex-col w-full px-0 mt-12">
+        <div class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="flex flex-wrap w-full px-0 mt-4">
                 <h2 class="flex-1 bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <router-link to="/departments">

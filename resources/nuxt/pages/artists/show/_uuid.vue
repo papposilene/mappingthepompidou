@@ -2,7 +2,7 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div class="flex flex-row w-full px-0 mt-12">
+        <div class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="flex-col w-4/12 px-0">
                 <h2 class="flex flex-col bg-red-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artistName }}</span>
