@@ -3,7 +3,7 @@
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="flex-col w-4/12 px-0">
+            <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h2 class="flex flex-col bg-red-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artistName }}</span>
                 </h2>
@@ -15,10 +15,10 @@
                         Nationalité : {{ globalArtistCountry }}.
                     </li>
                     <li class="flex border-b border-gray-600 p-2">
-                        Date de naissance : {{ globalArtistBirth }}.
+                        Date de naissance : {{ globalArtistBirth ? globalArtistBirth : 'inconnue' }}.
                     </li>
                     <li class="flex border-b border-gray-600 p-2">
-                        Date de décès : {{ globalArtistDeath }}.
+                        Date de décès : {{ globalArtistDeath ? globalArtistDeath : 'inconnue' }}.
                     </li>
                 </ul>
 
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="flex-col w-8/12 px-0">
+            <div class="md:flex-col md:w-8/12 sm:w-full px-0">
                 <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
