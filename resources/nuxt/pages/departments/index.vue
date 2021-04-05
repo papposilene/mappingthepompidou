@@ -6,8 +6,8 @@
             Bim bam boum, c'est tout cassé !
         </div>
 
-        <div class="flex flex-row w-full px-0 mt-12">
-            <div class="flex-col w-4/12 px-0">
+        <div class="flex flex-wrap w-full px-0 mt-12">
+            <div class="md:flex-col md:w-4/12 sm:w-full px-0 order-first sm:order-last">
                 <div v-if="departmentsLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="flex-col w-8/12 px-0 mt-4 min-h-screen">
+            <div class="md:flex-col md:w-8/12 sm:w-full px-0 mt-4 md:min-h-screen order-last sm:order-first">
                 <h2 class="flex flex-col bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ departmentsTotal }} départements</span>
                 </h2>
