@@ -3,7 +3,7 @@
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="md:flex-col md:w-4/12 sm:w-full px-0 order-last sm:order-first">
+            <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ acquisitionName }}</span>
                 </h2>
@@ -33,12 +33,12 @@
                         <span>Inconnu</span>
                     </li>
                 </ol>
-                <div class="h-96">
+                <div class="w-full">
                     <canvas id="chartAcquisitions"></canvas>
                 </div>
             </div>
 
-            <div class="md:flex-col md:w-8/12 sm:w-full px-0 mt-4 order-first sm:order-last">
+            <div class="md:flex-col md:w-8/12 sm:w-full px-0">
                 <h3 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h3>

@@ -232,9 +232,9 @@ class StatisticController extends Controller
             if (Cache::has('_acquisitions_chart_top10_for-' . $slug)) {
                 $acquisitions_data_for = Cache::get('_acquisitions_chart_top10_for-' . $slug);
             } else {
-                $acquisitions_data_for = Acquisition::withCount(['acquiredArtists', 'acquiredArtworks'])
+                $acquisitions_data_for = Acquisition::withCount('acquiredArtworks')
                     ->where('acquisition_slug', $slug)
-                    ->orderBy('acquired_artists_count', 'desc')->firstOrFail();
+                    ->orderBy('acquired_artworks_count', 'desc')->firstOrFail();
                 Cache::put('_acquisitions_chart_top10_for-' . $slug, $acquisitions_data_for);
             }
 
