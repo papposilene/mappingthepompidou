@@ -14,7 +14,7 @@ const _0780973e = () => interopDefault(import('../resources/nuxt/pages/acquisiti
 const _216d6cde = () => interopDefault(import('../resources/nuxt/pages/artists/show/_uuid.vue' /* webpackChunkName: "pages/artists/show/_uuid" */))
 const _4ab07d35 = () => interopDefault(import('../resources/nuxt/pages/artworks/show/_uuid.vue' /* webpackChunkName: "pages/artworks/show/_uuid" */))
 const _5bf37459 = () => interopDefault(import('../resources/nuxt/pages/departments/show/_slug.vue' /* webpackChunkName: "pages/departments/show/_slug" */))
-const _5d4ef386 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_uuid.vue' /* webpackChunkName: "pages/movements/show/_uuid" */))
+const _73ce1b14 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_slug.vue' /* webpackChunkName: "pages/movements/show/_slug" */))
 const _13ccd5af = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -69,9 +69,9 @@ export const routerOptions = {
     component: _5bf37459,
     name: "departments-show-slug"
   }, {
-    path: "/movements/show/:uuid?",
-    component: _5d4ef386,
-    name: "movements-show-uuid"
+    path: "/movements/show/:slug?",
+    component: _73ce1b14,
+    name: "movements-show-slug"
   }, {
     path: "/",
     component: _13ccd5af,

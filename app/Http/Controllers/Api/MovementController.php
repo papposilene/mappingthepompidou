@@ -52,45 +52,45 @@ class MovementController extends Controller
     /**
      * Retrieve a specified art movements (artists, artworks).
      *
-     * @param  uuid  $uuid
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($uuid)
+    public function show($slug)
     {
-        Movement::findOrFail($uuid);
+        $movement = Movement::where('movement_slug', $slug)->firstOrFail();
 
         return MovementResource::collection(
-            Movement::where('uuid', $uuid)->get()
+            Movement::where('uuid', $movement->uuid)->get()
         );
     }
 
     /**
      * Retrieve artists for a specified art movements.
      *
-     * @param  uuid  $uuid
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function artists($uuid)
+    public function artists($slug)
     {
-        Movement::findOrFail($uuid);
+        $movement = Movement::where('movement_slug', $slug)->firstOrFail();
 
         return ArtistMovementResource::collection(
-            ArtistMovement::where('movement_uuid', $uuid)->paginate(10)
+            ArtistMovement::where('movement_uuid', $movement->uuid)->paginate(10)
         );
     }
 
     /**
      * Retrieve artworks for a specified art movements.
      *
-     * @param  uuid  $uuid
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function artworks($uuid)
+    public function artworks($slug)
     {
-        Movement::findOrFail($uuid);
+        $movement = Movement::where('movement_slug', $slug)->firstOrFail();
 
         return ArtworkMovementResource::collection(
-            ArtworkMovement::where('movement_uuid', $uuid)->paginate(10)
+            ArtworkMovement::where('movement_uuid', $movement->uuid)->paginate(10)
         );
     }
 }

@@ -18,7 +18,7 @@ class ArtworkResource extends JsonResource
         $slug = $this->navigart_id;
 
         if (Cache::has('_has_artists_for-' . $slug)) {
-            $has_artists = Cache::get('_has_artists_count_for-' . $slug);
+            $has_artists = Cache::get('_has_artists_for-' . $slug);
         } else {
             $has_artists = $this->hasArtists()->get();
             Cache::put('_has_artists_for-' . $slug, $has_artists);

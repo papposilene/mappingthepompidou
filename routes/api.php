@@ -44,9 +44,9 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/departments/show/{slug}/artworks', 'DepartmentController@artworks')->name('api.department.artworks');
     // Art movements
     Route::get('/movements', 'MovementController@index')->name('api.movement.index');
-    Route::get('/movements/show/{uuid}', 'MovementController@show')->name('api.movement.show');
-    Route::get('/movements/show/{uuid}/artists', 'MovementController@artists')->name('api.movement.artists');
-    Route::get('/movements/show/{uuid}/artworks', 'MovementController@artworks')->name('api.movement.artworks');
+    Route::get('/movements/show/{slug}', 'MovementController@show')->name('api.movement.show');
+    Route::get('/movements/show/{slug}/artists', 'MovementController@artists')->name('api.movement.artists');
+    Route::get('/movements/show/{slug}/artworks', 'MovementController@artworks')->name('api.movement.artworks');
     // Statistics
     Route::get('/statistics', 'StatisticController@index')->name('api.statistic.index');
     Route::get('/statistics/acquisitions', 'StatisticController@acquisitions')->name('api.statistic.acquisitions');

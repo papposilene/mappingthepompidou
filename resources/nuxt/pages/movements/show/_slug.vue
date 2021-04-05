@@ -143,7 +143,7 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('http://localhost:8000/api/1.1/movements/show/' + this.$route.params.uuid )
+            axios.get('http://localhost:8000/api/1.1/movements/show/' + this.$route.params.slug )
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
@@ -165,7 +165,7 @@ export default {
             this.artistsLoading = true;
             let currentPage = this.artistsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/1.1/movements/show/' + this.$route.params.uuid + '/artists?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/movements/show/' + this.$route.params.slug + '/artists?page=' + pageNumber)
                 .then(response => {
                     this.artistsLoading = false;
                     this.artistsStreamData = response.data;
@@ -184,7 +184,7 @@ export default {
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/1.1/movements/show/' + this.$route.params.uuid + '/artworks?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/movements/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;

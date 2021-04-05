@@ -3,68 +3,74 @@
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="flex-col w-4/12 px-0">
-                <h2 class="flex flex-col bg-red-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+            <div class="md:flex-col md:w-8/12 sm:w-full px-0">
+                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworkName }}</span>
                 </h2>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
-                    <li class="flex border-b border-gray-600 p-2">
-                        Genre : {{ globalArtistGender }}.
+                    <li class="flex border-b border-yellow-400 p-2">
+                        Date : {{ artworkDate }}.
                     </li>
-                    <li class="flex border-b border-gray-600 p-2">
-                        Nationalité : {{ globalArtistCountry }}.
+                    <li class="flex border-b border-yellow-400 p-2">
+                        Inventaire : {{ artworkInventory }}.
                     </li>
-                    <li class="flex border-b border-gray-600 p-2">
-                        Date de naissance : {{ globalArtistBirth }}.
+                    <li class="flex border-b border-yellow-400 p-2">
+                        Type : {{ artworkType }}.
                     </li>
-                    <li class="flex border-b border-gray-600 p-2">
-                        Date de décès : {{ globalArtistDeath }}.
+                    <li class="flex border-b border-yellow-400 p-2">
+                        Technique : {{ artworkTechnique }}.
+                    </li>
+                    <li class="flex border-b border-yellow-400 p-2">
+                         {{ artworkExposed ? 'Actuellement exposé' : 'Non présent dans le parcours' }}.
+                    </li>
+                    <li class="flex border-b border-yellow-400 p-2">
+                        Droits : {{ artworkCopyright }}.
+                    </li>
+                    <li class="flex border-b border-yellow-400 hover:bg-yellow-400 hover:text-black p-2">
+                        <a :href="artworkLink" class="w-full" target="_blank" rel="noopener">Fiche sur le site des collections du Centre Pompidou.</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="md:flex-col md:w-4/12 sm:w-full px-0">
+                <h3 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="text-black">{{ artistName }}</span>
+                </h3>
+                <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
+                    <li class="flex border-b border-green-400 p-2">
+                        Genre : {{ artistGender }}.
+                    </li>
+                    <li class="flex border-b border-green-400 p-2">
+                        Nationalité : {{ artistCountry }}.
+                    </li>
+                    <li class="flex border-b border-green-400 p-2">
+                        Date de naissance : {{ artistBirth }}.
+                    </li>
+                    <li class="flex border-b border-green-400 p-2">
+                        Date de décès : {{ artistDeath }}.
                     </li>
                 </ul>
 
-                <div v-if="globalLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
-                    Chargement en cours...
-                </div>
-
-                <div v-else class="px-4">
-                    <div class="flex flex-col w-full px-0 mt-4">
-                        <ul class="flex flex-col list-none text-white my-5 rounded">
-                            <li v-for="data1 in globalStreamData.movements.list" :key="data1.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
-                                <router-link :to="`/movements/show/${data1.uuid}`" class="w-full">
-                                    <span>{{ data1.movement_name }}</span><br />
-                                </router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex-col w-8/12 px-0">
-                <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ artworksTotal }} oeuvres</span>
-                </h2>
-                <div v-if="artworksLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
-                    Chargement en cours...
-                </div>
-
-                <div v-else class="px-4">
-                    <div class="flex flex-col w-full px-0 mt-4">
-                        <div class="flex flex-col w-full">
-                            <ThePaginator :pagination="artworksPaginator" @paginate="fetchArtworks()" :offset="4" />
-                            <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data2 in artworkStreamData.data" :key="data2.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
-                                    <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
-                                        <span>{{ data2.object_title }}</span><br />
-                                        <span class="text-gray-400 text-sm">
-                                            Date de création : {{ data2.object_date }}.<br />
-                                            Département : {{ data2.museum_department.department_name }}.
-                                        </span>
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                <h4 class="flex flex-col bg-gray-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="text-black">Informations</span>
+                </h4>
+                <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
+                    <li class="flex border-b border-indigo-400 hover:bg-indigo-400 hover:text-black p-2">
+                        <router-link :to="`/departments/show/${departmentSlug}`" class="w-full">
+                            {{ departmentName }}.
+                        </router-link>
+                    </li>
+                    <li class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
+                        <router-link :to="`/movements/show/${movementSlug}`" class="w-full">
+                            {{ movementName }}.
+                        </router-link>
+                    </li>
+                    <li class="flex border-b border-purple-400 hover:bg-purple-400 hover:text-black p-2">
+                        <router-link :to="`/acquisitions/show/${acquisitionSlug}`" class="w-full">
+                            Entré par {{ acquisitionType }}, en {{ acquisitionDate ? acquisitionDate : 'une année inconnue' }}.
+                        </router-link>
+                    </li>
+                </ul>
             </div>
         </div>
     </main>
@@ -84,22 +90,29 @@ export default {
     data() {
         return{
             artworkName: 'Chargement en cours',
-            globalErrored: false,
-            globalLoading: true,
-            globalStreamData: null,
-            globalArtistGender: 'genre inconnu',
-            globalArtistCountry: 'nationalité inconnue',
-            globalArtistBirth: 'date de naissance inconnue',
-            globalArtistDeath: 'date de décès inconnue',
             artworkErrored: false,
             artworkLoading: true,
             artworkStreamData: null,
-            artworkPaginator: {},
-            artworkTotal: 0,
-            artworkNavigart: 0,
+            artistName: 'Auteur inconnu',
+            artistGender: 'inconnu',
+            artistCountry: 'inconnue',
+            artistBirth: 'inconnue',
+            artistDeath: 'inconnue',
+            artworkLink: '#',
+            artworkTitle: 'sans titre',
             artworkDate: 'sans date',
-            artworkType: 'sans type',
-            artworkExposed: 0
+            artworkInventory: 'inconnu',
+            artworkType: 'inconnu',
+            artworkTechnique: 'inconnue',
+            artworkCopyright: 'domaine public',
+            artworkExposed: 0,
+            acquisitionType: 'inconnu',
+            acquisitionSlug: 'inconnu',
+            acquisitionDate: 'inconnue',
+            departmentName: 'inconnu',
+            departmentSlug: 'inconnu',
+            movementName: 'inconnu',
+            movementSlug: 'unknown'
         }
     },
     created() {
@@ -113,30 +126,41 @@ export default {
     },
     methods: {
         async fetchData() {
-            this.globalErrored = false;
-            this.globalLoading = true;
+            this.artistErrored = false;
+            this.artistLoading = true;
             axios.get('http://localhost:8000/api/1.1/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
-                    this.globalStreamData = response.data.data[0];
-                    this.artworkName = this.globalStreamData.object_title;
-                    this.globalArtistGender = this.globalStreamData.artists[0].artist_gender;
-                    this.globalArtistCountry = this.globalStreamData.artists[0].nationality.country_flag + ' ' + this.globalStreamData.nationality.country_name;
-                    this.globalArtistBirth = this.globalStreamData.artists[0].artist_birth;
-                    this.globalArtistDeath = this.globalStreamData.artists[0].artist_death;
+                    this.artworkStreamData = response.data.data[0];
+                    this.artworkName = this.artworkStreamData.object_title;
+                    this.artworkLink = 'https://collection.centrepompidou.fr/artwork/' + this.artworkStreamData.navigart_id;
+                    this.artworkDate = this.artworkStreamData.object_date;
+                    this.artworkInventory = this.artworkStreamData.object_inventory;
+                    this.artworkType = this.artworkStreamData.object_type;
+                    this.artworkTechnique = this.artworkStreamData.object_technique;
+                    this.artworkCopyright = this.artworkStreamData.object_copyright;
+                    this.artworkExposed = this.artworkStreamData.object_visibility;
+                    this.artistName = this.artworkStreamData.artists[0].artist_name;
+                    this.artistGender = this.artworkStreamData.artists[0].artist_gender;
+                    this.artistCountry = this.artworkStreamData.artists[0].nationality.country_flag + ' ' + this.artworkStreamData.artists[0].nationality.country_name;
+                    this.artistBirth = this.artworkStreamData.artists[0].artist_birth;
+                    this.artistDeath = this.artworkStreamData.artists[0].artist_death;
+                    this.acquisitionType = this.artworkStreamData.acquisition.acquisition_type;
+                    this.acquisitionSlug = this.artworkStreamData.acquisition.acquisition_slug;
+                    this.acquisitionDate = this.artworkStreamData.acquisition.acquisition_date;
+                    this.departmentName = this.artworkStreamData.museum_department.department_name;
+                    this.departmentSlug = this.artworkStreamData.museum_department.department_slug;
+                    this.movementName = this.artworkStreamData.movements[0].movement_name;
+                    this.movementSlug = this.artworkStreamData.movements[0].movement_slug;
 
-                    this.artworkNavigart = this.globalStreamData.navigart_id;
-                    this.artworkDate = this.globalStreamData.object_date;
-                    this.artworkType = this.globalStreamData.object_type;
-                    this.artworkExposed = this.globalStreamData.object_visibility;
 
-                    this.globalLoading = false;
+                    this.artistLoading = false;
                 })
                 .catch(error => {
-                    this.globalErrored = true;
-                    this.globalError = error.response.data.message || error.message;
+                    this.artworkErrored = true;
+                    this.artworkError = error.response.data.message || error.message;
                 })
-                .finally(() => this.globalLoading = false);
-            console.info("Component mounted: Art Movement.");
+                .finally(() => this.artworkLoading = false);
+            console.info("Component mounted: Artwork.");
         },
     }
 };

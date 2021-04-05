@@ -4,20 +4,20 @@
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="md:flex-col md:w-4/12 w-full px-0">
-                <h2 class="flex flex-col bg-red-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artistName }}</span>
                 </h2>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
-                    <li class="flex border-b border-gray-600 p-2">
+                    <li class="flex border-b border-green-400 p-2">
                         Genre : {{ globalArtistGender }}.
                     </li>
-                    <li class="flex border-b border-gray-600 p-2">
+                    <li class="flex border-b border-green-400 p-2">
                         Nationalité : {{ globalArtistCountry }}.
                     </li>
-                    <li class="flex border-b border-gray-600 p-2">
+                    <li class="flex border-b border-green-400 p-2">
                         Date de naissance : {{ globalArtistBirth ? globalArtistBirth : 'inconnue' }}.
                     </li>
-                    <li class="flex border-b border-gray-600 p-2">
+                    <li class="flex border-b border-green-400 p-2">
                         Date de décès : {{ globalArtistDeath ? globalArtistDeath : 'inconnue' }}.
                     </li>
                 </ul>
@@ -29,7 +29,7 @@
                 <div v-else class="px-4">
                     <div class="flex flex-col w-full px-0 mt-4">
                         <ul class="flex flex-col list-none text-white my-5 rounded">
-                            <li v-for="data1 in globalStreamData.movements.list" :key="data1.uuid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                            <li v-for="data1 in globalStreamData.movements.list" :key="data1.uuid" class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
                                 <router-link :to="`/movements/show/${data1.uuid}`" class="w-full">
                                     <span>{{ data1.movement_name }}</span><br />
                                 </router-link>
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="md:flex-col md:w-8/12 sm:w-full px-0">
+            <div class="md:flex-col md:w-8/12 w-full px-0">
                 <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
