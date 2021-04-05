@@ -32,7 +32,7 @@
                 </ul>
             </div>
 
-            <div class="md:flex-col md:w-4/12 sm:w-full px-0">
+            <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h3 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artistName }}</span>
                 </h3>
@@ -106,10 +106,10 @@ export default {
             artworkTechnique: 'inconnue',
             artworkCopyright: 'domaine public',
             artworkExposed: 0,
-            acquisitionType: 'inconnu',
+            acquisitionType: 'mode inconnu',
             acquisitionSlug: 'inconnu',
             acquisitionDate: 'inconnue',
-            departmentName: 'inconnu',
+            departmentName: 'Inconnu',
             departmentSlug: 'inconnu',
             movementName: 'inconnu',
             movementSlug: 'unknown'
@@ -128,7 +128,7 @@ export default {
         async fetchData() {
             this.artistErrored = false;
             this.artistLoading = true;
-            axios.get('http://localhost:8000/api/1.1/artworks/show/' + this.$route.params.uuid )
+            axios.get('https://etp.psln.nl/api/1.1/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.artworkStreamData = response.data.data[0];
                     this.artworkName = this.artworkStreamData.object_title;
@@ -151,8 +151,6 @@ export default {
                     this.departmentSlug = this.artworkStreamData.museum_department.department_slug;
                     this.movementName = this.artworkStreamData.movements[0].movement_name;
                     this.movementSlug = this.artworkStreamData.movements[0].movement_slug;
-
-
                     this.artistLoading = false;
                 })
                 .catch(error => {

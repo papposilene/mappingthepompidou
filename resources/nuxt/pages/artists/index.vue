@@ -87,7 +87,7 @@ export default {
             this.artistsLoading = true
             let currentPage = this.artistsPaginator.current_page
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/1.1/artists/?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/1.1/artists/?page=' + pageNumber)
                 .then(response => {
                     this.artistsLoading = false;
                     this.artistsStreamData = response.data;
@@ -104,7 +104,7 @@ export default {
         renderChart() {
             this.chartErrored = false
             this.chartLoading = true
-            axios.get('http://localhost:8000/api/1.1/statistics/artists/genders')
+            axios.get('https://etp.psln.nl/api/1.1/statistics/artists/genders')
                 .then(response => {
                     new Chart(document.getElementById('chartArtistsGenders').getContext('2d'), {
                         type: 'pie',
