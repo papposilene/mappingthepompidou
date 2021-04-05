@@ -3,7 +3,7 @@
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="flex-col w-4/12 px-0">
+            <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h2 class="flex flex-col bg-pink-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ movementName }}</span>
                 </h2>
@@ -34,7 +34,8 @@
                     </li>
                 </ol>
             </div>
-            <div class="flex-col w-4/12 px-0">
+
+            <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h3 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artistsTotal }} artistes</span>
                 </h3>
@@ -62,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="flex-col w-4/12 px-0">
+            <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h3 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h3>

@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="md:flex-col md:w-8/12 sm:w-full px-0 mt-4 md:min-h-screen order-first sm:order-last">
+            <div class="md:flex-col md:w-8/12 w-full px-0 mt-4 md:min-h-screen order-first sm:order-last">
                 <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ acquisitionsTotal }} types d’acquisitions</span>
                 </h2>
