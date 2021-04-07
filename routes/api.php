@@ -38,6 +38,10 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/artworks/exposed/{bool}', 'ArtworkController@exposed')->name('api.artwork.exposed');
     Route::get('/artworks/year/{year}', 'ArtworkController@year')->name('api.artwork.year');
     Route::get('/artworks/show/{uuid}', 'ArtworkController@show')->name('api.artwork.show');
+    // Countries
+    Route::get('/countries', 'CountryController@index')->name('api.country.index');
+    Route::get('/countries/show/{cca3}', 'CountryController@show')->name('api.country.show');
+    Route::get('/countries/show/{cca3}/artists', 'CountryController@artists')->name('api.country.artists');
     // Museum departements
     Route::get('/departments', 'DepartmentController@index')->name('api.department.index');
     Route::get('/departments/show/{slug}', 'DepartmentController@show')->name('api.department.show');

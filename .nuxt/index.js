@@ -62,7 +62,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"%s - Exploring The Centre Pompidou","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"bodyAttrs":{"class":"bg-gray-900 m-4"},"style":[],"script":[{"src":"\u002F\u002Fpwk.psln.nl\u002Fpiwik.js","body":true,"defer":true,"async":true}]},
+    head: {"titleTemplate":"%s - Exploring The Centre Pompidou","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."},{"hid":"twitter:creator","name":"twitter:creator","content":"@papposilene"},{"hid":"twitter:card","name":"twitter:card","content":"summary"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"bodyAttrs":{"class":"bg-gray-900 m-4"},"style":[],"script":[{"src":"\u002F\u002Fpwk.psln.nl\u002Fpiwik.js","body":true,"defer":true,"async":true}]},
 
     router,
     nuxt: {

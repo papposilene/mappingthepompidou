@@ -36,6 +36,16 @@ export default {
             hid: 'description',
             name: 'description',
             content: 'Visualizing the Centre Pompidou\'s (Centre national d\'art moderne, aka CNAM) collection data.'
+          },
+          {
+            hid: 'twitter:creator',
+            name: 'twitter:creator',
+            content: '@papposilene'
+          },
+          {
+            hid: 'twitter:card',
+            name: 'twitter:card',
+            content: 'summary'
           }
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
