@@ -88,7 +88,22 @@ class Acquisition extends Model
     }
 
     /**
-     * Get all the artworks for a specific artist.
+     * Get all the artists for a specific acquisition mode.
+     */
+    public function acquiredArtists()
+    {
+        return $this->hasManyThrough(
+            'App\Models\Artist',
+            'App\Models\Artwork',
+            'acquisition_uuid',
+            'uuid',
+            'uuid',
+            'artist_uuid',
+        );
+    }
+
+    /**
+     * Get all the artworks for a specific acquisition mode.
      */
     public function acquiredArtworks()
     {

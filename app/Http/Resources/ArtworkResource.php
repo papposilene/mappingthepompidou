@@ -21,6 +21,16 @@ class ArtworkResource extends JsonResource
             $has_artists = Cache::get('_has_artists_for-' . $slug);
         } else {
             $has_artists = $this->hasArtists()->get();
+            $has_artists = [
+                'uuid' => $has_artists[0]->uuid,
+                'navigart_id' => $has_artists[0]->navigart_id,
+                'artist_name' => $has_artists[0]->artist_name,
+                'artist_type' => $has_artists[0]->artist_type,
+                'artist_gender' => $has_artists[0]->artist_gender,
+                'artist_birth' => $has_artists[0]->artist_birth,
+                'artist_death' => $has_artists[0]->artist_death,
+                'artist_nationality' => $has_artists[0]->hasNationality()->get(),
+            ];
             Cache::put('_has_artists_for-' . $slug, $has_artists);
         }
 

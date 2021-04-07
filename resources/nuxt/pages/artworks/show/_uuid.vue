@@ -2,7 +2,11 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div class="flex flex-wrap w-full px-0 md:mt-12">
+        <div v-if="artworkLoading" class="flex w-full text-black bg-green-500 mt-12 p-4 my-5 rounded uppercase">
+            Chargement en cours...
+        </div>
+
+        <div v-else class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="md:flex-col md:w-8/12 sm:w-full px-0">
                 <h2 class="flex flex-col bg-yellow-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="text-black">{{ artworkName }}</span>
@@ -34,20 +38,22 @@
 
             <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h3 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ artistName }}</span>
+                    <span class="text-black">{{ artworkStreamData.artists.artist_name }}</span>
                 </h3>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-green-400 p-2">
-                        Genre : {{ artistGender }}.
+                        Genre : {{ artworkStreamData.artists.artist_gender }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Nationalité : {{ artistCountry }}.
+                        Nationalité : {{ artworkStreamData.artists.artist_nationality[0] ?
+                            artworkStreamData.artists.artist_nationality[0].flag + ' ' + artworkStreamData.artists.artist_nationality[0].name_common_fra :
+                        'inconnue' }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Date de naissance : {{ artistBirth ? artistBirth : 'inconnue' }}.
+                        Date de naissance : {{ artworkStreamData.artists.artist_birth ? artworkStreamData.artists.artist_birth : 'inconnue' }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Date de décès : {{ artistDeath ? artistDeath : 'inconnue' }}.
+                        Date de décès : {{ artworkStreamData.artists.artist_death ? artworkStreamData.artists.artist_death : 'inconnue' }}.
                     </li>
                 </ul>
 
@@ -56,18 +62,19 @@
                 </h4>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-indigo-400 hover:bg-indigo-400 hover:text-black p-2">
-                        <router-link :to="`/departments/show/${departmentSlug}`" class="w-full">
-                            {{ departmentName ? departmentName : 'Département inconnu' }}.
+                        <router-link :to="`/departments/show/${artworkStreamData.museum_department.department_slug}`" class="w-full">
+                            {{ artworkStreamData.museum_department.department_name ? artworkStreamData.museum_department.department_name : 'département inconnu' }}.
                         </router-link>
                     </li>
-                    <li v-for="data1 in movements" :key="data1.movement_uuid" class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
+                    <li v-for="data1 in artworkStreamData.movements" :key="data1.movement_uuid" class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
                         <router-link :to="`/movements/show/${data1.movement_slug}`" class="w-full">
                             {{ data1.movement_name }}.
                         </router-link>
                     </li>
                     <li class="flex border-b border-purple-400 hover:bg-purple-400 hover:text-black p-2">
-                        <router-link :to="`/acquisitions/show/${acquisitionSlug}`" class="w-full">
-                            Entré par {{ acquisitionType ? acquisitionType : 'mode inconnu' }}, en {{ acquisitionDate ? acquisitionDate : 'une année inconnue' }}.
+                        <router-link :to="`/acquisitions/show/${artworkStreamData.acquisition.acquisition_slug}`" class="w-full">
+                            Entré par {{ artworkStreamData.acquisition.acquisition_type ? artworkStreamData.acquisition.acquisition_type : 'mode inconnu' }},
+                            en {{ artworkStreamData.acquisition.acquisition_date ? artworkStreamData.acquisition.acquisition_date : 'année inconnue' }}.
                         </router-link>
                     </li>
                 </ul>
@@ -96,8 +103,8 @@ export default {
             artistName: 'Auteur inconnu',
             artistGender: 'inconnu',
             artistCountry: 'inconnue',
-            artistBirth: null,
-            artistDeath: null,
+            artistBirth: 'inconnue',
+            artistDeath: 'inconnue',
             artworkLink: '#',
             artworkTitle: 'sans titre',
             artworkDate: 'sans date',
@@ -106,11 +113,6 @@ export default {
             artworkTechnique: 'inconnue',
             artworkCopyright: 'domaine public',
             artworkExposed: 0,
-            acquisitionType: null,
-            acquisitionSlug: null,
-            acquisitionDate: null,
-            departmentName: null,
-            departmentSlug: null,
             movements: null,
         }
     },
@@ -127,7 +129,7 @@ export default {
         async fetchData() {
             this.artworkErrored = false;
             this.artworkLoading = true;
-            axios.get('https://etp.psln.nl/api/1.1/artworks/show/' + this.$route.params.uuid )
+            axios.get('http://localhost:8000/api/1.1/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.artworkStreamData = response.data.data[0];
                     this.artworkName = this.artworkStreamData.object_title;
@@ -138,19 +140,6 @@ export default {
                     this.artworkTechnique = this.artworkStreamData.object_technique;
                     this.artworkCopyright = this.artworkStreamData.object_copyright;
                     this.artworkExposed = this.artworkStreamData.object_visibility;
-                    this.artistName = this.artworkStreamData.artists[0].artist_name;
-                    this.artistGender = this.artworkStreamData.artists[0].artist_gender;
-                    this.artistCountry = this.artworkStreamData.artists[0].nationality.country_flag + ' ' + this.artworkStreamData.artists[0].nationality.country_name;
-                    this.artistBirth = this.artworkStreamData.artists[0].artist_birth;
-                    this.artistDeath = this.artworkStreamData.artists[0].artist_death;
-                    this.acquisitionType = this.artworkStreamData.acquisition.acquisition_type;
-                    this.acquisitionSlug = this.artworkStreamData.acquisition.acquisition_slug;
-                    this.acquisitionDate = this.artworkStreamData.acquisition.acquisition_date;
-                    console.log(this.artworkStreamData.acquisition);
-                    console.log(this.artworkStreamData.museum_department);
-                    this.departmentName = this.artworkStreamData.museum_department.department_name;
-                    this.departmentSlug = this.artworkStreamData.museum_department.department_slug;
-                    this.movements = this.artworkStreamData.movements;
                     this.artworkLoading = false;
                 })
                 .catch(error => {

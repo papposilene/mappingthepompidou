@@ -116,7 +116,7 @@ export default {
         async fetchData() {
             this.globalErrored = false;
             this.globalLoading = true;
-            axios.get('https://etp.psln.nl/api/1.1/acquisitions/show/' + this.$route.params.slug )
+            axios.get('http://localhost:8000/api/1.1/acquisitions/show/' + this.$route.params.slug )
                 .then(response => {
                     this.globalLoading = false;
                     this.globalStreamData = response.data.data[0];
@@ -137,7 +137,7 @@ export default {
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('https://etp.psln.nl/api/1.1/acquisitions/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/acquisitions/show/' + this.$route.params.slug + '/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksLoading = false;
                     this.artworksStreamData = response.data;
@@ -153,7 +153,7 @@ export default {
         async renderChart() {
             this.chartErrored = false
             this.chartLoading = false
-            axios.get('https://etp.psln.nl/api/1.1/statistics/acquisitions/for-' + this.$route.params.slug + '/departments')
+            axios.get('http://localhost:8000/api/1.1/statistics/acquisitions/for-' + this.$route.params.slug + '/departments')
                 .then(response => {
                     new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
                         type: 'pie',
