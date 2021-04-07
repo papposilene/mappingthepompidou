@@ -92,7 +92,6 @@ export default {
                     this.acquisitionsError = response.data.message || error.message;
                 })
                 .finally(() => this.acquisitionsLoading = false);
-            console.info("Component mounted: Acquisitions.");
         },
         async renderChart() {
             this.chartErrored = false
@@ -111,7 +110,6 @@ export default {
                     this.chartError = error.response.data.message || error.message;
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Chart.js.");
         }
     }
 };

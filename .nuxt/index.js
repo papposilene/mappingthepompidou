@@ -13,7 +13,6 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 /* Plugins */
 
 import nuxt_plugin_plugin_6b2feb7b from 'nuxt_plugin_plugin_6b2feb7b' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_plugin_cb7c70d4 from 'nuxt_plugin_plugin_cb7c70d4' // Source: ./matomo/plugin.js (mode: 'client')
 import nuxt_plugin_httpserver_8445c984 from 'nuxt_plugin_httpserver_8445c984' // Source: ./http.server.js (mode: 'server')
 import nuxt_plugin_http_0b8f351f from 'nuxt_plugin_http_0b8f351f' // Source: ./http.js (mode: 'all')
 import nuxt_plugin_axios_50133711 from 'nuxt_plugin_axios_50133711' // Source: ./axios.js (mode: 'all')
@@ -62,7 +61,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"%s - Exploring The Centre Pompidou","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"bodyAttrs":{"class":"bg-gray-900 m-4"},"style":[],"script":[{"src":"\u002F\u002Fpwk.psln.nl\u002Fpiwik.js","body":true,"defer":true,"async":true}]},
+    head: {"titleTemplate":"%s - Exploring The Centre Pompidou","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"bodyAttrs":{"class":"bg-gray-900 m-4"},"style":[],"script":[]},
 
     router,
     nuxt: {
@@ -178,10 +177,6 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_plugin_6b2feb7b === 'function') {
     await nuxt_plugin_plugin_6b2feb7b(app.context, inject)
-  }
-
-  if (process.client && typeof nuxt_plugin_plugin_cb7c70d4 === 'function') {
-    await nuxt_plugin_plugin_cb7c70d4(app.context, inject)
   }
 
   if (process.server && typeof nuxt_plugin_httpserver_8445c984 === 'function') {

@@ -99,7 +99,6 @@ export default {
                     this.artworksError = response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks.");
         },
         async renderExposedChart() {
             this.chartErrored = false;
@@ -118,7 +117,6 @@ export default {
                     this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Exposed Chart.js.");
         },
         async renderUnknownChart() {
             this.chartErrored = false;
@@ -137,7 +135,6 @@ export default {
                     this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Unknown Chart.js.");
         }
     }
 };

@@ -128,7 +128,6 @@ export default {
                     this.globalError = error.response.data.message || error.message;
                 })
                 .finally(() => this.globalLoading = false);
-            console.info("Component mounted: Art Movement.");
         },
         async fetchArtworks() {
             this.artworksErrored = false;
@@ -147,7 +146,6 @@ export default {
                     this.artworksError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Movements.");
         }
     }
 };

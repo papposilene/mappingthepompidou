@@ -158,7 +158,6 @@ export default {
                     this.globalError = error.response.data.message || error.message;
                 })
                 .finally(() => this.globalLoading = false);
-            console.info("Component mounted: Art Movement.");
         },
         async fetchArtists() {
             this.artistsErrored = false;
@@ -177,7 +176,6 @@ export default {
                     this.artistsError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artistsLoading = false);
-            console.info("Component mounted: Artists by Movements.");
         },
         async fetchArtworks() {
             this.artworksErrored = false;
@@ -196,7 +194,6 @@ export default {
                     this.artworksError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Movements.");
         }
     }
 };

@@ -111,7 +111,6 @@ export default {
                     this.statError = error.response.data.message || error.message;
                 })
                 .finally(() => this.statLoading = false);
-            console.info("Component mounted: Home.");
         }
     },
 };

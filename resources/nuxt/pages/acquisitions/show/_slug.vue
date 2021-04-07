@@ -131,7 +131,6 @@ export default {
                     this.globalError = error.response.data.message || error.message;
                 })
                 .finally(() => this.globalLoading = false);
-            console.info("Component mounted: Art Movement.");
         },
         async fetchArtworks() {
             this.artworksErrored = false;
@@ -150,7 +149,6 @@ export default {
                     this.artworksError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworksLoading = false);
-            console.info("Component mounted: Artworks by Acquisitions.");
         },
         async renderChart() {
             this.chartErrored = false
@@ -169,7 +167,6 @@ export default {
                     this.chartError = error.response.data.message || error.message;
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Chart.js.");
         }
     }
 };

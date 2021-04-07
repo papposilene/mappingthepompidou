@@ -99,7 +99,6 @@ export default {
                     this.artistsError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artistsLoading = false);
-            console.info("Component mounted: Home.");
         },
         renderChart() {
             this.chartErrored = false
@@ -118,7 +117,6 @@ export default {
                     this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Chart.js.");
         },
     }
 };

@@ -1,2 +1,7 @@
 User-agent: *
 Disallow:
+Disallow:/acquisitions/show/*
+Disallow:/artists/show/*
+Disallow:/artworks/show/*
+Disallow:/departments/show/*
+Disallow:/movements/show/*

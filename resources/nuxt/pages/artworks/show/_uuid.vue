@@ -109,7 +109,7 @@ export default {
             acquisitionType: 'mode inconnu',
             acquisitionSlug: 'inconnu',
             acquisitionDate: 'inconnue',
-            departmentName: 'Inconnu',
+            departmentName: 'inconnu',
             departmentSlug: 'inconnu',
             movementName: 'inconnu',
             movementSlug: 'unknown'
@@ -158,7 +158,6 @@ export default {
                     this.artworkError = error.response.data.message || error.message;
                 })
                 .finally(() => this.artworkLoading = false);
-            console.info("Component mounted: Artwork.");
         },
     }
 };

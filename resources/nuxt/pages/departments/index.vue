@@ -93,7 +93,6 @@ export default {
                     this.departmentsError = response.data.message || error.message;
                 })
                 .finally(() => this.departmentsLoading = false);
-            console.info("Component mounted: Museum Departments.");
         },
         async renderChart() {
             this.chartErrored = false;
@@ -112,7 +111,6 @@ export default {
                     this.chartError = error.response.data.message || error.message
                 })
                 .finally(() => this.chartLoading = false);
-            console.info("Component mounted: Chart.js.");
         }
     }
 };
