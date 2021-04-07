@@ -21,8 +21,8 @@ class DepartmentController extends Controller
     public function index(Request $request)
     {
         $whitelist = [
-            'created_at', 'conserved_artworks_count',
-            'department_name', 'department_slug',
+            'created_at', 'cca3',
+            'name_common_eng', 'name_common_fra',
         ];
 
         $query = $request->query();
@@ -32,8 +32,8 @@ class DepartmentController extends Controller
         );
 
         if (empty($query)) {
-            $order_key = 'conserved_artworks_count';
-            $order_value = 'desc';
+            $order_key = 'cca3';
+            $order_value = 'asc';
         } else {
             $order_key = array_keys($query)[0];
             $order_value = $query[array_keys($query)[0]];
@@ -68,7 +68,7 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $slug
+     * @param  string  $cca3
      * @return \Illuminate\Http\Response
      */
     public function show($cca3)
@@ -81,4 +81,17 @@ class DepartmentController extends Controller
         );
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function subregion($slug)
+    {
+        return CountryResource::collection(
+            Country::where('subregion', $slug)
+                ->withCount('hasArtists')->get()
+        );
+    }
 }
