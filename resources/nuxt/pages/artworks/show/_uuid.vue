@@ -44,10 +44,10 @@
                         Nationalité : {{ artistCountry }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Date de naissance : {{ artistBirth }}.
+                        Date de naissance : {{ artistBirth ? artistBirth : 'inconnue' }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Date de décès : {{ artistDeath }}.
+                        Date de décès : {{ artistDeath ? artistDeath : 'inconnue' }}.
                     </li>
                 </ul>
 
@@ -57,17 +57,17 @@
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-indigo-400 hover:bg-indigo-400 hover:text-black p-2">
                         <router-link :to="`/departments/show/${departmentSlug}`" class="w-full">
-                            {{ departmentName }}.
+                            {{ departmentName ? departmentName : 'Département inconnu' }}.
                         </router-link>
                     </li>
-                    <li class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
-                        <router-link :to="`/movements/show/${movementSlug}`" class="w-full">
-                            {{ movementName }}.
+                    <li v-for="data1 in movements" :key="data1.movement_uuid" class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
+                        <router-link :to="`/movements/show/${data1.movement_slug}`" class="w-full">
+                            {{ data1.movement_name }}.
                         </router-link>
                     </li>
                     <li class="flex border-b border-purple-400 hover:bg-purple-400 hover:text-black p-2">
                         <router-link :to="`/acquisitions/show/${acquisitionSlug}`" class="w-full">
-                            Entré par {{ acquisitionType }}, en {{ acquisitionDate ? acquisitionDate : 'une année inconnue' }}.
+                            Entré par {{ acquisitionType ? acquisitionType : 'mode inconnu' }}, en {{ acquisitionDate ? acquisitionDate : 'une année inconnue' }}.
                         </router-link>
                     </li>
                 </ul>
@@ -96,8 +96,8 @@ export default {
             artistName: 'Auteur inconnu',
             artistGender: 'inconnu',
             artistCountry: 'inconnue',
-            artistBirth: 'inconnue',
-            artistDeath: 'inconnue',
+            artistBirth: null,
+            artistDeath: null,
             artworkLink: '#',
             artworkTitle: 'sans titre',
             artworkDate: 'sans date',
@@ -106,13 +106,12 @@ export default {
             artworkTechnique: 'inconnue',
             artworkCopyright: 'domaine public',
             artworkExposed: 0,
-            acquisitionType: 'mode inconnu',
-            acquisitionSlug: 'inconnu',
-            acquisitionDate: 'inconnue',
-            departmentName: 'inconnu',
-            departmentSlug: 'inconnu',
-            movementName: 'inconnu',
-            movementSlug: 'unknown'
+            acquisitionType: null,
+            acquisitionSlug: null,
+            acquisitionDate: null,
+            departmentName: null,
+            departmentSlug: null,
+            movements: null,
         }
     },
     created() {
@@ -126,8 +125,8 @@ export default {
     },
     methods: {
         async fetchData() {
-            this.artistErrored = false;
-            this.artistLoading = true;
+            this.artworkErrored = false;
+            this.artworkLoading = true;
             axios.get('https://etp.psln.nl/api/1.1/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.artworkStreamData = response.data.data[0];
@@ -147,11 +146,12 @@ export default {
                     this.acquisitionType = this.artworkStreamData.acquisition.acquisition_type;
                     this.acquisitionSlug = this.artworkStreamData.acquisition.acquisition_slug;
                     this.acquisitionDate = this.artworkStreamData.acquisition.acquisition_date;
+                    console.log(this.artworkStreamData.acquisition);
+                    console.log(this.artworkStreamData.museum_department);
                     this.departmentName = this.artworkStreamData.museum_department.department_name;
                     this.departmentSlug = this.artworkStreamData.museum_department.department_slug;
-                    this.movementName = this.artworkStreamData.movements[0].movement_name;
-                    this.movementSlug = this.artworkStreamData.movements[0].movement_slug;
-                    this.artistLoading = false;
+                    this.movements = this.artworkStreamData.movements;
+                    this.artworkLoading = false;
                 })
                 .catch(error => {
                     this.artworkErrored = true;

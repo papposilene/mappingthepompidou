@@ -17,7 +17,11 @@ class ArtworkMovementResource extends JsonResource
     {
         return [
             'uuid' => $this->isArtwork->uuid,
-            'museum_department' => $this->isArtwork->museum_department,
+            'museum_department' => [
+                'department_uuid' => $this->isArtwork->inDepartment->uuid,
+                'department_name' => $this->isArtwork->inDepartment->department_name,
+                'department_slug' => $this->isArtwork->inDepartment->department_slug,
+            ],
             'artists' => $this->isArtwork->hasArtists()->get(),
             'navigart_id' => $this->isArtwork->navigart_id,
             'object_inventory' => $this->isArtwork->object_inventory,

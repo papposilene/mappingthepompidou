@@ -81,7 +81,7 @@
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
                                             Date de création : {{ data2.object_date }}.<br />
-                                            Département : {{ data2.museum_department }}.
+                                            Département : {{ data2.museum_department.department_name }}.
                                         </span>
                                     </router-link>
                                 </li>
