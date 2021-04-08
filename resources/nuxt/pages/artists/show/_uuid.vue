@@ -38,7 +38,7 @@
                     <div class="flex flex-col w-full px-0 mt-4">
                         <ul class="flex flex-col list-none text-white my-5 rounded">
                             <li v-for="data1 in globalStreamData.movements.list" :key="data1.uuid" class="flex border-b border-pink-400 hover:bg-pink-400 hover:text-black p-2">
-                                <router-link :to="`/movements/show/${data1.uuid}`" class="w-full">
+                                <router-link :to="`/movements/show/${data1.movement_slug}`" class="w-full">
                                     <span>{{ data1.movement_name }}</span><br />
                                 </router-link>
                             </li>
