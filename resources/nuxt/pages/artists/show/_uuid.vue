@@ -14,6 +14,9 @@
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-green-400 p-2">
                         Genre : {{ globalStreamData.artist_gender }}.
+                        <!-- router-link :to="`/genders/show/${globalStreamData.artist_gender.toLowerCase()}`" class="w-full">
+                            Genre : {{ globalStreamData.artist_gender }}.
+                        </router-link -->
                     </li>
                     <li class="flex border-b border-green-400 hover:bg-green-400 hover:text-black p-2">
                         <router-link :to="`/countries/show/${globalStreamData.nationality.country_cca3.toLowerCase()}`" class="w-full">

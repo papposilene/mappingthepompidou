@@ -16,6 +16,7 @@ const _216d6cde = () => interopDefault(import('../resources/nuxt/pages/artists/s
 const _4ab07d35 = () => interopDefault(import('../resources/nuxt/pages/artworks/show/_uuid.vue' /* webpackChunkName: "pages/artworks/show/_uuid" */))
 const _dffbd4e6 = () => interopDefault(import('../resources/nuxt/pages/countries/show/_cca3.vue' /* webpackChunkName: "pages/countries/show/_cca3" */))
 const _5bf37459 = () => interopDefault(import('../resources/nuxt/pages/departments/show/_slug.vue' /* webpackChunkName: "pages/departments/show/_slug" */))
+const _3a284b48 = () => interopDefault(import('../resources/nuxt/pages/genders/show/_slug.vue' /* webpackChunkName: "pages/genders/show/_slug" */))
 const _73ce1b14 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_slug.vue' /* webpackChunkName: "pages/movements/show/_slug" */))
 const _13ccd5af = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -78,6 +79,10 @@ export const routerOptions = {
     path: "/departments/show/:slug?",
     component: _5bf37459,
     name: "departments-show-slug"
+  }, {
+    path: "/genders/show/:slug?",
+    component: _3a284b48,
+    name: "genders-show-slug"
   }, {
     path: "/movements/show/:slug?",
     component: _73ce1b14,
