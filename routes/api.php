@@ -40,7 +40,7 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     // Countries
     Route::get('/countries', 'CountryController@index')->name('api.country.index');
     Route::get('/countries/continent/{slug}/', 'CountryController@regions')->name('api.country.region');
-    Route::get('/countries/subregion/{slug}/', 'CountryController@subregions')->name('api.country.subregion');
+    //Route::get('/countries/subregion/{slug}/', 'CountryController@subregions')->name('api.country.subregion');
     Route::get('/countries/show/{cca3}', 'CountryController@countries')->name('api.country.country');
     Route::get('/countries/show/{cca3}/artists', 'CountryController@artists')->name('api.country.artist');
     // Museum departements
