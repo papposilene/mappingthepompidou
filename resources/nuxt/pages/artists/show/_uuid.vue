@@ -2,23 +2,31 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div class="flex flex-wrap w-full px-0 md:mt-12">
+        <div v-if="globalLoading" class="flex w-full text-black bg-green-500 mt-12 p-4 my-5 rounded uppercase">
+            Chargement en cours...
+        </div>
+
+        <div v-else class="flex flex-wrap w-full px-0 md:mt-12">
             <div class="md:flex-col md:w-4/12 w-full px-0">
                 <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ artistName }}</span>
+                    <span class="text-black">{{ globalStreamData.artist_name }}</span>
                 </h2>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-green-400 p-2">
-                        Genre : {{ globalArtistGender }}.
+                        Genre : {{ globalStreamData.artist_gender }}.
+                    </li>
+                    <li class="flex border-b border-green-400 hover:bg-green-400 hover:text-black p-2">
+                        <router-link :to="`/countries/show/${globalStreamData.nationality.country_cca3.toLowerCase()}`" class="w-full">
+                            Nationalité : {{ globalStreamData.nationality.country_name ?
+                                globalStreamData.nationality.country_flag + ' ' + globalStreamData.nationality.country_name :
+                            'inconnue' }}.
+                        </router-link>
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Nationalité : {{ globalArtistCountry }}.
+                        Date de naissance : {{ globalStreamData.artist_birth ? globalStreamData.artist_birth : 'inconnue' }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Date de naissance : {{ globalArtistBirth ? globalArtistBirth : 'inconnue' }}.
-                    </li>
-                    <li class="flex border-b border-green-400 p-2">
-                        Date de décès : {{ globalArtistDeath ? globalArtistDeath : 'inconnue' }}.
+                        Date de décès : {{ globalStreamData.artist_death ? globalStreamData.artist_death : 'inconnue' }}.
                     </li>
                 </ul>
 
@@ -116,11 +124,6 @@ export default {
             axios.get('http://localhost:8000/api/1.1/artists/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.globalStreamData = response.data.data[0];
-                    this.artistName = this.globalStreamData.artist_name;
-                    this.globalArtistGender = this.globalStreamData.artist_gender;
-                    this.globalArtistCountry = this.globalStreamData.nationality.country_flag + ' ' + this.globalStreamData.nationality.country_name;
-                    this.globalArtistBirth = this.globalStreamData.artist_birth;
-                    this.globalArtistDeath = this.globalStreamData.artist_death;
                     this.globalLoading = false;
                 })
                 .catch(error => {

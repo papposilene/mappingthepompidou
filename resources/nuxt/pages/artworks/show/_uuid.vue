@@ -45,7 +45,7 @@
                         Genre : {{ artworkStreamData.artists.artist_gender }}.
                     </li>
                     <li class="flex border-b border-green-400 hover:bg-green-400 hover:text-black p-2">
-                        <router-link :to="`/countries/show/${artworkStreamData.artists.artist_nationality[0].uuid}`" class="w-full">
+                        <router-link :to="`/countries/show/${artworkStreamData.artists.artist_nationality[0].cca3.toLowerCase()}`" class="w-full">
                             Nationalité : {{ artworkStreamData.artists.artist_nationality[0] ?
                                 artworkStreamData.artists.artist_nationality[0].flag + ' ' + artworkStreamData.artists.artist_nationality[0].name_common_fra :
                             'inconnue' }}.

@@ -48,6 +48,7 @@ class ArtistResource extends JsonResource
             'artist_gender' => $this->artist_gender,
             'nationality' => [
                 'country_uuid' => ($this->hasNationality ? $this->hasNationality->uuid : null),
+                'country_cca3' => ($this->hasNationality ? strtolower($this->hasNationality->cca3) : null),
                 'country_name' => ($this->hasNationality ? $this->hasNationality->name_common_fra : 'Pays inconnu'),
                 'country_flag' => ($this->hasNationality ? $this->hasNationality->flag : '🏳️'),
             ],
