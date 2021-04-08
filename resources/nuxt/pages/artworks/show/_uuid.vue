@@ -44,7 +44,7 @@
                     <li class="flex border-b border-green-400 p-2">
                         Genre : {{ artworkStreamData.artists.artist_gender }}.
                     </li>
-                    <li class="flex border-b border-green-400 p-2">
+                    <li class="flex border-b border-green-400 hover:bg-green-400 hover:text-black p-2">
                         <router-link :to="`/countries/show/${artworkStreamData.artists.artist_nationality[0].uuid}`" class="w-full">
                             Nationalité : {{ artworkStreamData.artists.artist_nationality[0] ?
                                 artworkStreamData.artists.artist_nationality[0].flag + ' ' + artworkStreamData.artists.artist_nationality[0].name_common_fra :
@@ -131,7 +131,7 @@ export default {
         async fetchData() {
             this.artworkErrored = false;
             this.artworkLoading = true;
-            axios.get('https://etp.psln.nl/api/1.1/artworks/show/' + this.$route.params.uuid )
+            axios.get('http://localhost:8000/api/1.1/artworks/show/' + this.$route.params.uuid )
                 .then(response => {
                     this.artworkStreamData = response.data.data[0];
                     this.artworkName = this.artworkStreamData.object_title;

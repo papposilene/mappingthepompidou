@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Models\Acquisition;
 use App\Models\Artist;
 use App\Models\Artwork;
+use App\Models\Country;
 use App\Models\Department;
 use App\Models\Movement;
 use App\Http\Controllers\Controller;
@@ -561,22 +562,23 @@ class StatisticController extends Controller
                 Cache::put('_movements_data', $movements_data);
             }
 
+            $data = $movements_data->splice(1, 10);
             $statistics = collect([
                 'data' => [
                     'total' => $movements_count,
                 ],
                 'chart' => [
-                    'labels' => $movements_data->splice(1, 10)->pluck('movement_name'),
+                    'labels' => $data->pluck('movement_name'),
                     'datasets' => [
                         [
                             'label' => 'Oeuvre par mouvement',
-                            'data' => $movements_data->splice(1, 10)->pluck('has_artworks_count'),
+                            'data' => $data->pluck('has_artworks_count'),
                             'backgroundColor' => '#F87171',
                             'borderColor' => '#000',
                         ],
                         [
                             'label' => 'Artistes par mouvement',
-                            'data' => $movements_data->splice(1, 10)->pluck('has_inspired_count'),
+                            'data' => $data->pluck('has_inspired_count'),
                             'backgroundColor' => '#60A5FA',
                             'borderColor' => '#000',
                         ],
@@ -597,6 +599,79 @@ class StatisticController extends Controller
                     ],
                     'scales' => [
                         'xAxes' => [
+                            [
+                                //'id' => 'first-y-axis',
+                                'type' => 'linear',
+                                'ticks' => [
+                                    'beginAtZero' => false,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ])->all();
+        }
+
+        return $statistics;
+    }
+
+    /**
+     * Retrieve statistics about countries.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function countries()
+    {
+        $cache_key = 'api_statistics_countries';
+
+        if (Cache::has($cache_key)) {
+            $statistics = Cache::get($cache_key);
+        } else {
+            if (Cache::has('_countries_count')) {
+                $countries_count = Cache::get('_countries_count');
+            } else {
+                $countries_count = Country::count();
+                Cache::put('_countries_count', $countries_count);
+            }
+
+            if (Cache::has('_countries_data')) {
+                $countries_data = Cache::get('_countries_data');
+            } else {
+                $countries_data = Country::withCount('hasArtists')->orderBy('has_artists_count', 'desc')->get();
+                Cache::put('_countries_data', $countries_data);
+            }
+
+            $data = $countries_data->splice(0, 10);
+            $statistics = collect([
+                'data' => [
+                    'total' => $countries_count,
+                ],
+                'chart' => [
+                    'labels' => $data->pluck('name_common_fra'),
+                    'datasets' => [
+                        [
+                            'label' => 'Artistes par nationalité',
+                            'data' => $data->pluck('has_artists_count'),
+                            'backgroundColor' => '#9CA3AF',
+                            'borderColor' => '#000',
+                        ],
+                    ],
+                ],
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'fontColor' => '#fff',
+                        'position' => 'top',
+                        'text' => 'Top 10 des nationalités (classés par le nombre d’artistes)',
+                    ],
+                    'responsive' => true,
+                    'legend' => [
+                        'display' => true,
+                        'position' => 'bottom',
+                        'fontColor' => '#fff',
+                    ],
+                    'scales' => [
+                        'yAxes' => [
                             [
                                 //'id' => 'first-y-axis',
                                 'type' => 'linear',

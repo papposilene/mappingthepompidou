@@ -21,6 +21,13 @@
     "_name": "_479045b5"
   },
   {
+    "name": "countries",
+    "path": "/countries",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/countries/index.vue",
+    "chunkName": "pages/countries/index",
+    "_name": "_41445c58"
+  },
+  {
     "name": "departments",
     "path": "/departments",
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/departments/index.vue",
@@ -61,6 +68,13 @@
     "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/artworks/show/_uuid.vue",
     "chunkName": "pages/artworks/show/_uuid",
     "_name": "_4ab07d35"
+  },
+  {
+    "name": "countries-show-cca3",
+    "path": "/countries/show/:cca3?",
+    "component": "/Users/philippealexandre.pierre/dev/mappingthepompidou/resources/nuxt/pages/countries/show/_cca3.vue",
+    "chunkName": "pages/countries/show/_cca3",
+    "_name": "_dffbd4e6"
   },
   {
     "name": "departments-show-slug",

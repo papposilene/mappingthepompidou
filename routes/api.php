@@ -4,9 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Delete this trick for production
-//header('Access-Control-Allow-Origin:  *');
-//header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
-//header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +27,7 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     // Artists
     Route::get('/artists', 'ArtistController@index')->name('api.artist.index');
     Route::get('/artists/gender/{gender}', 'ArtistController@gender')->name('api.artist.gender');
-    Route::get('/artists/nationalities/', 'ArtistController@nationalities')->name('api.artist.nationalities');
-    Route::get('/artists/nationality/{cca3}', 'ArtistController@nationality')->name('api.artist.nationality');
+
     Route::get('/artists/show/{uuid}', 'ArtistController@show')->name('api.artist.show');
     Route::get('/artists/show/{uuid}/artworks', 'ArtistController@artworks')->name('api.artist.artworks');
     // Artworks
@@ -40,9 +39,10 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/artworks/show/{uuid}', 'ArtworkController@show')->name('api.artwork.show');
     // Countries
     Route::get('/countries', 'CountryController@index')->name('api.country.index');
-    Route::get('/departments/continent/{slug}/', 'CountryController@regions')->name('api.country.region');
-    Route::get('/departments/subregion/{slug}/', 'CountryController@subregions')->name('api.country.subregion');
+    Route::get('/countries/continent/{slug}/', 'CountryController@regions')->name('api.country.region');
+    Route::get('/countries/subregion/{slug}/', 'CountryController@subregions')->name('api.country.subregion');
     Route::get('/countries/show/{cca3}', 'CountryController@countries')->name('api.country.country');
+    Route::get('/countries/show/{cca3}/artists', 'CountryController@artists')->name('api.country.artist');
     // Museum departements
     Route::get('/departments', 'DepartmentController@index')->name('api.department.index');
     Route::get('/departments/show/{slug}', 'DepartmentController@show')->name('api.department.show');
@@ -60,5 +60,6 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/statistics/artworks/exposed', 'StatisticController@exposed')->name('api.statistic.artworks.exposed');
     Route::get('/statistics/artworks/unknown', 'StatisticController@unknown')->name('api.statistic.artworks.unknown');
     Route::get('/statistics/departments', 'StatisticController@departments')->name('api.statistic.departments');
+    Route::get('/statistics/countries', 'StatisticController@countries')->name('api.statistic.countries');
     Route::get('/statistics/movements', 'StatisticController@movements')->name('api.statistic.movement');
 });
