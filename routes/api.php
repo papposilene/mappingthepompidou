@@ -42,8 +42,8 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/countries', 'CountryController@index')->name('api.country.index');
     Route::get('/countries/show/{cca3}', 'CountryController@show')->name('api.country.show');
     Route::get('/countries/show/{cca3}/artists', 'CountryController@artists')->name('api.country.artists');
-    Route::get('/departments/continent/{slug}/', 'CountryController@region')->name('api.country.region');
-    Route::get('/departments/subregion/{slug}/', 'CountryController@subregion')->name('api.country.subregion');
+    Route::get('/departments/continent/{slug}/', 'CountryController@regions')->name('api.country.region');
+    Route::get('/departments/subregion/{slug}/', 'CountryController@subregions')->name('api.country.subregion');
     // Museum departements
     Route::get('/departments', 'DepartmentController@index')->name('api.department.index');
     Route::get('/departments/show/{slug}', 'DepartmentController@show')->name('api.department.show');
