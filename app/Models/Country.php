@@ -39,7 +39,8 @@ class Country extends Model
         'cca3',
         'region',
         'subregion',
-        'latlng',
+        'lat',
+        'lng',
         'flag',
     ];
 
@@ -101,7 +102,7 @@ class Country extends Model
     public function hasArtists()
     {
         return $this->hasMany(
-            'App\Models\Artists',
+            'App\Models\Artist',
             'artist_nationality',
             'cca3'
         );

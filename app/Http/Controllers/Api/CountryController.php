@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
-class DepartmentController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +44,7 @@ class DepartmentController extends Controller
         }
 
         return CountryResource::collection(
-            Country::withCount('conservedArtworks')
+            Country::withCount('hasArtists')
                 ->orderBy($order_key, $order_value)->paginate(10)
         );
     }
@@ -62,7 +62,7 @@ class DepartmentController extends Controller
                 ->withCount('hasArtists')->paginate(10)
         );
     }
-    
+
     /**
      * Retrieve a list of artists for a specified subregion.
      *
@@ -76,7 +76,7 @@ class DepartmentController extends Controller
                 ->withCount('hasArtists')->paginate(10)
         );
     }
-    
+
     /**
      * Retrieve a list of artists for a specified country.
      *

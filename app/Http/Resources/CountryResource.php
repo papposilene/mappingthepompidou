@@ -17,39 +17,39 @@ class CountryResource extends JsonResource
     {
         $slug = $this->cca3;
 
-        if (Cache::has('_has_artists_count_for-' . $slug)) {
-            $has_artists_count = Cache::get('_has_artists_count_for-' . $slug);
+        if (Cache::has('_has_artists_count_for_country-' . $slug)) {
+            $has_artists_count = Cache::get('_has_artists_count_for_country-' . $slug);
         } else {
             $has_artists_count = $this->hasArtists()->count();
-            Cache::put('_has_artists_count_for-' . $slug, $has_artists_count);
+            Cache::put('_has_artists_count_for_country-' . $slug, $has_artists_count);
         }
 
-        if (Cache::has('_women_count_for-' . $slug)) {
-            $women_count = Cache::get('_women_count_for-' . $slug);
+        if (Cache::has('_women_count_for_country-' . $slug)) {
+            $women_count = Cache::get('_women_count_for_country-' . $slug);
         } else {
             $women_count = $this->hasArtists()->where('artist_gender', 'woman')->count();
-            Cache::put('_women_count_for-' . $slug, $women_count);
+            Cache::put('_women_count_for_country-' . $slug, $women_count);
         }
 
-        if (Cache::has('_men_count_for-' . $slug)) {
-            $men_count = Cache::get('_men_count_for-' . $slug);
+        if (Cache::has('_men_count_for_country-' . $slug)) {
+            $men_count = Cache::get('_men_count_for_country-' . $slug);
         } else {
             $men_count = $this->hasArtists()->where('artist_gender', 'man')->count();
-            Cache::put('_men_count_for-' . $slug, $men_count);
+            Cache::put('_men_count_for_country-' . $slug, $men_count);
         }
 
-        if (Cache::has('_groups_count_for-' . $slug)) {
-            $groups_count = Cache::get('_groups_count_for-' . $slug);
+        if (Cache::has('_groups_count_for_country-' . $slug)) {
+            $groups_count = Cache::get('_groups_count_for_country-' . $slug);
         } else {
             $groups_count = $this->hasArtists()->where('artist_gender', 'group')->count();
-            Cache::put('_groups_count_for-' . $slug, $groups_count);
+            Cache::put('_groups_count_for_country-' . $slug, $groups_count);
         }
 
-        if (Cache::has('_unknown_count_for-' . $slug)) {
-            $unknown_count = Cache::get('_unknown_count_for-' . $slug);
+        if (Cache::has('_unknown_count_for_country-' . $slug)) {
+            $unknown_count = Cache::get('_unknown_count_for_country-' . $slug);
         } else {
             $unknown_count = $this->hasArtists()->where('artist_gender', null)->count();
-            Cache::put('_unknown_count_for-' . $slug, $unknown_count);
+            Cache::put('_unknown_count_for_country-' . $slug, $unknown_count);
         }
 
         return [
@@ -62,7 +62,8 @@ class CountryResource extends JsonResource
             'country_cca3' => $this->cca3,
             'country_region' => $this->region,
             'country_subregion' => $this->subregion,
-            'country_latlng' => $this->latlng,
+            'country_lat' => (float) $this->lat,
+            'country_lng' => (float) $this->lng,
             'country_flag' => $this->flag,
             'has_artists_count' => $has_artists_count,
             'artists' => [

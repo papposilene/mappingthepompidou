@@ -45,9 +45,11 @@
                         Genre : {{ artworkStreamData.artists.artist_gender }}.
                     </li>
                     <li class="flex border-b border-green-400 p-2">
-                        Nationalité : {{ artworkStreamData.artists.artist_nationality[0] ?
-                            artworkStreamData.artists.artist_nationality[0].flag + ' ' + artworkStreamData.artists.artist_nationality[0].name_common_fra :
-                        'inconnue' }}.
+                        <router-link :to="`/countries/show/${artworkStreamData.artists.artist_nationality[0].uuid}`" class="w-full">
+                            Nationalité : {{ artworkStreamData.artists.artist_nationality[0] ?
+                                artworkStreamData.artists.artist_nationality[0].flag + ' ' + artworkStreamData.artists.artist_nationality[0].name_common_fra :
+                            'inconnue' }}.
+                        </router-link>
                     </li>
                     <li class="flex border-b border-green-400 p-2">
                         Date de naissance : {{ artworkStreamData.artists.artist_birth ? artworkStreamData.artists.artist_birth : 'inconnue' }}.
