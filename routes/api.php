@@ -47,6 +47,8 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/departments', 'DepartmentController@index')->name('api.department.index');
     Route::get('/departments/show/{slug}', 'DepartmentController@show')->name('api.department.show');
     Route::get('/departments/show/{slug}/artworks', 'DepartmentController@artworks')->name('api.department.artworks');
+    // Artists' gender
+    Route::get('/genders/show/{slug}/', 'GenderController@show')->name('api.gender.show');
     // Art movements
     Route::get('/movements', 'MovementController@index')->name('api.movement.index');
     Route::get('/movements/show/{slug}', 'MovementController@show')->name('api.movement.show');
