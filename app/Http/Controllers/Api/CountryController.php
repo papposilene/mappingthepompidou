@@ -50,48 +50,46 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Retrieve artworks for a specified art movements.
+     * Retrieve a list of artists for a specified continent.
      *
      * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function artist($slug)
+    public function regions($slug)
     {
-        $country = Country::where('department_slug', $slug)->firstOrFail();
-
         return CountryResource::collection(
-            Artist::where('artist_nationality', $country->cca3)
-                ->orderBy('object_date', 'desc')->paginate(10)
+            Country::where('region', $slug)
+                ->withCount('hasArtists')->paginate(10)
         );
     }
-
+    
     /**
-     * Display the specified resource.
+     * Retrieve a list of artists for a specified subregion.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function subregions($slug)
+    {
+        return CountryResource::collection(
+            Country::where('subregion', $slug)
+                ->withCount('hasArtists')->paginate(10)
+        );
+    }
+    
+    /**
+     * Retrieve a list of artists for a specified country.
      *
      * @param  string  $cca3
      * @return \Illuminate\Http\Response
      */
-    public function show($cca3)
+    public function countries($cca3)
     {
         Country::where('cca3', $cca3)->firstOrFail();
 
         return CountryResource::collection(
             Country::where('cca3', $cca3)
-                ->withCount('hasArtists')->get()
-        );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\Http\Response
-     */
-    public function subregion($slug)
-    {
-        return CountryResource::collection(
-            Country::where('subregion', $slug)
-                ->withCount('hasArtists')->get()
+                ->withCount('hasArtists')->paginate(10)
         );
     }
 }
