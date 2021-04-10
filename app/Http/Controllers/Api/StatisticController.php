@@ -734,10 +734,10 @@ class StatisticController extends Controller
                     'department_unknown' => $statistics_artworks_nodepartment,
                 ],
                 'chart' => [
-                    'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
+                    'labels' => ['Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
                     'datasets' => [
                         [
-                            'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
+                            'labels' => ['Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
                             'data' => [
                                 $chartTotalArtistUnknown,
                                 $statistics_artworks_nodate,
