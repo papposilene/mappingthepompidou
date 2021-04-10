@@ -46,7 +46,18 @@ export default {
             hid: 'twitter:card',
             name: 'twitter:card',
             content: 'summary'
+          },
+          {
+            hid: 'og:title',
+            property: 'og:title',
+            content: 'Exploring The Pompidou'
+          },
+          {
+            hid: 'og:description',
+            property: 'og:description',
+            content: 'Visualizing the Centre Pompidou\'s (Centre national d\'art moderne, aka CNAM) collection data.'
           }
+
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
         bodyAttrs: {
