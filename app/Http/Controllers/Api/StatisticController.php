@@ -700,25 +700,18 @@ class StatisticController extends Controller
         if (Cache::has($cache_key)) {
             $statistics = Cache::get($cache_key);
         } else {
-            if (Cache::has('_statistics_artists_anonymous')) {
-                $artists_anonymous = Cache::get('_statistics_artists_anonymous');
-            } else {
-                $artists_anonymous = Artist::where('artist_type', 'anonyme')->count();
-                Cache::put('_statistics_artists_anonymous', $artists_anonymous);
-            }
-
             if (Cache::has('_statistics_artworks_noauthor')) {
-                $artworks_noauthor = Cache::get('_statistics_artworks_noauthor');
+                $statistics_artworks_noauthor = Cache::get('_statistics_artworks_noauthor');
             } else {
-                $artworks_noauthor = Artist::where('artist_type', 'anonyme')->withCount('hasArtworks')->get();
-                Cache::put('_statistics_artworks_noauthor', $artworks_noauthor);
+                $statistics_artworks_noauthor = Artist::where('artist_type', 'anonyme')->withCount('hasArtworks')->get();
+                Cache::put('_statistics_artworks_noauthor', $statistics_artworks_noauthor);
             }
 
             if (Cache::has('_statistics_artworks_nodate')) {
-                $artworks_nodate = Cache::get('_statistics_artworks_nodate');
+                $statistics_artworks_nodate = Cache::get('_statistics_artworks_nodate');
             } else {
-                $artworks_nodate = Artwork::where('object_date', null)->count();
-                Cache::put('_statistics_artworks_nodate', $artworks_nodate);
+                $statistics_artworks_nodate = Artwork::where('object_date', null)->count();
+                Cache::put('_statistics_artworks_nodate', $statistics_artworks_nodate);
             }
 
             if (Cache::has('_statistics_artworks_nodepartment')) {
@@ -730,15 +723,14 @@ class StatisticController extends Controller
             }
 
             $chartTotalArtistUnknown = 0;
-            foreach ($artworks_noauthor as $noArtist) {
+            foreach ($statistics_artworks_noauthor as $noArtist) {
                 $chartTotalArtistUnknown += (int) $noArtist->has_artworks_count;
             }
 
             $statistics = collect([
                 'data' => [
-                    'artist_unknown' => $artists_anonymous,
                     'artwork_artist_unknown' => $chartTotalArtistUnknown,
-                    'artwork_date_unknown' => $artworks_nodate,
+                    'artwork_date_unknown' => $statistics_artworks_nodate,
                     'department_unknown' => $statistics_artworks_nodepartment,
                 ],
                 'chart' => [
@@ -747,7 +739,6 @@ class StatisticController extends Controller
                         [
                             'labels' => ['Auteur anonyme', 'Oeuvre sans auteur', 'Oeuvre sans date', 'Département inconnu'],
                             'data' => [
-                                $artists_anonymous,
                                 $chartTotalArtistUnknown,
                                 $artworks_nodate,
                                 $statistics_artworks_nodepartment,
@@ -756,7 +747,6 @@ class StatisticController extends Controller
                                 '#F87171',
                                 '#60A5FA',
                                 '#A78BFA',
-                                '#9CA3AF',
                             ],
                             'borderColor' => '#000',
                         ],

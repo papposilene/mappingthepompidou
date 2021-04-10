@@ -87,7 +87,7 @@ export default {
             this.artworksLoading = true;
             let currentPage = this.artworksPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/1.1/artworks?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/1.1/artworks?page=' + pageNumber)
                 .then(response => {
                     this.artworksStreamData = response.data;
                     this.artworksPaginator = this.artworksStreamData.meta;
@@ -103,7 +103,7 @@ export default {
         async renderExposedChart() {
             this.chartErrored = false;
             this.chartLoading = false;
-            axios.get('http://localhost:8000/api/1.1/statistics/artworks/exposed')
+            axios.get('https://etp.psln.nl/api/1.1/statistics/artworks/exposed')
                 .then(response => {
                     new Chart(document.getElementById('chartExposed').getContext('2d'), {
                         type: 'pie',
@@ -121,7 +121,7 @@ export default {
         async renderUnknownChart() {
             this.chartErrored = false;
             this.chartLoading = false;
-            axios.get('http://localhost:8000/api/1.1/statistics/artworks/unknown')
+            axios.get('https://etp.psln.nl/api/1.1/statistics/artworks/unknown')
                 .then(response => {
                     new Chart(document.getElementById('chartUnknown').getContext('2d'), {
                         type: 'bar',

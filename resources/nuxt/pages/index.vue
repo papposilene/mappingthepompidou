@@ -96,7 +96,7 @@ export default {
         async fetchData() {
             this.statErrored = false
             this.statLoading = true
-            axios.get('http://localhost:8000/api/1.1/statistics/')
+            axios.get('https://etp.psln.nl/api/1.1/statistics/')
                 .then(response => {
                     this.statDataStream = response.data.data;
                     this.statAcquisitions = this.statDataStream.acquisitions.total;

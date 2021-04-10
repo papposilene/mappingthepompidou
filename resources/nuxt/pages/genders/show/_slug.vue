@@ -86,7 +86,7 @@ export default {
             this.artistsLoading = true
             let currentPage = this.artistsPaginator.current_page
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/1.1/genders/show/' + this.$route.params.slug + '/?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/1.1/genders/show/' + this.$route.params.slug + '/?page=' + pageNumber)
                 .then(response => {
                     this.artistsLoading = false;
                     this.artistsStreamData = response.data;
