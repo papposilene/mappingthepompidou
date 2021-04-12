@@ -52,7 +52,7 @@
                                     <router-link :to="`/artworks/show/${data2.uuid}`" class="w-full">
                                         <span>{{ data2.object_title }}</span><br />
                                         <span class="text-gray-400 text-sm">
-                                            Artiste : {{ data2.artists[0].artist_name }}.<br />
+                                            Artiste : {{ data2.artists.artist_name }}.<br />
                                             Date de création : {{ data2.object_date }}.
                                         </span>
                                     </router-link>
