@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 
 class StatisticController extends Controller
@@ -430,6 +431,83 @@ class StatisticController extends Controller
                     'responsive' => true,
                     'legend' => [
                         'display' => true,
+                        'position' => 'bottom',
+                        'fontColor' => '#fff',
+                    ],
+                ],
+            ])->all();
+        }
+
+        return $statistics;
+    }
+
+    /**
+     * Retrieve statistics about birth year for the artists.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function birthyears()
+    {
+        $cache_key = 'api_statistics_birthyears';
+
+        if (Cache::has($cache_key)) {
+            $statistics = Cache::get($cache_key);
+        } else {
+            if (Cache::has('_artists_count')) {
+                $artists_count = Cache::get('_artists_count');
+            } else {
+                $artists_count = Artist::count();
+                Cache::put('_artists_count', $artists_count);
+            }
+
+            $yearsData = Artist::whereNotNull('artist_birth')
+                ->select(DB::raw('SUM(artist_gender = \'man\') as count_men, SUM(artist_gender = \'woman\') as count_women, count(*) as count_total, artist_birth'))
+                ->groupBy('artist_birth')
+                ->orderBy('artist_birth', 'asc')
+                ->get();
+
+            $chartData = [];
+            $yearsData->each(function ($artist_count) use (&$chartData) {
+                $chartData[$artist_count['artist_birth']]['total'] = (int) $artist_count['count_total'];
+                $chartData[$artist_count['artist_birth']]['men'] = (int) $artist_count['count_men'];
+                $chartData[$artist_count['artist_birth']]['women'] = (int) $artist_count['count_women'];
+            });
+
+            $statistics = collect([
+                'data' => [
+                    'total' => $artists_count,
+                ],
+                'chart' => [
+                    'labels' => [
+                        array_keys($chartData),
+                    ],
+                    'datasets' => [
+                        [
+                            'data' => [
+                                data_get($chartData, '*.men')
+                            ],
+                            'label' => 'Artistes de genre masculin',
+                            'borderColor' => '#000',
+                        ],
+                        [
+                            'data' => [
+                                data_get($chartData, '*.women')
+                            ],
+                            'label' => 'Artistes de genre féminin',
+                            'borderColor' => '#000',
+                        ],
+                    ],
+                ],
+                'options' => [
+                    'title' => [
+                        'display' => true,
+                        'fontColor' => '#fff',
+                        'position' => 'top',
+                        'text' => 'Répartition par genres (personnes physiques) des dates de naissance des artistes du Centre Pompidou',
+                    ],
+                    'responsive' => true,
+                    'legend' => [
+                        'display' => false,
                         'position' => 'bottom',
                         'fontColor' => '#fff',
                     ],

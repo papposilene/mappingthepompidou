@@ -27,7 +27,6 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     // Artists
     Route::get('/artists', 'ArtistController@index')->name('api.artist.index');
     Route::get('/artists/gender/{gender}', 'ArtistController@gender')->name('api.artist.gender');
-
     Route::get('/artists/show/{uuid}', 'ArtistController@show')->name('api.artist.show');
     Route::get('/artists/show/{uuid}/artworks', 'ArtistController@artworks')->name('api.artist.artworks');
     // Artworks
@@ -59,6 +58,7 @@ Route::prefix('1.1')->namespace('API')->group(function () {
     Route::get('/statistics/acquisitions', 'StatisticController@acquisitions')->name('api.statistic.acquisitions');
     Route::get('/statistics/acquisitions/for-{slug}/departments', 'StatisticController@acquisitionsDepartments')->name('api.statistic.acquisitions.departments');
     Route::get('/statistics/artists/genders', 'StatisticController@genders')->name('api.statistic.artists.genders');
+    Route::get('/statistics/artists/birthyears', 'StatisticController@birthyears')->name('api.statistic.artists.birthyears');
     Route::get('/statistics/artworks/exposed', 'StatisticController@exposed')->name('api.statistic.artworks.exposed');
     Route::get('/statistics/artworks/unknown', 'StatisticController@unknown')->name('api.statistic.artworks.unknown');
     Route::get('/statistics/departments', 'StatisticController@departments')->name('api.statistic.departments');

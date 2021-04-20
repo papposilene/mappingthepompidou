@@ -198,6 +198,26 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/api/1.1/statistics/artists/birthyears' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'api.statistic.artists.birthyears',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/api/1.1/statistics/artworks/exposed' => 
       array (
         0 => 
@@ -304,7 +324,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::SHUrBZjp7lBRpFNO',
+            '_route' => 'generated::SUUYEn00KmwZoJn9',
           ),
           1 => NULL,
           2 => 
@@ -1873,6 +1893,43 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
+    'api.statistic.artists.birthyears' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'api/1.1/statistics/artists/birthyears',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'api',
+        ),
+        'uses' => 'App\\Http\\Controllers\\API\\StatisticController@birthyears',
+        'controller' => 'App\\Http\\Controllers\\API\\StatisticController@birthyears',
+        'namespace' => 'App\\Http\\Controllers\\API',
+        'prefix' => 'api/1.1',
+        'where' => 
+        array (
+        ),
+        'as' => 'api.statistic.artists.birthyears',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+        'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+    ),
     'api.statistic.artworks.exposed' => 
     array (
       'methods' => 
@@ -2058,7 +2115,7 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::SHUrBZjp7lBRpFNO' => 
+    'generated::SUUYEn00KmwZoJn9' => 
     array (
       'methods' => 
       array (
@@ -2079,7 +2136,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::SHUrBZjp7lBRpFNO',
+        'as' => 'generated::SUUYEn00KmwZoJn9',
       ),
       'fallback' => false,
       'defaults' => 
