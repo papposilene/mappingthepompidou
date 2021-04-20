@@ -478,23 +478,19 @@ class StatisticController extends Controller
                     'total' => $artists_count,
                 ],
                 'chart' => [
-                    'labels' => [
-                        array_keys($chartData),
-                    ],
+                    'labels' => array_keys($chartData),
                     'datasets' => [
                         [
-                            'data' => [
-                                data_get($chartData, '*.men')
-                            ],
+                            'data' => data_get($chartData, '*.men'),
                             'label' => 'Artistes de genre masculin',
-                            'borderColor' => '#000',
+                            'borderColor' => '#60A5FA',
+                            'fill' => true,
                         ],
                         [
-                            'data' => [
-                                data_get($chartData, '*.women')
-                            ],
+                            'data' => data_get($chartData, '*.women'),
                             'label' => 'Artistes de genre féminin',
-                            'borderColor' => '#000',
+                            'borderColor' => '#F87171',
+                            'fill' => true,
                         ],
                     ],
                 ],
@@ -511,6 +507,14 @@ class StatisticController extends Controller
                         'position' => 'bottom',
                         'fontColor' => '#fff',
                     ],
+                    /*'scales' => [
+                        'x' => [
+                            'stacked' => true,
+                        ],
+                        'y' => [
+                            'stacked' => true,
+                        ],
+                    ],*/
                 ],
             ])->all();
         }

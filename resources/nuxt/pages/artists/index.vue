@@ -38,6 +38,7 @@
                     <span class="mb-2">{{ artistsTotal }} artistes</span>
                 </h2>
                 <canvas id="chartArtistsGenders"></canvas>
+                <canvas id="chartArtistsBirthYears"></canvas>
             </div>
         </div>
     </main>
@@ -72,7 +73,8 @@ export default {
         }
     },
     created() {
-        this.renderChart(),
+        this.renderChartGenders(),
+        this.renderChartBirthYears(),
         this.$watch(
             () => this.$route.params,
             () => {
@@ -100,13 +102,31 @@ export default {
                 })
                 .finally(() => this.artistsLoading = false);
         },
-        renderChart() {
+        renderChartGenders() {
             this.chartErrored = false
             this.chartLoading = true
             axios.get('https://etp.psln.nl/api/1.1/statistics/artists/genders')
                 .then(response => {
                     new Chart(document.getElementById('chartArtistsGenders').getContext('2d'), {
                         type: 'pie',
+                        data: response.data.chart,
+                        options: response.data.options,
+                    });
+                    this.chartLoading = false
+                })
+                .catch(error => {
+                    this.chartErrored = true
+                    this.chartError = error.response.data.message || error.message
+                })
+                .finally(() => this.chartLoading = false);
+        },
+        renderChartBirthYears() {
+            this.chartErrored = false
+            this.chartLoading = true
+            axios.get('https://etp.psln.nl/api/1.1/statistics/artists/birthyears')
+                .then(response => {
+                    new Chart(document.getElementById('chartArtistsBirthYears').getContext('2d'), {
+                        type: 'line',
                         data: response.data.chart,
                         options: response.data.options,
                     });
