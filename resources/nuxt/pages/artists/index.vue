@@ -11,8 +11,17 @@
                 <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="mb-2">{{ artistsTotal }} artistes</span>
                 </h2>
-                <canvas id="chartArtistsGenders"></canvas>
-                <canvas id="chartArtistsBirthYears"></canvas>
+                <div class="flex flex-row">
+                    <div class="flex w-6/12">
+                        <canvas id="chartArtistsGenders"></canvas>
+                    </div>
+                    <div class="flex w-6/12">
+                        <canvas id="chartCountries"></canvas>
+                    </div>
+                </div>
+                <div class="flex flex-row mt-4">
+                    <canvas id="chartArtistsBirthYears"></canvas>
+                </div>
             </div>
 
             <div class="w-full px-0 mt-4">
@@ -76,6 +85,7 @@ export default {
     },
     created() {
         this.renderChartGenders(),
+        this.renderChartCountries(),
         this.renderChartBirthYears(),
         this.$watch(
             () => this.$route.params,
@@ -111,6 +121,24 @@ export default {
                 .then(response => {
                     new Chart(document.getElementById('chartArtistsGenders').getContext('2d'), {
                         type: 'pie',
+                        data: response.data.chart,
+                        options: response.data.options,
+                    });
+                    this.chartLoading = false
+                })
+                .catch(error => {
+                    this.chartErrored = true
+                    this.chartError = error.response.data.message || error.message
+                })
+                .finally(() => this.chartLoading = false);
+        },
+        async renderChartCountries() {
+            this.chartErrored = false;
+            this.chartLoading = false;
+            axios.get('http://localhost:8000/api/1.1/statistics/countries')
+                .then(response => {
+                    new Chart(document.getElementById('chartCountries').getContext('2d'), {
+                        type: 'bar',
                         data: response.data.chart,
                         options: response.data.options,
                     });

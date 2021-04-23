@@ -283,7 +283,7 @@ class StatisticController extends Controller
                     ],
                     'responsive' => true,
                     'legend' => [
-                        'display' => false,
+                        'display' => true,
                         'position' => 'bottom',
                         'fontColor' => '#fff',
                     ],
@@ -503,7 +503,7 @@ class StatisticController extends Controller
                     ],
                     'responsive' => true,
                     'legend' => [
-                        'display' => false,
+                        'display' => true,
                         'position' => 'bottom',
                         'fontColor' => '#fff',
                     ],
@@ -607,7 +607,7 @@ class StatisticController extends Controller
                     ],
                     'responsive' => true,
                     'legend' => [
-                        'display' => false,
+                        'display' => true,
                         'position' => 'bottom',
                         'fontColor' => '#fff',
                     ],
@@ -843,7 +843,7 @@ class StatisticController extends Controller
                     ],
                     'responsive' => true,
                     'legend' => [
-                        'display' => false,
+                        'display' => true,
                         'position' => 'bottom',
                         'fontColor' => '#fff',
                     ],
