@@ -46,7 +46,7 @@ class CountryController extends Controller
 
         return CountryResource::collection(
             Country::withCount('hasArtists')
-                ->orderBy($order_key, $order_value)->paginate(10)
+                ->orderBy($order_key, $order_value)->paginate(27)
         );
     }
 

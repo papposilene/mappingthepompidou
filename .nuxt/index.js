@@ -13,7 +13,6 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 /* Plugins */
 
 import nuxt_plugin_plugin_6b2feb7b from 'nuxt_plugin_plugin_6b2feb7b' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_plugin_cb7c70d4 from 'nuxt_plugin_plugin_cb7c70d4' // Source: ./matomo/plugin.js (mode: 'client')
 import nuxt_plugin_httpserver_8445c984 from 'nuxt_plugin_httpserver_8445c984' // Source: ./http.server.js (mode: 'server')
 import nuxt_plugin_http_0b8f351f from 'nuxt_plugin_http_0b8f351f' // Source: ./http.js (mode: 'all')
 import nuxt_plugin_axios_50133711 from 'nuxt_plugin_axios_50133711' // Source: ./axios.js (mode: 'all')
@@ -45,7 +44,11 @@ Vue.component(Nuxt.name, Nuxt)
 
 Object.defineProperty(Vue.prototype, '$nuxt', {
   get() {
-    return this.$root.$options.$nuxt
+    const globalNuxt = this.$root.$options.$nuxt
+    if (process.client && !globalNuxt && typeof window !== 'undefined') {
+      return window.$nuxt
+    }
+    return globalNuxt
   },
   configurable: true
 })
@@ -62,7 +65,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"%s - Exploring The Centre Pompidou","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."},{"hid":"twitter:creator","name":"twitter:creator","content":"@papposilene"},{"hid":"twitter:card","name":"twitter:card","content":"summary_large_image"},{"hid":"og:title","property":"og:title","content":"Exploring The Pompidou"},{"hid":"og:description","property":"og:description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."},{"hid":"og:image","name":"og:image","content":"img\u002Fexploring-the-centre-pompidou_screenshot.png"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"bodyAttrs":{"class":"bg-gray-900 m-4"},"style":[],"script":[{"src":"\u002F\u002Fpwk.psln.nl\u002Fpiwik.js","body":true,"defer":true,"async":true}]},
+    head: {"titleTemplate":"%s - Exploring The Centre Pompidou","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."},{"hid":"twitter:creator","name":"twitter:creator","content":"@papposilene"},{"hid":"twitter:card","name":"twitter:card","content":"summary_large_image"},{"hid":"og:title","property":"og:title","content":"Exploring The Pompidou"},{"hid":"og:description","property":"og:description","content":"Visualizing the Centre Pompidou's (Centre national d'art moderne, aka CNAM) collection data."},{"hid":"og:image","name":"og:image","content":"img\u002Fexploring-the-centre-pompidou_screenshot.png"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"bodyAttrs":{"class":"bg-gray-900 m-4"},"style":[],"script":[]},
 
     router,
     nuxt: {
@@ -180,10 +183,6 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_plugin_6b2feb7b(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_plugin_cb7c70d4 === 'function') {
-    await nuxt_plugin_plugin_cb7c70d4(app.context, inject)
-  }
-
   if (process.server && typeof nuxt_plugin_httpserver_8445c984 === 'function') {
     await nuxt_plugin_httpserver_8445c984(app.context, inject)
   }
@@ -203,26 +202,26 @@ async function createApp(ssrContext, config = {}) {
     }
   }
 
-  // If server-side, wait for async component to be resolved first
-  if (process.server && ssrContext && ssrContext.url) {
-    await new Promise((resolve, reject) => {
-      router.push(ssrContext.url, resolve, (err) => {
-        // https://github.com/vuejs/vue-router/blob/v3.4.3/src/util/errors.js
-        if (!err._isRouter) return reject(err)
-        if (err.type !== 2 /* NavigationFailureType.redirected */) return resolve()
+  // Wait for async component to be resolved first
+  await new Promise((resolve, reject) => {
+    router.push(app.context.route.fullPath, resolve, (err) => {
+      // https://github.com/vuejs/vue-router/blob/v3.4.3/src/util/errors.js
+      if (!err._isRouter) return reject(err)
+      if (err.type !== 2 /* NavigationFailureType.redirected */) return resolve()
 
-        // navigated to a different route in router guard
-        const unregister = router.afterEach(async (to, from) => {
+      // navigated to a different route in router guard
+      const unregister = router.afterEach(async (to, from) => {
+        if (process.server && ssrContext && ssrContext.url) {
           ssrContext.url = to.fullPath
-          app.context.route = await getRouteData(to)
-          app.context.params = to.params || {}
-          app.context.query = to.query || {}
-          unregister()
-          resolve()
-        })
+        }
+        app.context.route = await getRouteData(to)
+        app.context.params = to.params || {}
+        app.context.query = to.query || {}
+        unregister()
+        resolve()
       })
     })
-  }
+  })
 
   return {
     app,

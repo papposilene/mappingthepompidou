@@ -45,7 +45,7 @@ class MovementController extends Controller
         }
 
         return MovementResource::collection(
-            Movement::orderBy($order_key, $order_value)->paginate(10)
+            Movement::orderBy($order_key, $order_value)->paginate(20)
         );
     }
 

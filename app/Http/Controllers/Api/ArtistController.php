@@ -45,7 +45,7 @@ class ArtistController extends Controller
         }
 
         return ArtistResource::collection(
-            Artist::orderBy($order_key, $order_value)->paginate(10)
+            Artist::orderBy($order_key, $order_value)->paginate(12)
         );
     }
 

@@ -7,7 +7,15 @@
         </div>
 
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="md:flex-col md:w-4/12 sm:w-full px-0 order-last sm:order-first">
+            <div class="w-full px-0">
+                <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="mb-2">{{ artistsTotal }} artistes</span>
+                </h2>
+                <canvas id="chartArtistsGenders"></canvas>
+                <canvas id="chartArtistsBirthYears"></canvas>
+            </div>
+
+            <div class="w-full px-0 mt-4">
                 <div v-if="artistsLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>
@@ -16,29 +24,23 @@
                     <div class="flex flex-col w-full px-0 mt-12">
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="artistsPaginator" @paginate="fetchData()" :offset="4" />
-                            <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data in artistsStreamData.data" :key="data.uiid" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                            <div class="flex flex-wrap justify-center list-none text-white my-5 rounded">
+                                <div v-for="data in artistsStreamData.data" :key="data.uiid" class="flex-1 border border-gray-900 bg-gray-800 hover:bg-green-400 hover:text-black m-2 p-2 rounded">
                                     <router-link :to="`/artists/show/${data.uuid}`" class="w-full">
-                                        <span>{{ data.artist_name }}</span><br />
-                                        <span class="text-gray-400 text-sm">
+                                        <h3 class="font-semibold uppercase whitespace-nowrap">{{ data.artist_name }}</h3>
+                                        <h4 class="text-sm whitespace-nowrap">
                                             Naissance : {{ data.artist_birth != 0 ? data.artist_birth : 'sans date' }}.
-                                            Décès : {{ data.artist_death != 0 ? data.artist_death : 'sans date' }}.<br />
-                                            Nombre d’oeuvres conservées : {{ data.has_artworks_count }}.<br />
-                                        </span>
+                                            Décès : {{ data.artist_death != 0 ? data.artist_death : 'sans date' }}.
+                                        </h4>
+                                        <h4 class="text-sm whitespace-nowrap">
+                                            Nombre d’oeuvres conservées : {{ data.has_artworks_count }}.
+                                        </h4>
                                     </router-link>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="md:flex-col md:w-8/12 w-full px-0 mt-4 md:min-h-screen order-first sm:order-last">
-                <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="mb-2">{{ artistsTotal }} artistes</span>
-                </h2>
-                <canvas id="chartArtistsGenders"></canvas>
-                <canvas id="chartArtistsBirthYears"></canvas>
             </div>
         </div>
     </main>
@@ -89,7 +91,7 @@ export default {
             this.artistsLoading = true
             let currentPage = this.artistsPaginator.current_page
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('https://etp.psln.nl/api/1.1/artists/?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/artists/?page=' + pageNumber)
                 .then(response => {
                     this.artistsLoading = false;
                     this.artistsStreamData = response.data;
@@ -105,7 +107,7 @@ export default {
         renderChartGenders() {
             this.chartErrored = false
             this.chartLoading = true
-            axios.get('https://etp.psln.nl/api/1.1/statistics/artists/genders')
+            axios.get('http://localhost:8000/api/1.1/statistics/artists/genders')
                 .then(response => {
                     new Chart(document.getElementById('chartArtistsGenders').getContext('2d'), {
                         type: 'pie',
@@ -123,7 +125,7 @@ export default {
         renderChartBirthYears() {
             this.chartErrored = false
             this.chartLoading = true
-            axios.get('https://etp.psln.nl/api/1.1/statistics/artists/birthyears')
+            axios.get('http://localhost:8000/api/1.1/statistics/artists/birthyears')
                 .then(response => {
                     new Chart(document.getElementById('chartArtistsBirthYears').getContext('2d'), {
                         type: 'line',

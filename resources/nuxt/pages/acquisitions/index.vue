@@ -7,7 +7,13 @@
         </div>
 
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="md:flex-col md:w-4/12 sm:w-full px-0 order-last sm:order-first">
+            <div class="w-full px-0">
+                <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="text-black">{{ acquisitionsTotal }} types d’acquisitions</span>
+                </h2>
+                <canvas id="chartAcquisitions"></canvas>
+            </div>
+            <div class="w-full px-0 mt-4">
                 <div v-if="acquisitionsLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>
@@ -16,26 +22,19 @@
                     <div class="flex flex-col w-full px-0 mt-12">
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="acquisitionsPaginator" @paginate="fetchData()" :offset="4" />
-                            <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data in acquisitionsStreamData.data" :key="data.acquisition_slug" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                            <div class="flex flex-wrap justify-center list-none text-white my-5 rounded">
+                                <div v-for="data in acquisitionsStreamData.data" :key="data.acquisition_slug" class="flex-1 border border-gray-900 bg-gray-800 hover:bg-red-400 hover:text-black m-2 p-2 rounded">
                                     <router-link :to="`/acquisitions/show/${data.acquisition_slug}`" class="w-full">
-                                        <span>{{ data.acquisition_name }}</span><br />
-                                        <span class="text-gray-400 text-sm">
-                                            Oeuvres entrées par ce type d‘acquisition : {{ data.acquired_artworks_count }}.
-                                        </span>
+                                        <h3 class="font-semibold uppercase whitespace-nowrap">{{ data.acquisition_name }}</h3>
+                                        <h4 class="text-sm whitespace-nowrap">
+                                            Oeuvres : {{ data.acquired_artworks_count }}.
+                                        </h4>
                                     </router-link>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="md:flex-col md:w-8/12 w-full px-0 mt-4 md:min-h-screen order-first sm:order-last">
-                <h2 class="flex flex-col bg-purple-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ acquisitionsTotal }} types d’acquisitions</span>
-                </h2>
-                <canvas id="chartAcquisitions"></canvas>
             </div>
         </div>
     </main>
@@ -80,7 +79,7 @@ export default {
             this.acquisitionsLoading = true;
             let currentPage = this.acquisitionsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('https://etp.psln.nl/api/1.1/acquisitions?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/acquisitions?page=' + pageNumber)
                 .then(response => {
                     this.acquisitionsStreamData = response.data;
                     this.acquisitionsPaginator = this.acquisitionsStreamData.meta;
@@ -96,7 +95,7 @@ export default {
         async renderChart() {
             this.chartErrored = false
             this.chartLoading = false
-            axios.get('https://etp.psln.nl/api/1.1/statistics/acquisitions')
+            axios.get('http://localhost:8000/api/1.1/statistics/acquisitions')
                 .then(response => {
                     new Chart(document.getElementById('chartAcquisitions').getContext('2d'), {
                         type: 'bar',

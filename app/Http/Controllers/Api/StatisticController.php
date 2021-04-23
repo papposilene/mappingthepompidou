@@ -680,7 +680,7 @@ class StatisticController extends Controller
                         'fontColor' => '#fff',
                     ],
                     'scales' => [
-                        'xAxes' => [
+                        'yAxes' => [
                             [
                                 //'id' => 'first-y-axis',
                                 'type' => 'linear',

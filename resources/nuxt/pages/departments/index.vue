@@ -2,12 +2,19 @@
 <div class="font-sans h-screen antialiased" id="app">
     <TheHeader />
     <main class="container w-full mx-auto pt-20 text-white">
-        <div v-if="departmentsErrored" class="flex w-full text-black bg-red-400 p-4 my-5 mt-12 rounded uppercase">
+        <div v-if="departmentsErrored" class="flex w-full text-black bg-indigo-400 p-4 my-5 mt-12 rounded uppercase">
             Bim bam boum, c'est tout cassé !
         </div>
 
         <div class="flex flex-wrap w-full px-0 md:mt-12">
-            <div class="md:flex-col md:w-4/12 sm:w-full px-0 order-last sm:order-first">
+            <div class="w-full px-0">
+                <h2 class="flex flex-col bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
+                    <span class="text-black">{{ departmentsTotal }} départements</span>
+                </h2>
+                <canvas id="chartDepartments"></canvas>
+            </div>
+
+            <div class="w-full px-0 mt-4">
                 <div v-if="departmentsLoading" class="flex w-full text-black bg-green-500 p-4 my-5 rounded uppercase">
                     Chargement en cours...
                 </div>
@@ -16,26 +23,19 @@
                     <div class="flex flex-col w-full px-0 mt-12">
                         <div class="flex flex-col w-full">
                             <ThePaginator :pagination="departmentsPaginator" @paginate="fetchData()" :offset="4" />
-                            <ul class="flex flex-col list-none text-white my-5 rounded">
-                                <li v-for="data in departmentsStreamData.data" :key="data.department_slug" class="flex border-b border-gray-600 hover:bg-gray-600 p-2">
+                            <div class="flex flex-wrap justify-center list-none text-white my-5 rounded">
+                                <div v-for="data in departmentsStreamData.data" :key="data.department_slug" class="flex-1 border border-gray-900 bg-gray-800 hover:bg-indigo-400 hover:text-black m-2 p-2 rounded">
                                     <router-link :to="`/departments/show/${data.department_slug}`" class="w-full">
-                                        <span>{{ data.department_name }}</span><br />
-                                        <span class="text-gray-400 text-sm">
-                                            Oeuvres conservées dans ce département : {{ data.conserved_artworks_count }}.
-                                        </span>
+                                        <h3 class="font-semibold uppercase whitespace-nowrap">{{ data.department_name }}</h3>
+                                        <h4 class="text-sm whitespace-nowrap">
+                                            Oeuvres : {{ data.conserved_artworks_count }}.
+                                        </h4>
                                     </router-link>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="md:flex-col md:w-8/12 w-full px-0 mt-4 md:min-h-screen order-first sm:order-last">
-                <h2 class="flex flex-col bg-indigo-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
-                    <span class="text-black">{{ departmentsTotal }} départements</span>
-                </h2>
-                <canvas id="chartDepartments"></canvas>
             </div>
         </div>
     </main>
@@ -81,7 +81,7 @@ export default {
             this.departmentsLoading = true;
             let currentPage = this.departmentsPaginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('https://etp.psln.nl/api/1.1/departments?page=' + pageNumber)
+            axios.get('http://localhost:8000/api/1.1/departments?page=' + pageNumber)
                 .then(response => {
                     this.departmentsStreamData = response.data;
                     this.departmentsPaginator = this.departmentsStreamData.meta;
@@ -97,7 +97,7 @@ export default {
         async renderChart() {
             this.chartErrored = false;
             this.chartLoading = true;
-            axios.get('https://etp.psln.nl/api/1.1/statistics/departments')
+            axios.get('http://localhost:8000/api/1.1/statistics/departments')
                 .then(response => {
                     new Chart(document.getElementById('chartDepartments'), {
                         type: 'bar',
