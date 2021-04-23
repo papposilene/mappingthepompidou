@@ -80,7 +80,7 @@ export default {
             this.apiLoading = true;
             let currentPage = this.paginator.current_page;
             let pageNumber = currentPage ? currentPage : 1;
-            axios.get('http://localhost:8000/api/1.1/countries?page=' + pageNumber)
+            axios.get('https://etp.psln.nl/api/1.1/countries?page=' + pageNumber)
                 .then(response => {
                     this.apiStreamData = response.data;
                     this.paginator = response.data.meta;
@@ -96,7 +96,7 @@ export default {
         async renderChart() {
             this.chartErrored = false;
             this.chartLoading = false;
-            axios.get('http://localhost:8000/api/1.1/statistics/countries')
+            axios.get('https://etp.psln.nl/api/1.1/statistics/countries')
                 .then(response => {
                     new Chart(document.getElementById('chartCountries').getContext('2d'), {
                         type: 'bar',

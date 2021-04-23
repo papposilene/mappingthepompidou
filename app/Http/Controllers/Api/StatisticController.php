@@ -799,7 +799,7 @@ class StatisticController extends Controller
             if (Cache::has('_statistics_artworks_nodepartment')) {
                 $statistics_artworks_nodepartment = Cache::get('_statistics_artworks_nodepartment');
             } else {
-                $departmentUnknown = Department::where('department_slug', 'inconnu')->first();
+                $departmentUnknown = Department::where('department_slug', 'departement-inconnu')->first();
                 $statistics_artworks_nodepartment = Artwork::where('department_uuid', $departmentUnknown->uuid)->count();
                 Cache::put('_statistics_artworks_nodepartment', $statistics_artworks_nodepartment);
             }
