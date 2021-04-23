@@ -13,22 +13,22 @@
                 </h2>
                 <ul class="flex flex-col list-none text-white px-4 my-5 rounded">
                     <li class="flex border-b border-yellow-400 p-2">
-                        Date : {{ artworkDate }}.
+                        Date : {{ artworkDate ? artworkDate : 'sans date' }}.
                     </li>
                     <li class="flex border-b border-yellow-400 p-2">
-                        Inventaire : {{ artworkInventory }}.
+                        Inventaire : {{ artworkInventory ? artworkInventory : 'non spécifié' }}.
                     </li>
                     <li class="flex border-b border-yellow-400 p-2">
-                        Type : {{ artworkType }}.
+                        Type : {{ artworkType ? artworkType : 'non spécifié' }}.
                     </li>
                     <li class="flex border-b border-yellow-400 p-2">
-                        Technique : {{ artworkTechnique }}.
+                        Technique : {{ artworkTechnique ? artworkTechnique : 'non spécifiée' }}.
                     </li>
                     <li class="flex border-b border-yellow-400 p-2">
                          {{ artworkExposed ? 'Actuellement exposé' : 'Non présent dans le parcours' }}.
                     </li>
                     <li class="flex border-b border-yellow-400 p-2">
-                        Droits : {{ artworkCopyright }}.
+                        Droits : {{ artworkCopyright ? artworkCopyright : 'non spécifié' }}.
                     </li>
                     <li class="flex border-b border-yellow-400 hover:bg-yellow-400 hover:text-black p-2">
                         <a :href="artworkLink" class="w-full" target="_blank" rel="noopener">Fiche sur le site des collections du Centre Pompidou.</a>

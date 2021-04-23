@@ -318,30 +318,10 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      '/' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'generated::bkFvgkwLpMhytped',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
     ),
     2 => 
     array (
-      0 => '{^(?|/api/1\\.1/(?|a(?|cquisitions/show/([^/]++)(?|(*:52)|/artworks(*:68))|rt(?|ists/(?|gender/([^/]++)(*:104)|show/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?|(*:182)|/artworks(*:199)))|works/(?|acquisition_(?|date/([^/]++)(*:246)|type/([^/]++)(*:267))|exposed/([^/]++)(*:292)|year/([^/]++)(*:313)|show/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(*:388))))|countries/(?|continent/([^/]++)(*:430)|show/([^/]++)(?|(*:454)|/artists(*:470)))|departments/show/([^/]++)(?|(*:508)|/artworks(*:525))|genders/show/([^/]++)(*:555)|movements/show/([^/]++)(?|(*:589)|/art(?|ists(*:608)|works(*:621)))|statistics/acquisitions/for\\-([^/]++)/departments(*:680)))/?$}sDu',
+      0 => '{^(?|/api/1\\.1/(?|a(?|cquisitions/show/([^/]++)(?|(*:52)|/artworks(*:68))|rt(?|ists/(?|gender/([^/]++)(*:104)|show/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?|(*:182)|/artworks(*:199)))|works/(?|acquisition_(?|date/([^/]++)(*:246)|type/([^/]++)(*:267))|exposed/([^/]++)(*:292)|year/([^/]++)(*:313)|show/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(*:388))))|countries/(?|continent/([^/]++)(*:430)|show/([^/]++)(?|(*:454)|/artists(*:470)))|departments/show/([^/]++)(?|(*:508)|/artworks(*:525))|genders/show/([^/]++)(*:555)|movements/show/([^/]++)(?|(*:589)|/art(?|ists(*:608)|works(*:621)))|statistics/acquisitions/for\\-([^/]++)/departments(*:680))|/(.*)?(*:695))/?$}sDu',
     ),
     3 => 
     array (
@@ -802,6 +782,30 @@ app('router')->setCompiledRoutes(
           3 => NULL,
           4 => false,
           5 => false,
+          6 => NULL,
+        ),
+      ),
+      695 => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'nuxt',
+            'path' => NULL,
+          ),
+          1 => 
+          array (
+            0 => 'path',
+          ),
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => true,
           6 => NULL,
         ),
         1 => 
@@ -2115,14 +2119,14 @@ app('router')->setCompiledRoutes(
       'lockSeconds' => NULL,
       'waitSeconds' => NULL,
     ),
-    'generated::bkFvgkwLpMhytped' => 
+    'nuxt' => 
     array (
       'methods' => 
       array (
         0 => 'GET',
         1 => 'HEAD',
       ),
-      'uri' => '/',
+      'uri' => '{path?}',
       'action' => 
       array (
         'middleware' => 
@@ -2136,7 +2140,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::bkFvgkwLpMhytped',
+        'as' => 'nuxt',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2149,6 +2153,7 @@ app('router')->setCompiledRoutes(
       'wheres' => 
       array (
         'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+        'path' => '.*',
       ),
       'bindingFields' => 
       array (
