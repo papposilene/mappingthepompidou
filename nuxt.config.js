@@ -61,7 +61,7 @@ export default {
           {
             hid: 'og:image',
             name: 'og:image',
-            content: 'img/exploring-the-centre-pompidou_screenshot.png'
+            content: '/img/exploring-the-centre-pompidou_screenshot.png'
           }
 
         ],
