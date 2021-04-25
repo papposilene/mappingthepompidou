@@ -8,5 +8,8 @@
     "editorconfig.editorconfig",
     "bradlc.vscode-tailwindcss",
     "ms-azuretools.vscode-docker",
+    "ahinkle.laravel-model-snippets",
+    "ryannaddy.laravel-artisan",
+    "mikestead.dotenv"
   ]
 }
