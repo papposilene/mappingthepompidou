@@ -4,21 +4,21 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _7dc9defc = () => interopDefault(import('../resources/nuxt/pages/acquisitions/index.vue' /* webpackChunkName: "pages/acquisitions/index" */))
-const _3124706c = () => interopDefault(import('../resources/nuxt/pages/artists/index.vue' /* webpackChunkName: "pages/artists/index" */))
-const _479045b5 = () => interopDefault(import('../resources/nuxt/pages/artworks/index.vue' /* webpackChunkName: "pages/artworks/index" */))
-const _41445c58 = () => interopDefault(import('../resources/nuxt/pages/countries/index.vue' /* webpackChunkName: "pages/countries/index" */))
-const _237c05fe = () => interopDefault(import('../resources/nuxt/pages/departments/index.vue' /* webpackChunkName: "pages/departments/index" */))
-const _cf22e124 = () => interopDefault(import('../resources/nuxt/pages/docs.vue' /* webpackChunkName: "pages/docs" */))
-const _794360c4 = () => interopDefault(import('../resources/nuxt/pages/movements/index.vue' /* webpackChunkName: "pages/movements/index" */))
-const _0780973e = () => interopDefault(import('../resources/nuxt/pages/acquisitions/show/_slug.vue' /* webpackChunkName: "pages/acquisitions/show/_slug" */))
-const _216d6cde = () => interopDefault(import('../resources/nuxt/pages/artists/show/_uuid.vue' /* webpackChunkName: "pages/artists/show/_uuid" */))
-const _4ab07d35 = () => interopDefault(import('../resources/nuxt/pages/artworks/show/_uuid.vue' /* webpackChunkName: "pages/artworks/show/_uuid" */))
-const _dffbd4e6 = () => interopDefault(import('../resources/nuxt/pages/countries/show/_cca3.vue' /* webpackChunkName: "pages/countries/show/_cca3" */))
-const _5bf37459 = () => interopDefault(import('../resources/nuxt/pages/departments/show/_slug.vue' /* webpackChunkName: "pages/departments/show/_slug" */))
-const _3a284b48 = () => interopDefault(import('../resources/nuxt/pages/genders/show/_slug.vue' /* webpackChunkName: "pages/genders/show/_slug" */))
-const _73ce1b14 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_slug.vue' /* webpackChunkName: "pages/movements/show/_slug" */))
-const _13ccd5af = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _868a9794 = () => interopDefault(import('../resources/nuxt/pages/acquisitions/index.vue' /* webpackChunkName: "pages/acquisitions/index" */))
+const _bf04821c = () => interopDefault(import('../resources/nuxt/pages/artists/index.vue' /* webpackChunkName: "pages/artists/index" */))
+const _793e7022 = () => interopDefault(import('../resources/nuxt/pages/artworks/index.vue' /* webpackChunkName: "pages/artworks/index" */))
+const _44c4d24c = () => interopDefault(import('../resources/nuxt/pages/countries/index.vue' /* webpackChunkName: "pages/countries/index" */))
+const _5ba49887 = () => interopDefault(import('../resources/nuxt/pages/departments/index.vue' /* webpackChunkName: "pages/departments/index" */))
+const _2597b228 = () => interopDefault(import('../resources/nuxt/pages/docs.vue' /* webpackChunkName: "pages/docs" */))
+const _778325ca = () => interopDefault(import('../resources/nuxt/pages/movements/index.vue' /* webpackChunkName: "pages/movements/index" */))
+const _79c5f644 = () => interopDefault(import('../resources/nuxt/pages/acquisitions/show/_slug.vue' /* webpackChunkName: "pages/acquisitions/show/_slug" */))
+const _605e4218 = () => interopDefault(import('../resources/nuxt/pages/artists/show/_uuid.vue' /* webpackChunkName: "pages/artists/show/_uuid" */))
+const _2c4b618a = () => interopDefault(import('../resources/nuxt/pages/artworks/show/_uuid.vue' /* webpackChunkName: "pages/artworks/show/_uuid" */))
+const _53daf772 = () => interopDefault(import('../resources/nuxt/pages/countries/show/_cca3.vue' /* webpackChunkName: "pages/countries/show/_cca3" */))
+const _5fa31c93 = () => interopDefault(import('../resources/nuxt/pages/departments/show/_slug.vue' /* webpackChunkName: "pages/departments/show/_slug" */))
+const _79192082 = () => interopDefault(import('../resources/nuxt/pages/genders/show/_slug.vue' /* webpackChunkName: "pages/genders/show/_slug" */))
+const _0c296130 = () => interopDefault(import('../resources/nuxt/pages/movements/show/_slug.vue' /* webpackChunkName: "pages/movements/show/_slug" */))
+const _2bc80a35 = () => interopDefault(import('../resources/nuxt/pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -33,63 +33,63 @@ export const routerOptions = {
 
   routes: [{
     path: "/acquisitions",
-    component: _7dc9defc,
+    component: _868a9794,
     name: "acquisitions"
   }, {
     path: "/artists",
-    component: _3124706c,
+    component: _bf04821c,
     name: "artists"
   }, {
     path: "/artworks",
-    component: _479045b5,
+    component: _793e7022,
     name: "artworks"
   }, {
     path: "/countries",
-    component: _41445c58,
+    component: _44c4d24c,
     name: "countries"
   }, {
     path: "/departments",
-    component: _237c05fe,
+    component: _5ba49887,
     name: "departments"
   }, {
     path: "/docs",
-    component: _cf22e124,
+    component: _2597b228,
     name: "docs"
   }, {
     path: "/movements",
-    component: _794360c4,
+    component: _778325ca,
     name: "movements"
   }, {
     path: "/acquisitions/show/:slug?",
-    component: _0780973e,
+    component: _79c5f644,
     name: "acquisitions-show-slug"
   }, {
     path: "/artists/show/:uuid?",
-    component: _216d6cde,
+    component: _605e4218,
     name: "artists-show-uuid"
   }, {
     path: "/artworks/show/:uuid?",
-    component: _4ab07d35,
+    component: _2c4b618a,
     name: "artworks-show-uuid"
   }, {
     path: "/countries/show/:cca3?",
-    component: _dffbd4e6,
+    component: _53daf772,
     name: "countries-show-cca3"
   }, {
     path: "/departments/show/:slug?",
-    component: _5bf37459,
+    component: _5fa31c93,
     name: "departments-show-slug"
   }, {
     path: "/genders/show/:slug?",
-    component: _3a284b48,
+    component: _79192082,
     name: "genders-show-slug"
   }, {
     path: "/movements/show/:slug?",
-    component: _73ce1b14,
+    component: _0c296130,
     name: "movements-show-slug"
   }, {
     path: "/",
-    component: _13ccd5af,
+    component: _2bc80a35,
     name: "index"
   }],
 

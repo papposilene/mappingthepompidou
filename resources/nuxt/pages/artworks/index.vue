@@ -12,10 +12,10 @@
                     <span class="text-black">{{ artworksTotal }} oeuvres</span>
                 </h2>
                 <div class="flex flex-row">
-                    <div class="flex w-6/12">
+                    <div class="flex w-full lg:w-6/12">
                         <canvas id="chartExposed"></canvas>
                     </div>
-                    <div class="flex w-6/12">
+                    <div class="flex w-full lg:w-6/12">
                         <canvas id="chartUnknown"></canvas>
                     </div>
                 </div>

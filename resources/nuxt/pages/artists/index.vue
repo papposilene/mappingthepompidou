@@ -11,15 +11,15 @@
                 <h2 class="flex flex-col bg-green-400 font-bold m-4 py-4 text-3xl text-center text-black rounded">
                     <span class="mb-2">{{ artistsTotal }} artistes</span>
                 </h2>
-                <div class="flex flex-row">
-                    <div class="flex w-6/12">
+                <div class="flex flex-col lg:flex-row">
+                    <div class="flex w-full lg:w-6/12">
                         <canvas id="chartArtistsGenders"></canvas>
                     </div>
-                    <div class="flex w-6/12">
+                    <div class="flex w-full lg:w-6/12">
                         <canvas id="chartCountries"></canvas>
                     </div>
                 </div>
-                <div class="flex flex-row mt-4">
+                <div class="flex  flex-col lg:flex-row mt-4">
                     <canvas id="chartArtistsBirthYears"></canvas>
                 </div>
             </div>
