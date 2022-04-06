@@ -23,7 +23,7 @@
         "chart.js": "^2.9.4",
         "nuxt": "^2.15.3",
         "nuxt-matomo": "^1.2.4",
-        "tailwindcss": "^2.1.1"
+        "tailwindcss": "^3.0.23"
     },
     "devDependencies": {
         "@nuxt/postcss8": "^1.1.3"
