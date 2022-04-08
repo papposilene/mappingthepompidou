@@ -4,9 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Delete this trick before pushing in production
-header('Access-Control-Allow-Origin:  *');
-header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
-header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
+//header('Access-Control-Allow-Origin:  *');
+//header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+//header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Autho
 |
 */
 
-Route::prefix('1.1')->namespace('API')->group(function () {
+Route::prefix('1.1')->namespace('Api')->group(function () {
     // Acquisitions
     Route::get('/acquisitions', 'AcquisitionController@index')->name('api.acquisition.index');
     Route::get('/acquisitions/show/{slug}', 'AcquisitionController@show')->name('api.acquisition.show');

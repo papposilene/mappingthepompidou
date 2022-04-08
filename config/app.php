@@ -53,8 +53,9 @@ return [
     */
 
     'url' => env('APP_URL', 'https://etp.psln.nl'),
+    'api' => env('APP_API', 'https://etp.psln.nl'),
 
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('ASSET_URL', 'https://etp.psln.nl'),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
