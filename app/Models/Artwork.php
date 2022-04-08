@@ -76,13 +76,13 @@ class Artwork extends Model
      * @var array
      */
     protected $casts = [
-        'uuid' => 'uuid',
-        'department_uuid' => 'uuid',
-        'artist_uuid' => 'uuid',
-        'art_movement' => 'uuid',
+        //'uuid' => 'uuid',
+        //'department_uuid' => 'uuid',
+        //'artist_uuid' => 'uuid',
+        //'art_movement' => 'uuid',
     ];
 
-	/**
+    /**
      * Get the route key for the model.
      *
      * @return string

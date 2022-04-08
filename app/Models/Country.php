@@ -71,10 +71,10 @@ class Country extends Model
      * @var array
      */
     protected $casts = [
-        'uuid' => 'uuid',
+        //'uuid' => 'uuid',
     ];
 
-	/**
+    /**
      * Get the route key for the model.
      *
      * @return string

@@ -82,13 +82,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'uuid' => 'uuid',
+        //'uuid' => 'uuid',
         'email_verified_at' => 'datetime',
         'approved_at' => 'datetime',
-        'approved_by' => 'uuid',
+        //'approved_by' => 'uuid',
     ];
 
-	/**
+    /**
      * Get the route key for the model.
      *
      * @return string
