@@ -13,25 +13,12 @@ class ArtworkResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         $slug = $this->navigart_id;
 
         if (Cache::has('_has_artists_for-' . $slug)) {
             $has_artists = Cache::get('_has_artists_for-' . $slug);
-        } else {
-            $has_artists = $this->hasArtists()->get();
-            $has_artists = [
-                'uuid' => $has_artists[0]->uuid,
-                'navigart_id' => $has_artists[0]->navigart_id,
-                'artist_name' => $has_artists[0]->artist_name,
-                'artist_type' => $has_artists[0]->artist_type,
-                'artist_gender' => $has_artists[0]->artist_gender,
-                'artist_birth' => $has_artists[0]->artist_birth,
-                'artist_death' => $has_artists[0]->artist_death,
-                'artist_nationality' => $has_artists[0]->hasNationality()->get(),
-            ];
-            Cache::put('_has_artists_for-' . $slug, $has_artists);
         }
 
         if (Cache::has('_in_movements_for-' . $slug)) {
@@ -48,7 +35,7 @@ class ArtworkResource extends JsonResource
                 'department_name' => $this->inDepartment->department_name,
                 'department_slug' => $this->inDepartment->department_slug,
             ],
-            'artists' => $has_artists,
+            'artists' => ($has_artists ?? $this->hasArtists()->get()),
             'navigart_id' => $this->navigart_id,
             'object_inventory' => $this->object_inventory,
             'object_title' => $this->object_title,

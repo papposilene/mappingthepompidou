@@ -52,7 +52,7 @@ class ArtistController extends Controller
     /**
      * Display a listing of artists for the specified nationality.
      *
-     * @param  uuid  $uuid
+     * @param string $uuid
      * @return \Illuminate\Http\Response
      */
     public function artworks($uuid)
@@ -186,7 +186,7 @@ class ArtistController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  uuid  $uuid
+     * @param string $uuid
      * @return \Illuminate\Http\Response
      */
     public function show($uuid)

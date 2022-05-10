@@ -207,7 +207,7 @@ class ArtworkController extends Controller
     /**
      * Display the specified artwork.
      *
-     * @param  uuid  $uuid
+     * @param string $uuid
      * @return \Illuminate\Http\Response
      */
     public function show($uuid)
