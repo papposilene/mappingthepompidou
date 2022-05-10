@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -57,6 +58,26 @@ class Country extends Model
     ];
 
     /**
+     * The attributes that are visible for arrays.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'uuid',
+        'name_common_eng',
+        'name_common_fra',
+        'name_official_eng',
+        'name_official_fra',
+        'cca2',
+        'cca3',
+        'region',
+        'subregion',
+        'lat',
+        'lng',
+        'flag',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
@@ -71,7 +92,7 @@ class Country extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
+        'uuid' => 'string',
     ];
 
     /**
@@ -99,10 +120,10 @@ class Country extends Model
     /**
      * Get all the artworks for a specific artist.
      */
-    public function hasArtists()
+    public function hasArtists(): hasMany
     {
         return $this->hasMany(
-            'App\Models\Artist',
+            Artist::class,
             'artist_nationality',
             'cca3'
         );

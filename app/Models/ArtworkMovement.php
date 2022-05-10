@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -62,9 +63,9 @@ class ArtworkMovement extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
-        //'artwork_uuid' => 'uuid',
-        //'movement_uuid' => 'uuid',
+        'uuid' => 'string',
+        'artwork_uuid' => 'string',
+        'movement_uuid' => 'string',
     ];
 
     /**
@@ -92,10 +93,10 @@ class ArtworkMovement extends Model
     /**
      * Get all the artists for a specific movement.
      */
-    public function isArtwork()
+    public function isArtwork(): hasOne
     {
         return $this->hasOne(
-            'App\Models\Artwork',
+            Artwork::class,
             'uuid',
             'artwork_uuid'
         );
@@ -104,10 +105,10 @@ class ArtworkMovement extends Model
     /**
      * Get all the movements for a specific artist.
      */
-    public function inMovement()
+    public function inMovement(): hasOne
     {
         return $this->hasOne(
-            'App\Models\Movement',
+            Movement::class,
             'uuid',
             'movement_uuid'
         );

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -62,7 +64,7 @@ class Acquisition extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
+        'uuid' => 'string',
     ];
 
     /**
@@ -90,11 +92,11 @@ class Acquisition extends Model
     /**
      * Get all the artists for a specific acquisition mode.
      */
-    public function acquiredArtists()
+    public function acquiredArtists(): hasManyThrough
     {
         return $this->hasManyThrough(
-            'App\Models\Artist',
-            'App\Models\Artwork',
+            Artist::class,
+            Artwork::class,
             'acquisition_uuid',
             'uuid',
             'uuid',
@@ -105,10 +107,10 @@ class Acquisition extends Model
     /**
      * Get all the artworks for a specific acquisition mode.
      */
-    public function acquiredArtworks()
+    public function acquiredArtworks(): hasMany
     {
         return $this->hasMany(
-            'App\Models\Artwork',
+            Artwork::class,
             'acquisition_uuid',
             'uuid'
         );

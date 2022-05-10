@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -76,10 +79,11 @@ class Artwork extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
-        //'department_uuid' => 'uuid',
-        //'artist_uuid' => 'uuid',
-        //'art_movement' => 'uuid',
+        'uuid' => 'string',
+        'department_uuid' => 'string',
+        'acquisition_uuid' => 'string',
+        'artist_uuid' => 'string',
+        'art_movement' => 'string',
     ];
 
     /**
@@ -107,10 +111,10 @@ class Artwork extends Model
     /**
      * Get all the artists for a specific artwork.
      */
-    public function hasArtists()
+    public function hasArtists(): hasMany
     {
         return $this->hasMany(
-            'App\Models\Artist',
+            Artist::class,
             'uuid',
             'artist_uuid'
         );
@@ -119,10 +123,10 @@ class Artwork extends Model
     /**
      * Get all the objects for a specific artist.
      */
-    public function acquiredBy()
+    public function acquiredBy(): hasOne
     {
         return $this->hasOne(
-            'App\Models\Acquisition',
+            Acquisition::class,
             'uuid',
             'acquisition_uuid'
         );
@@ -131,10 +135,10 @@ class Artwork extends Model
     /**
      * Get the department for a specific artwork.
      */
-    public function inDepartment()
+    public function inDepartment(): hasOne
     {
         return $this->hasOne(
-            'App\Models\Department',
+            Department::class,
             'uuid',
             'department_uuid'
         );
@@ -143,11 +147,11 @@ class Artwork extends Model
     /**
      * Get all the art movements for a specific artwork.
      */
-    public function inMovements()
+    public function inMovements(): hasManyThrough
     {
         return $this->hasManyThrough(
-            'App\Models\Movement',
-            'App\Models\ArtworkMovement',
+            Movement::class,
+            ArtworkMovement::class,
             'artwork_uuid',
             'uuid',
             'uuid',

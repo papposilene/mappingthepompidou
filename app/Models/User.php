@@ -82,10 +82,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
         'email_verified_at' => 'datetime',
         'approved_at' => 'datetime',
-        //'approved_by' => 'uuid',
     ];
 
     /**

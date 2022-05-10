@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -62,7 +64,7 @@ class Department extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
+        'uuid' => 'string',
     ];
 
     /**
@@ -90,7 +92,7 @@ class Department extends Model
     /**
      * Get all the artworks for a specific museum department.
      */
-    public function conservedArtworks()
+    public function conservedArtworks(): hasMany
     {
         return $this->hasMany(
             'App\Models\Artwork',
@@ -102,11 +104,11 @@ class Department extends Model
     /**
      * Get all the artists for a specific museum department.
      */
-    public function conservedArtists()
+    public function conservedArtists(): hasManyThrough
     {
         return $this->hasManyThrough(
-            'App\Models\Artist',
-            'App\Models\Artwork',
+            Artist::class,
+            Artwork::class,
             'department_uuid',
             'uuid',
             'uuid',

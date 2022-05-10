@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -48,6 +49,17 @@ class Movement extends Model
     ];
 
     /**
+     * The attributes that are visible for arrays.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'uuid',
+        'movement_name',
+        'movement_slug',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
@@ -62,7 +74,7 @@ class Movement extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
+        'uuid' => 'string',
     ];
 
     /**
@@ -90,11 +102,11 @@ class Movement extends Model
     /**
      * Get all the objects for a specific artist.
      */
-    public function hasArtworks()
+    public function hasArtworks(): hasManyThrough
     {
         return $this->hasManyThrough(
-            'App\Models\Artwork',
-            'App\Models\ArtworkMovement',
+            Artwork::class,
+            ArtworkMovement::class,
             'movement_uuid',
             'uuid',
             'uuid',
@@ -105,11 +117,11 @@ class Movement extends Model
     /**
      * Get all the objects for a specific artist.
      */
-    public function hasInspired()
+    public function hasInspired(): hasManyThrough
     {
         return $this->hasManyThrough(
-            'App\Models\Artist',
-            'App\Models\ArtistMovement',
+            Artist::class,
+            ArtistMovement::class,
             'movement_uuid',
             'uuid',
             'uuid',

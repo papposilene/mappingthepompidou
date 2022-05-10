@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
@@ -53,6 +56,22 @@ class Artist extends Model
     ];
 
     /**
+     * The attributes that are hidden for arrays.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'uuid',
+        'navigart_id',
+        'artist_name',
+        'artist_type',
+        'artist_gender',
+        'artist_birth',
+        'artist_death',
+        'artist_nationality',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
@@ -67,7 +86,8 @@ class Artist extends Model
      * @var array
      */
     protected $casts = [
-        //'uuid' => 'uuid',
+        'uuid' => 'string',
+        'artist_nationality' => 'string'
     ];
 
     /**
@@ -95,10 +115,10 @@ class Artist extends Model
     /**
      * Get all the artworks for a specific artist.
      */
-    public function hasArtworks()
+    public function hasArtworks(): hasMany
     {
         return $this->hasMany(
-            'App\Models\Artwork',
+            Artwork::class,
             'artist_uuid',
             'uuid'
         );
@@ -107,10 +127,10 @@ class Artist extends Model
     /**
      * Get all the artworks for a specific artist.
      */
-    public function hasNationality()
+    public function hasNationality(): hasOne
     {
         return $this->hasOne(
-            'App\Models\Country',
+            Country::class,
             'cca3',
             'artist_nationality'
         );
@@ -119,15 +139,15 @@ class Artist extends Model
     /**
      * Get all the objects for a specific artist.
      */
-    public function hasWorkedFor()
+    public function hasWorkedFor(): hasManyThrough
     {
         return $this->hasManyThrough(
-            'App\Models\Movement',
-            'App\Models\ArtistMovement',
+            Movement::class,
+            ArtistMovement::class,
             'artist_uuid',
             'uuid',
             'uuid',
-            'movement_uuid',
+            'movement_uuid'
         );
     }
 }
