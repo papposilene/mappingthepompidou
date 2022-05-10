@@ -3,6 +3,7 @@
 /.idea
 /.nuxt
 /.vscode
+/dist
 /node_modules
 /public/hot
 /public/storage
