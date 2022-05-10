@@ -1,7 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    purge: [
+    content: [
         './storage/framework/views/*.php',
         './resources/**/*.blade.php',
         './resources/**/*.js',
@@ -15,11 +15,7 @@ module.exports = {
         },
     },
     darkMode: 'class',
-    variants: {
-        opacity: ['responsive', 'hover', 'focus', 'group-hover', 'group-focus', 'disabled'],
-    },
     plugins: [
-        require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
     ],
 };
