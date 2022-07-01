@@ -830,9 +830,9 @@
   version "1.4.0"
   resolved "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz"
 
-"@csstools/selector-specificity@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-1.0.0.tgz#91c560df2ed8d9700e4c7ed4ac21a3a322c9d975"
+"@csstools/selector-specificity@^2.0.0":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.0.1.tgz#b6b8d81780b9a9f6459f4bfe9226ac6aefaefe87"
 
 "@gar/promisify@^1.0.1":
   version "1.1.3"
@@ -1058,19 +1058,19 @@
     node-fetch "^2.6.1"
     web-streams-polyfill "^3.0.1"
 
-"@nuxt/kit@^3.0.0-rc.3":
-  version "3.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.0.0-rc.3.tgz#9bbedf5be268578d4002766be8eb59b976892cc6"
+"@nuxt/kit@^3.0.0-rc.4":
+  version "3.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.0.0-rc.4.tgz#8aa3c26f1bb9f3e7bb78ad2cec33473e32ffccd0"
   dependencies:
-    "@nuxt/schema" "^3.0.0-rc.3"
+    "@nuxt/schema" "^3.0.0-rc.4"
     c12 "^0.2.7"
     consola "^2.15.3"
     defu "^6.0.0"
-    globby "^13.1.1"
+    globby "^13.1.2"
     hash-sum "^2.0.0"
     ignore "^5.2.0"
     jiti "^1.13.0"
-    knitwork "^0.1.1"
+    knitwork "^0.1.2"
     lodash.template "^4.5.0"
     mlly "^0.5.2"
     pathe "^0.3.0"
@@ -1078,7 +1078,7 @@
     scule "^0.2.1"
     semver "^7.3.7"
     unctx "^1.1.4"
-    unimport "^0.1.9"
+    unimport "^0.2.7"
     untyped "^0.4.4"
 
 "@nuxt/loading-screen@^2.0.3":
@@ -1112,9 +1112,9 @@
     postcss-url "^10.1.1"
     semver "^7.3.4"
 
-"@nuxt/schema@^3.0.0-rc.3":
-  version "3.0.0-rc.3"
-  resolved "https://registry.npmjs.org/@nuxt/schema/-/schema-3.0.0-rc.3.tgz"
+"@nuxt/schema@^3.0.0-rc.4":
+  version "3.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@nuxt/schema/-/schema-3.0.0-rc.4.tgz#d94005e1aca00349f1256cb827ee7478d50a1802"
   dependencies:
     c12 "^0.2.7"
     create-require "^1.1.1"
@@ -1125,7 +1125,7 @@
     scule "^0.2.1"
     std-env "^3.1.1"
     ufo "^0.8.4"
-    unimport "^0.1.9"
+    unimport "^0.2.7"
 
 "@nuxt/server@2.15.8":
   version "2.15.8"
@@ -1286,23 +1286,23 @@
   dependencies:
     http-proxy-middleware "^1.0.6"
 
-"@nuxtjs/tailwindcss@^5.1.2":
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-5.1.2.tgz#4137812ea70ab9067817803124a1606cf851a2e4"
+"@nuxtjs/tailwindcss@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/tailwindcss/-/tailwindcss-5.1.3.tgz#a5ade6eb8a1d8b270fd0bf3f55ced10854d38505"
   dependencies:
-    "@nuxt/kit" "^3.0.0-rc.3"
+    "@nuxt/kit" "^3.0.0-rc.4"
     "@nuxt/postcss8" "^1.1.3"
     "@types/tailwindcss" "^3.0.10"
     autoprefixer "^10.4.7"
-    chalk "^4.1.2"
+    chalk "^5.0.1"
     clear-module "^4.1.2"
     consola "^2.15.3"
     defu "^6.0.0"
     postcss "^8.4.14"
-    postcss-custom-properties "^12.1.7"
-    postcss-nesting "^10.1.7"
-    tailwind-config-viewer "^1.7.0"
-    tailwindcss "^3.0.24"
+    postcss-custom-properties "^12.1.8"
+    postcss-nesting "^10.1.8"
+    tailwind-config-viewer "^1.7.1"
+    tailwindcss "^3.1.4"
     ufo "^0.8.4"
 
 "@nuxtjs/youch@^4.2.3":
@@ -1653,7 +1653,7 @@ acorn@^7.0.0:
   version "7.4.1"
   resolved "https://registry.npmjs.org/acorn/-/acorn-7.4.1.tgz"
 
-acorn@^8.0.4, acorn@^8.5.0, acorn@^8.7.0:
+acorn@^8.0.4, acorn@^8.5.0, acorn@^8.7.0, acorn@^8.7.1:
   version "8.7.1"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.7.1.tgz"
 
@@ -2259,6 +2259,10 @@ chalk@^4.1.0, chalk@^4.1.1, chalk@^4.1.2:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chalk@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-5.0.1.tgz#ca57d71e82bb534a296df63bbacc4a1c22b2a4b6"
 
 charcodes@^0.2.0:
   version "0.2.0"
@@ -3666,9 +3670,9 @@ globby@^11.0.3, globby@^11.0.4:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-globby@^13.1.1:
-  version "13.1.1"
-  resolved "https://registry.npmjs.org/globby/-/globby-13.1.1.tgz"
+globby@^13.1.2:
+  version "13.1.2"
+  resolved "https://registry.yarnpkg.com/globby/-/globby-13.1.2.tgz#29047105582427ab6eca4f905200667b056da515"
   dependencies:
     dir-glob "^3.0.1"
     fast-glob "^3.2.11"
@@ -4434,9 +4438,9 @@ klona@^2.0.4:
   version "2.0.5"
   resolved "https://registry.npmjs.org/klona/-/klona-2.0.5.tgz"
 
-knitwork@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/knitwork/-/knitwork-0.1.1.tgz"
+knitwork@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/knitwork/-/knitwork-0.1.2.tgz#5447a81d8eaede57d236f864ec29b8dc2bc192bf"
 
 koa-compose@^4.1.0:
   version "4.1.0"
@@ -4650,6 +4654,12 @@ lru-cache@^6.0.0:
 magic-string@^0.26.1:
   version "0.26.1"
   resolved "https://registry.npmjs.org/magic-string/-/magic-string-0.26.1.tgz"
+  dependencies:
+    sourcemap-codec "^1.4.8"
+
+magic-string@^0.26.2:
+  version "0.26.2"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.26.2.tgz#5331700e4158cd6befda738bb6b0c7b93c0d4432"
   dependencies:
     sourcemap-codec "^1.4.8"
 
@@ -4921,6 +4931,13 @@ mlly@^0.5.1, mlly@^0.5.2:
   dependencies:
     pathe "^0.2.0"
     pkg-types "^0.3.2"
+
+mlly@^0.5.3:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/mlly/-/mlly-0.5.4.tgz#e7c68574c95a4b2ba25e76dfcd1b2a545335af70"
+  dependencies:
+    pathe "^0.3.1"
+    pkg-types "^0.3.3"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -5442,6 +5459,10 @@ pathe@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/pathe/-/pathe-0.3.0.tgz"
 
+pathe@^0.3.1:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/pathe/-/pathe-0.3.2.tgz#016345ed643027404d7a9ed8d1454ad997a1483a"
+
 pbkdf2@^3.0.3:
   version "3.1.2"
   resolved "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.1.2.tgz"
@@ -5499,6 +5520,14 @@ pkg-types@^0.3.2:
     jsonc-parser "^3.0.0"
     mlly "^0.3.6"
     pathe "^0.2.0"
+
+pkg-types@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/pkg-types/-/pkg-types-0.3.3.tgz#3c25e45274e1c586ec7811dcc3449afde846e463"
+  dependencies:
+    jsonc-parser "^3.0.0"
+    mlly "^0.5.3"
+    pathe "^0.3.0"
 
 pnp-webpack-plugin@^1.6.4:
   version "1.7.0"
@@ -5593,9 +5622,9 @@ postcss-custom-media@^7.0.8:
   dependencies:
     postcss "^7.0.14"
 
-postcss-custom-properties@^12.1.7:
-  version "12.1.7"
-  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-12.1.7.tgz#ca470fd4bbac5a87fd868636dafc084bc2a78b41"
+postcss-custom-properties@^12.1.8:
+  version "12.1.8"
+  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-12.1.8.tgz#aa003e1885c5bd28e2e32496cd597e389ca889e4"
   dependencies:
     postcss-value-parser "^4.2.0"
 
@@ -5900,11 +5929,11 @@ postcss-nested@5.0.6:
   dependencies:
     postcss-selector-parser "^6.0.6"
 
-postcss-nesting@^10.1.7:
-  version "10.1.7"
-  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-10.1.7.tgz#0101bd6c7d386e7ad8e2e86ebcc0e0109833b86e"
+postcss-nesting@^10.1.8:
+  version "10.1.10"
+  resolved "https://registry.yarnpkg.com/postcss-nesting/-/postcss-nesting-10.1.10.tgz#9c396df3d8232cbedfa95baaac6b765b8fd2a817"
   dependencies:
-    "@csstools/selector-specificity" "1.0.0"
+    "@csstools/selector-specificity" "^2.0.0"
     postcss-selector-parser "^6.0.10"
 
 postcss-nesting@^7.0.0:
@@ -7030,6 +7059,12 @@ strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/strip-final-newline/-/strip-final-newline-2.0.0.tgz"
 
+strip-literal@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/strip-literal/-/strip-literal-0.4.0.tgz#0f90e86daecc1eb23c61c62d25238ffad4524634"
+  dependencies:
+    acorn "^8.7.1"
+
 style-resources-loader@^1.4.1:
   version "1.5.0"
   resolved "https://registry.npmjs.org/style-resources-loader/-/style-resources-loader-1.5.0.tgz"
@@ -7089,7 +7124,7 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-tailwind-config-viewer@^1.7.0:
+tailwind-config-viewer@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/tailwind-config-viewer/-/tailwind-config-viewer-1.7.1.tgz#02beca5064d799908865907bbe085f368a4174d0"
   dependencies:
@@ -7102,7 +7137,7 @@ tailwind-config-viewer@^1.7.0:
     portfinder "^1.0.26"
     replace-in-file "^6.1.0"
 
-tailwindcss@^3.0.24, tailwindcss@^3.1.4:
+tailwindcss@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.1.4.tgz#64b09059805505902139fa805d97046080bd90b9"
   dependencies:
@@ -7396,19 +7431,20 @@ unicode-property-aliases-ecmascript@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.0.0.tgz"
 
-unimport@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.npmjs.org/unimport/-/unimport-0.1.9.tgz"
+unimport@^0.2.7:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/unimport/-/unimport-0.2.10.tgz#9ac0d003db40c750a8ecc0fd4317dc5e0500795e"
   dependencies:
     "@rollup/pluginutils" "^4.2.1"
     escape-string-regexp "^5.0.0"
-    globby "^13.1.1"
+    fast-glob "^3.2.11"
     local-pkg "^0.4.1"
-    magic-string "^0.26.1"
-    mlly "^0.5.2"
+    magic-string "^0.26.2"
+    mlly "^0.5.3"
     pathe "^0.3.0"
     scule "^0.2.1"
-    unplugin "^0.6.3"
+    strip-literal "^0.4.0"
+    unplugin "^0.7.0"
 
 union-value@^1.0.0:
   version "1.0.1"
@@ -7451,13 +7487,22 @@ unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz"
 
-unplugin@^0.6.1, unplugin@^0.6.3:
+unplugin@^0.6.1:
   version "0.6.3"
   resolved "https://registry.npmjs.org/unplugin/-/unplugin-0.6.3.tgz"
   dependencies:
     chokidar "^3.5.3"
     webpack-sources "^3.2.3"
     webpack-virtual-modules "^0.4.3"
+
+unplugin@^0.7.0:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.7.1.tgz#1e8cb1ff26a76655eb5b40b4f67999594f43fac1"
+  dependencies:
+    acorn "^8.7.1"
+    chokidar "^3.5.3"
+    webpack-sources "^3.2.3"
+    webpack-virtual-modules "^0.4.4"
 
 unquote@~1.1.1:
   version "1.1.1"
@@ -7714,6 +7759,10 @@ webpack-sources@^3.2.3:
 webpack-virtual-modules@^0.4.3:
   version "0.4.3"
   resolved "https://registry.npmjs.org/webpack-virtual-modules/-/webpack-virtual-modules-0.4.3.tgz"
+
+webpack-virtual-modules@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/webpack-virtual-modules/-/webpack-virtual-modules-0.4.4.tgz#a19fcf371923c59c4712d63d7d194b1e4d8262cc"
 
 webpack@^4.46.0:
   version "4.46.0"
