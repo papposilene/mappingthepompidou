@@ -11,7 +11,7 @@ export default {
         [
             'nuxt-matomo',
             {
-                matomoUrl: '//pwk.psln.nl/',
+                matomoUrl: '//mtm.httpap.dev/',
                 siteId: 12,
                 doNotTrack: true,
                 debug: false,
